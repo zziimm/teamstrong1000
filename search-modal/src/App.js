@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import Search_modal from './components/Search_modal';
 
 function App() {
   return (
     <>
-      <span class="material-symbols-outlined">search</span>
+    <Search_modal/>
     </>
   );
 }
