@@ -5,7 +5,7 @@ function Search_modal(props) {
   
   return (
     <>
-      
+    
     </>
   );
 }
