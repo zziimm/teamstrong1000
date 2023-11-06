@@ -2,8 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PostListItemWrapper = styled.div`
-  padding: 10px 0;
-  border: 1px solid #000;
+  box-sizing: border-box;
+  width: 417px;
+  height: 93px;
+  border: 1px solid #e9e9e9;
+  border-radius: 8px;
+  text-align: left;
+  padding: 9px;
+
+& + & {
+  margin-top: 18px;
+}
 `;
 
 function PostListItem(props) {

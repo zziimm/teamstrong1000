@@ -8,10 +8,10 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   .logo {
-    
+    margin: 34px 0 34px 16px;
   }
   .search {
-
+    margin: 34px 16px 34px 0;
   }
 `;
 

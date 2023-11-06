@@ -11,25 +11,28 @@ const NavListWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  line-height: 100px;
 `;
 
 const NavListTest = [
   {
     id:1,
-    img: img1
+    img: img1,
+    text: '매칭 찾기'
   },
   {
     id:2,
-    img: img2
+    img: img2,
+    text: '민턴장 찾기'
   },
   {
     id:3,
-    img: img3
+    img: img3,
+    text: '대회 정보'
   },
   {
     id:4,
-    img: img4
+    img: img4,
+    text: '커뮤니티'
   },
 ]
 
@@ -40,6 +43,7 @@ function NavList(props) {
         return <NavListItem 
           id={NavListTestMap.id}
           img={NavListTestMap.img}
+          text={NavListTestMap.text}
         />
       })}
     </NavListWrapper>
