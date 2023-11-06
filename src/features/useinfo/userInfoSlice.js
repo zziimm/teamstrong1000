@@ -16,6 +16,9 @@ const userInfoSlice = createSlice({
         state.userInfo.push(inputInfo)
       }
     },
+    loginController: (state, { payload: loginInfo }) => {
+      
+    },
   }
 });
 

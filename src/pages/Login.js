@@ -22,9 +22,7 @@ function Login(props) {
   const navigate = useNavigate();
 
 
-  const handleInputUserId = (e) => {
-    setInputUserId(e.target.value)
-  };
+  const handleInputUserId = (e) => setInputUserId(e.target.value);
   const handleInputUserPass = (e) => setInputUserPass(e.target.value);
 
 
