@@ -42,6 +42,8 @@ function Login(props) {
     } else if (inputUserPass === '') {
       toast.error('비밀번호를 입력해주세요!');
       return
+    } else if (userId === undefined) {
+      toast.error('회원가입되지 않은 ID 입니다!');
     } else if (userId.passwd !== inputUserPass) {
       toast.error('비밀번호가 다릅니다!');
       return
