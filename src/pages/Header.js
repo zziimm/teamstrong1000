@@ -7,6 +7,8 @@ import search from "../img/search.png";
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 530px;
+  margin: 0 auto;
   .logo {
     margin: 34px 0 34px 16px;
   }
