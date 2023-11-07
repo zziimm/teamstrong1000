@@ -7,6 +7,10 @@ const userInfoSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    getAllUserInfo: (state, action) => {
+      state.userInfo = action.payload;
+      console.log(action.payload);
+    },
     getUserInfo: (state, { payload: inputInfo }) => {
       const targetInfo = state.userInfo.find(info => info.id === inputInfo.id)
       if (targetInfo) {
@@ -22,8 +26,8 @@ const userInfoSlice = createSlice({
   }
 });
 
-export const { getUserInfo } = userInfoSlice.actions;
+export const { getUserInfo, getAllUserInfo } = userInfoSlice.actions;
 
-export const selectUserList = (state) => state.user.userInfo;
+export const selectUserList = state => state.userInfo.userInfo;
 
 export default userInfoSlice.reducer;
