@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllUserInfo, getUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const SignArea = styled.form`
+const SignArea = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -38,11 +39,20 @@ function Login(props) {
   const userId = userInfo.find(user => inputUserId === user.id);
 
   const handLogin = () => {
-    if (userId.passwd === inputUserPass) {
-      alert(`환영합니다! ${userId.nick}님!`)
+    if (inputUserId== '') {
+      toast.error('아이디를 입력해주세요!');
+      return
+    } else if (inputUserPass === '') {
+      toast.error('비밀번호를 입력해주세요!');
+      return
+    } else if (userId === undefined) {
+      toast.error('회원가입되지 않은 ID 입니다!');
+    } else if (userId.passwd !== inputUserPass) {
+      toast.error('비밀번호가 다릅니다!');
+      return
     } else {
-      alert(`비밀번호가 일치하지 않습니다!`)
-      return;
+      alert(`환영합니다! ${userId.nick}님!`);
+      navigate('/')
     }
   };
 
@@ -61,6 +71,7 @@ function Login(props) {
     <SignArea>
       아이디<input type='text' value={inputUserId} onChange={handleInputUserId} />
       비밀번호<input type='password' value={inputUserPass} onChange={handleInputUserPass} />
+      
       <button onClick={handLogin}>
         로그인
       </button>
