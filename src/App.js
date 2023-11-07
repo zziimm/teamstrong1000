@@ -10,6 +10,8 @@ import SignUp from "./pages/SignUp";
 import MainPage from "./pages/MainPage";
 import imgBg from "./img/background_01.png";
 import imgBgTitle from "./img/background.title.png";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -55,6 +57,12 @@ function App() {
           </Route>
         </Routes>
       </MainBg>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        pauseOnFocusLoss={false}
+        theme="dark"
+        />
     </>
   );
 }
