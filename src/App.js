@@ -1,3 +1,6 @@
+import Header from "./pages/Header";
+import NavList from "./pages/NavList";
+import PostList from "./pages/PostList";
 import { createGlobalStyle } from "styled-components";
 
 import { Route, Routes } from "react-router-dom";
@@ -18,6 +21,9 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
+      <Header />
+      <NavList />
+      <PostList />
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<BottomMenu />}>
