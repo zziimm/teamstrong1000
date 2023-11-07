@@ -11,6 +11,7 @@ import SignUp from "./pages/SignUp";
 import MainPage from "./pages/MainPage";
 import imgBg from "./img/background_01.png";
 import imgBgTitle from "./img/background.title.png";
+import PostInsert from "./components/PostInsert";
 
 
 const GlobalStyle = createGlobalStyle`
@@ -63,6 +64,7 @@ function App() {
             <Route path="/" element={<MainPage />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/signUp" element={<SignUp />}/>
+            <Route path="/postInsert" element={<PostInsert />} />
           </Route>
         </Routes>
       </MainBg>
