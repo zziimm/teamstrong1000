@@ -17,6 +17,15 @@ const GlobalStyle = createGlobalStyle`
   body {
     box-sizing: border-box;
     overflow-y: hidden;
+    font-size: 16px;
+    color: #1C1B1F;
+    background-color: #fff;
+  }
+
+  .box {
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 7px;
   }
 
   * {

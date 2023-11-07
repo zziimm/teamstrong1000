@@ -6,9 +6,12 @@ import styled from 'styled-components';
 const SearchModalWrapper = styled.div`
   background-color: #370e97;
   width: 530px;
-  height: 1080px;
+  height: 30%;
   border-radius: 20px;
   padding: 0.1px;
+  position: absolute;
+  top: 70px;
+  opacity: 0.95;
 `
 
 const Box = styled.div`
