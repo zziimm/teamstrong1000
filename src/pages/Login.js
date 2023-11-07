@@ -15,7 +15,7 @@ const SignArea = styled.div`
 function Login(props) {
   const [inputUserId, setInputUserId] = useState('');
   const [inputUserPass, setInputUserPass] = useState('');
-
+  const [loingBtn, setLoginBtn] = useState(false);
   // const userList= useSelector(selectUserList);
   // console.log(userList);
   
@@ -26,12 +26,17 @@ function Login(props) {
   const handleInputUserPass = (e) => setInputUserPass(e.target.value);
 
 
+  if (!inputUserId === '' && inputUserPass === '') {
+    setLoginBtn(true)
+  }
+
+
 
   return (
     <SignArea>
       아이디<input type='text' value={inputUserId} onChange={handleInputUserId} />
       비밀번호<input type='password' value={inputUserPass} onChange={handleInputUserPass} />
-      <button>
+      <button disabled={loingBtn ? true : false}>
         로그인
       </button>
       <button onClick={() => navigate('/signUp')}>
