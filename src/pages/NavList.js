@@ -11,6 +11,14 @@ const NavListWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+:nth-child(1) {
+    width: 86px;
+    height: 88px;
+    :nth-child(1) {
+      width: 50px;
+      height: 37px;
+    }
+  }
 `;
 
 const NavListTest = [

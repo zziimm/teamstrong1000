@@ -2,6 +2,7 @@ import Header from "./pages/Header";
 import NavList from "./pages/NavList";
 import PostList from "./pages/PostList";
 import { createGlobalStyle, styled } from "styled-components";
+import { Reset } from "styled-reset";
 
 import { Route, Routes } from "react-router-dom";
 import BottomMenu from "./pages/BottomMenu";
@@ -12,12 +13,23 @@ import imgBg from "./img/background_01.png";
 import imgBgTitle from "./img/background.title.png";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import PostInsert from "./components/PostInsert";
+
 
 
 const GlobalStyle = createGlobalStyle`
   body {
     box-sizing: border-box;
     overflow-y: hidden;
+    font-size: 16px;
+    color: #1C1B1F;
+    background-color: #fff;
+  }
+
+  .box {
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 7px;
   }
 
   * {
@@ -46,6 +58,7 @@ const MainTitle = styled.div`
 function App() {
   return (
     <>
+      <Reset />
       <GlobalStyle />
       <MainBg>
         <MainTitle />
@@ -54,6 +67,7 @@ function App() {
             <Route path="/" element={<MainPage />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/signUp" element={<SignUp />}/>
+            <Route path="/postInsert" element={<PostInsert />} />
           </Route>
         </Routes>
       </MainBg>

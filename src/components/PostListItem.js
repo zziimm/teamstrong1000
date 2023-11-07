@@ -18,7 +18,7 @@ const PostListItemWrapper = styled.div`
 function PostListItem(props) {
   return (
     <PostListItemWrapper key={props.id}>
-      {props.text}
+      {props.nick}
     </PostListItemWrapper>
   );
 }

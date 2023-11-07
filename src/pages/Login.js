@@ -11,6 +11,9 @@ const SignArea = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  background-color: #fff;
+  width: 530px;
+  height: 100vh;
 `;
 
 
