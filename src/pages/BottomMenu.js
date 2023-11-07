@@ -8,7 +8,7 @@ const ButtonArea = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
-  left: 0;
+  left: 492px;
   right: 0;
   margin: 0 auto;
   bottom: 0;

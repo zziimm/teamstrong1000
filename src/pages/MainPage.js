@@ -6,6 +6,9 @@ import styled from 'styled-components';
 
 const MainWrapper = styled.div`
   background-color: #fff;
+  width: 530px;
+  height: 100vh;
+  overflow-y: hidden;
 `;
 
 function MainPage(props) {
