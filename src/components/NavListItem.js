@@ -8,7 +8,6 @@ function NavListItem(props) {
     height: 88px;
     border: 1px solid #e9e9e9;
     border-radius: 7px;
-    display: block;
     margin: 0 12px;
     display: flex;
     flex-flow: column;
