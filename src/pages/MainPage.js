@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './Header';
 import NavList from './NavList';
 import PostList from './PostList';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { getAllUserInfo } from '../features/useinfo/userInfoSlice';
 
 const MainWrapper = styled.div`
   background-color: #fff;
@@ -12,6 +15,17 @@ const MainWrapper = styled.div`
 `;
 
 function MainPage(props) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    axios.get('https://my-json-server.typicode.com/zziimm/db-user/userInfo')
+      .then((reponse) => {
+        console.log(reponse);
+        dispatch(getAllUserInfo(reponse.data))
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },[]);
   return (
     <MainWrapper>
       <Header />
