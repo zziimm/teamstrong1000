@@ -3,7 +3,6 @@ import {  } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logoImg from "../img/logo.png";
-import search from "../img/search.png";
 import Search_modal from '../components/Search_modal';
 const HeaderWrapper = styled.div`
   display: flex;

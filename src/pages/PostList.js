@@ -4,7 +4,6 @@ import PostListItem from '../components/PostListItem';
 import { BsArrowDownUp, BsChevronDown } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import { selectUserList } from '../features/useinfo/userInfoSlice';
-import PostInsert from '../components/PostInsert';
 import { useNavigate } from 'react-router';
 
 const PostInsertBtn = styled.div`
