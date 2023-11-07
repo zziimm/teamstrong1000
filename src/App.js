@@ -2,6 +2,7 @@ import Header from "./pages/Header";
 import NavList from "./pages/NavList";
 import PostList from "./pages/PostList";
 import { createGlobalStyle, styled } from "styled-components";
+import { Reset } from "styled-reset";
 
 import { Route, Routes } from "react-router-dom";
 import BottomMenu from "./pages/BottomMenu";
@@ -44,6 +45,7 @@ const MainTitle = styled.div`
 function App() {
   return (
     <>
+      <Reset />
       <GlobalStyle />
       <MainBg>
         <MainTitle />
