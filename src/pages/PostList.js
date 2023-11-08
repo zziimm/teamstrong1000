@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectUserList } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router';
 
-const PostInsertBtn = styled.div`
+const PostInsertBtn = styled.button`
   display: flex;
   justify-content: center;
   position: absolute;
@@ -15,14 +15,15 @@ const PostInsertBtn = styled.div`
   margin: 0 auto;
   bottom: 60px;
   justify-content: space-around;
-  background-color: purple;
-  width: 530px;
-  height: 55px;
-.InsertBtn {
-  width: 300px;
-  height: 50px;
-  background-color: beige;
-}
+  background-color: #eee;
+  box-shadow: 1px 1px 1px 1px gray;
+  width: 200px;
+  height: 35px;
+  border-radius: 30px;
+  border: none;
+  line-height: 35px;
+  opacity: 0.7;
+  cursor: pointer;
 `;
 const PostListWrapper = styled.div`
   margin: 0 auto;
@@ -66,13 +67,10 @@ function PostList(props) {
           nick={postTestMap.nick}
         />
       })}
-      <PostInsertBtn>
-      <button
-        className='InsertBtn'
+      <PostInsertBtn
         onClick={() => navigate('/postInsert')}
       >
-        리스트인서트버튼
-      </button>
+        게시글 추가
       </PostInsertBtn>
     </PostListWrapper>
   );
