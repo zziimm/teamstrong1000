@@ -58,7 +58,14 @@ const InputAreaDetail = styled.div`
 `;
 
 function MyCalendar(props) {
-  const [todo, setTodo] = useState();
+  const [todo, setTodo] = useState([
+    {
+      title: "달력 오픈",
+      startDate: "2023-11-08",
+      endDate: "2023-11-08"
+    },
+
+  ]);
   const [inputStartDate, setInputStartDate] = useState();
   const [inputEndDate, setInputEndDate] = useState();
 
@@ -79,20 +86,6 @@ function MyCalendar(props) {
 
 
 
-
-  function accessToGeo (position) {
-    const positionObj = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-    }
-    console.log(positionObj)
-  }
-
-  function askForLocation () {
-    navigator.geolocation.getCurrentPosition(accessToGeo)
-  }
-  askForLocation();
-
   return (
     <>
       <CalendarWrapper>
@@ -101,11 +94,13 @@ function MyCalendar(props) {
           initialView="dayGridMonth"
           dayMaxEvents={true}
           events={[
-            {title:{todo}, start:{inputStartDate}, end:{inputEndDate}}
+            {title: 'event', start: '2023-11-08', end: '2023-11-10'}
           ]}
           dateClick={() => {
             alert('클릭')
+            console.log(<FullCalendar />);
           }}
+          
           height={'550px'}
           width={'500px'}
           editable={true}
@@ -137,17 +132,3 @@ function MyCalendar(props) {
 }
 
 export default MyCalendar;
-
-// class MyCalendar extends Component {
-//   render() {
-//       return (
-//         <div className="App">
-//           <FullCalendar 
-//             defaultView="dayGridMonth" 
-//             plugins={[ dayGridPlugin ]}
-//           />
-//         // </div>
-//       );
-//   }
-// }
-// export default MyCalendar;

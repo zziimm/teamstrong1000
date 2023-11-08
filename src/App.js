@@ -67,6 +67,7 @@ function App() {
             <Route path="/myCalendar" element={<MyCalendar />}/>
             <Route path="/signUp" element={<SignUp />}/>
             <Route path="/postInsert" element={<PostInsert />} />
+            <Route path="*" element={<div>페이지가 존재하지 않습니다.</div>} />
           </Route>
         </Routes>
       </MainBg>
