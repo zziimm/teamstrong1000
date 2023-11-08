@@ -5,6 +5,11 @@ import { getAllUserInfo, getUserInfo, selectUserList } from '../features/useinfo
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import KakaoLogin from '../components/KakaoLogin';
+
+// kakao
+
+
 
 const SignArea = styled.div`
   display: flex;
@@ -65,8 +70,6 @@ function Login(props) {
 
 
 
-
-
   return (
     <SignArea>
       아이디<input type='text' value={inputUserId} onChange={handleInputUserId} />
@@ -78,6 +81,10 @@ function Login(props) {
       <button disabled onClick={() => navigate('/signUp')}>
         회원가입
       </button>
+      <KakaoLogin />
+
+
+
     </SignArea>
   );
 }
