@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { getAllUserInfo } from '../features/useinfo/userInfoSlice';
+import { getAllUserPostList } from '../features/postListSlice/postListInsertSlice';
 
 const MainWrapper = styled.div`
   background-color: #fff;
@@ -26,6 +27,7 @@ function MainPage(props) {
         console.error(error);
       });
   },[]);
+
   return (
     <MainWrapper>
       <Header />

@@ -18,8 +18,14 @@ const PostListItemWrapper = styled.div`
 
 function PostListItem(props) {
   return (
-    <PostListItemWrapper key={props.id}>
-      {props.nick}
+    <PostListItemWrapper key={props.title}>
+      {props.title} <br/>
+      {/* {props.content} */}
+      날짜: {props.selectDate} &emsp;
+      성별: {props.gender} &emsp;
+      참여 인원: {props.joinPersonnel} &emsp;
+      경기 방식: {props.game} &emsp; <br/>
+      작성자: {props.id}
     </PostListItemWrapper>
   );
 }

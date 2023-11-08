@@ -19,6 +19,9 @@ const NavListWrapper = styled.div`
       margin-bottom: 4px;
     }
   }
+  .NavImg1 {
+    background-color: #BEEFFF;
+  }
 `;
 
 const NavListItemWrapper = styled.div`
@@ -46,7 +49,7 @@ margin-bottom: 4px;
 function NavList(props) {
   return (
     <NavListWrapper>
-      <NavListItemWrapper>{<img src={img1}/>} 매칭 찾기</NavListItemWrapper>
+      <NavListItemWrapper className='NavImg1'>{<img src={img1}/>} 매칭 찾기</NavListItemWrapper>
       <NavListItemWrapper>{<img className='NavImg' src={img2}/>} 민턴장 찾기</NavListItemWrapper>
       <NavListItemWrapper>{<img className='NavImg' src={img3}/>} 대회 정보</NavListItemWrapper>
       <NavListItemWrapper>{<img className='NavImg' src={img4}/>} 커뮤니티</NavListItemWrapper>

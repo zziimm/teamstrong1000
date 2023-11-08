@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { selectUserList } from '../features/useinfo/userInfoSlice';
+import { getAllInsert } from '../features/postListSlice/postListInsertSlice';
 
-const PostInsertWrapper = styled.form`
+const PostInsertWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
@@ -39,14 +40,15 @@ const StyledButton = styled.button`
 
 
 function PostInsert(props) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('')
+  const [title, setTitle] = useState('제목입력');
+  const [content, setContent] = useState('내용입력')
   const [selectDate, setSelectDate] = useState(new Date().toISOString().slice(0, 16))
   const [gender, setGender] = useState('남')
   const [joinPersonnel, setJoinPersonnel] = useState('1')
   const [game, setGame] = useState('단식')
   
-  const userInfo = useSelector(selectUserList);
+  const dispatch = useDispatch()
+
   
   const titleChange = (e) => setTitle(e.target.value)
   const contentChange = (e) => setContent(e.target.value)
@@ -123,7 +125,16 @@ function PostInsert(props) {
           <option value={'복식'}>복식</option>
       </select>
 
-      <StyledButton>submit</StyledButton>
+      <StyledButton
+        onClick={() => {dispatch(getAllInsert({
+          title:title,
+          content:content,
+          selectDate:selectDate,
+          gender:gender,
+          joinPersonnel:joinPersonnel,
+          game:game
+        }))}}
+      >submit</StyledButton>
     </PostInsertWrapper>
   );
 }
