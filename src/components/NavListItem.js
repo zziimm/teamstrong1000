@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
-function NavListItem(props) {
   const NavListItemWrapper = styled.div`
     width: 86px;
     height: 88px;
@@ -15,14 +13,16 @@ function NavListItem(props) {
     align-items: center;
     font-weight: bold;
     font-size: 14px;
-  & + & {    // 얘 왜 안되니?
-  }
+    cursor: pointer;
+
   .NavImg {
     width: 40px;
     height: 33px;
     margin-bottom: 4px;
 }
   `;
+
+function NavListItem(props) {
   
   return (
     <NavListItemWrapper>

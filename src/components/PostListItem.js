@@ -9,6 +9,7 @@ const PostListItemWrapper = styled.div`
   border-radius: 8px;
   text-align: left;
   padding: 9px;
+  cursor: pointer;
 
 & + & {
   margin-top: 18px;
