@@ -27,7 +27,7 @@ const PostInsertWrapper = styled.div`
   align-items: center;
   border: 1px solid GRAY;
   border-radius: 15px;
-  background-color: blue;
+  background-color: black;
   box-sizing: border-box;
   width: 100%;
   height: 46px;
