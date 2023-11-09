@@ -13,16 +13,25 @@ import 'react-toastify/dist/ReactToastify.css';
 import PostInsert from "./components/PostInsert";
 import Community from "./pages/Community";
 import MyCalendar from "./pages/MyCalendar";
+import PostDetail from "./pages/PostDetail";
 
 
 
 const GlobalStyle = createGlobalStyle`
   body {
     box-sizing: border-box;
-    overflow-y: hidden;
     font-size: 16px;
     color: #1C1B1F;
     background-color: #fff;
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    height: 35%;
+    background: #1c1b1f;
+    border-radius: 30px;
+}
   }
 
   .box {
@@ -40,7 +49,6 @@ const MainBg = styled.div`
   background-image: url(${imgBg});
   background-repeat: no-repeat;
   background-size: cover;
-  overflow-y: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,8 +76,9 @@ function App() {
             <Route path="/myCalendar" element={<MyCalendar />}/>
             <Route path="/signUp" element={<SignUp />}/>
             <Route path="/postInsert" element={<PostInsert />}/>
-            <Route path="community" element={<Community />} />
-            <Route path="/postInsert" element={<PostInsert />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/postInsert" element={<PostInsert />}/>
+            <Route path="/postDetail" element={<PostDetail />}/>
             <Route path="*" element={<div>페이지가 존재하지 않습니다.</div>} />
           </Route>
         </Routes>

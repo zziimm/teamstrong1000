@@ -111,6 +111,7 @@ function PostList(props) {
           gender={postInsertMap.gender}
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
+          district={postInsertMap.district}
         />
       })}
 
@@ -119,6 +120,48 @@ function PostList(props) {
       >
         게시글 추가
       </PostInsertBtn>
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
+      {<div>saaaaaaaaaa</div>}
     </PostListWrapper>
   );
 }

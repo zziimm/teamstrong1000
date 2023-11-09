@@ -1,19 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
-const CommunityWrapper = styled.div`
+const PostDetailWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
 `;
 
-function Community(props) {
+function PostDetail(props) {
   return (
-    <CommunityWrapper>
+    <PostDetailWrapper>
       
-    </CommunityWrapper>
+    </PostDetailWrapper>
   );
 }
 
-export default Community;
+export default PostDetail;
