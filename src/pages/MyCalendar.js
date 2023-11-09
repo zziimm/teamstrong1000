@@ -10,6 +10,7 @@ const CalendarWrapper = styled.div`
   width: 530px;
   height: 100vh;
   background: #fff;
+  position: relative;
   
   .fc-event {
     background-color: #4610C0;
@@ -44,30 +45,64 @@ const CalendarWrapper = styled.div`
   thead tr th.fc-col-header:last-child {
     background-color: #5E0AFD;
   } */
-`;
+  `;
 
 const InputArea = styled.div`
   padding: 50px;
   background: #4610C0;
   border-radius: 15px;
+
+  button {
+    cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    padding: 5px 13px;
+    background: #FFF;
+    font-weight: bold;
+    position: absolute;
+    right: 50px;
+    transition: 0.3s;
+  }
+  button:hover {
+    background: #FF5959;
+    border: 2px solid #FF5959;
+    color: #FFF;
+  }
 `;
 const InputH4 = styled.p`
   color: #fff;
+  margin-bottom: 5px;
+  font-weight: bold;
 `;
 const InputAreaDetail = styled.div`
+
+  & + & {
+    margin-top: 10px;
+  }
+  input {
+    color: black;
+    /* transition: 0.3; */
+    background: #FFF;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  input:focus {
+    color: #FFF;
+    background: #8169b8;
+  }
+
 `;
 
 function MyCalendar(props) {
-  const [todo, setTodo] = useState([
-    {
-      title: "달력 오픈",
-      startDate: "2023-11-08",
-      endDate: "2023-11-08"
-    },
-
+  const [todo, setTodo] = useState('');
+  const [inputStartDate, setInputStartDate] = useState('');
+  const [inputEndDate, setInputEndDate] = useState('');
+  const [list, setList] = useState([
+    {}
   ]);
-  const [inputStartDate, setInputStartDate] = useState();
-  const [inputEndDate, setInputEndDate] = useState();
 
 
   const handletodo = (e) => {
@@ -80,10 +115,16 @@ function MyCalendar(props) {
     setInputEndDate(e.target.value)
   };
 
-  const pushTodo = () => {
 
-  };
-
+  const handlePush = () => {
+    const copyList = [...list]
+    copyList.push({title: todo, start: inputStartDate, end: inputEndDate});
+    
+    setList(copyList)
+    setTodo('')
+    setInputStartDate('')
+    setInputEndDate('')
+  }
 
 
   return (
@@ -93,22 +134,19 @@ function MyCalendar(props) {
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           dayMaxEvents={true}
-          events={[
-            {title: 'event', start: '2023-11-08', end: '2023-11-10'}
-          ]}
+          events={list}
           dateClick={() => {
             alert('클릭')
-            console.log(<FullCalendar />);
-          }}
-          
+          }}  
           height={'550px'}
           width={'500px'}
           editable={true}
+          locale='ko'
         />
         <InputArea>
           <InputAreaDetail>
             <InputH4>
-              할일
+              추가할 일정
             </InputH4>
             <input value={todo} onChange={handletodo}/>
           </InputAreaDetail>
@@ -116,15 +154,17 @@ function MyCalendar(props) {
             <InputH4>
               시작할 날짜
             </InputH4>
-            <input value={inputStartDate} onChange={handleinputStartDate}/>
+            <input type="date" value={inputStartDate} onChange={handleinputStartDate}/>
           </InputAreaDetail>
           <InputAreaDetail>
             <InputH4>
               끝낼 날짜
             </InputH4>
-            <input value={inputEndDate} onChange={handleInputEndDate}/>
+            <input type="date" value={inputEndDate} onChange={handleInputEndDate}/>
           </InputAreaDetail>
-
+          <button onClick={handlePush}>
+            일정 추가하기
+          </button>
         </InputArea>
       </CalendarWrapper>
     </>
