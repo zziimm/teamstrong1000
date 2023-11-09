@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { selectUserList } from '../features/useinfo/userInfoSlice';
+import { useDispatch } from 'react-redux';
 import { getAllInsert } from '../features/postListSlice/postListInsertSlice';
+
+import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; 
 import { getDate } from 'date-fns';
+import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import { Navigate, useNavigate } from 'react-router-dom';
+
 const PostInsertWrapper = styled.div`
   background-color: #fff;
   width: 530px;
@@ -57,21 +62,6 @@ const PostInsertWrapper = styled.div`
 const inputStyle = styled.div`
   display: flex;
 `;
-const StyledButton = styled.button`
-  border: none;
-  background: #868e96;
-  color: white;
-  padding: 1rem;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.2s background;
-
-  &:hover {
-  background: #adb5bd;
-  }
-`;
 
 
 function PostInsert(props) {
@@ -84,6 +74,7 @@ function PostInsert(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   
   const titleChange = (e) => setTitle(e.target.value)
@@ -115,6 +106,7 @@ function PostInsert(props) {
       <input 
         id='3'
         type='text'
+        placeholder='맵 api 생기면 수정~~~~~~~~~~~~~~~'
       />
       <label htmlFor='4'>날짜/시간</label>
       <input
@@ -160,8 +152,10 @@ function PostInsert(props) {
           <option value={'복식'}>복식</option>
       </select>
 
-      <StyledButton
-        onClick={() => {dispatch(getAllInsert({
+      <Stack gap={2} className="col-md-5 mx-auto">
+        <Button
+          variant="secondary"
+          onClick={() => {dispatch(getAllInsert({
           title:title,
           content:content,
           selectDate:selectDate,
@@ -169,9 +163,14 @@ function PostInsert(props) {
           joinPersonnel:joinPersonnel,
           game:game
         }))}}
-      >submit</StyledButton>
+          >Save changes</Button>
+        <Button 
+          variant="outline-secondary"
+          onClick={() => navigate('/')}
+        >Cancel</Button>
+      </Stack>
 
-                  <DatePicker 
+                  {/* <DatePicker 
                   className='datePicker'
                   calendarClassName='calenderWrapper'
                   dayClassName={(d) => (d.getDate() === !selectedDate.getDate() ? '.selectedDay' : '.unselectedDay')}
@@ -185,7 +184,8 @@ function PostInsert(props) {
                   maxDate={new Date('2050-01-01')} // maxDate 이후 날짜 선택 불가
                   selected={selectedDate}
                   onChange={(date) => setSelectedDate(date)}
-                  />
+                  /> */}
+
     </PostInsertWrapper>
   );
 }

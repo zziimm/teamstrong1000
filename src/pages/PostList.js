@@ -26,7 +26,13 @@ const PostInsertBtn = styled.button`
   border: none;
   line-height: 35px;
   opacity: 0.7;
+  transition: 0.3s;
   cursor: pointer;
+  &:hover {
+    background-color: #4610C0;
+    color: #fff;
+    box-shadow: 1px 1px 1px 1px #000;
+  }
 `;
 const PostListWrapper = styled.div`
   margin: 0 auto;
@@ -76,11 +82,9 @@ function PostList(props) {
 
   return (
     <PostListWrapper>
-      <PostListBtn1
-        onClick={undefined}
-      ><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
-      <PostListBtn2>모든 지역 <BsChevronDown /></PostListBtn2>
-      {/* {postInsert.map((postInsertMap) => {
+      <PostListBtn1><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
+      <PostListBtn2>모든지역 <BsChevronDown /></PostListBtn2>
+      {/* {postInsert.map((postInsertMap) => {  
         return <PostListItem
           key={postInsertMap.title}  
           title={postInsertMap.title}

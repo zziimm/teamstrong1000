@@ -4,12 +4,15 @@ import img1 from "../img/groups(1).png";
 import img2 from "../img/map.png";
 import img3 from "../img/rewarded_ads.png";
 import img4 from "../img/forum.png";
+import { useNavigate } from 'react-router-dom';
 
 const NavListWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  &:hover {
+  }
 :nth-child(1) {
     width: 86px;
     height: 88px;
@@ -21,6 +24,7 @@ const NavListWrapper = styled.div`
   }
   .NavImg1 {
     background-color: #BEEFFF;
+    border: 2px solid #9b9b9b;
   }
 `;
 
@@ -37,6 +41,9 @@ align-items: center;
 font-weight: bold;
 font-size: 14px;
 cursor: pointer;
+&:hover {
+  border: 3px solid #4610C0;
+}
 
 .NavImg {
 width: 40px;
@@ -47,12 +54,27 @@ margin-bottom: 4px;
 
 
 function NavList(props) {
+  const navigate = useNavigate()
+
   return (
     <NavListWrapper>
-      <NavListItemWrapper className='NavImg1'>{<img src={img1}/>} 매칭 찾기</NavListItemWrapper>
-      <NavListItemWrapper>{<img className='NavImg' src={img2}/>} 민턴장 찾기</NavListItemWrapper>
-      <NavListItemWrapper>{<img className='NavImg' src={img3}/>} 대회 정보</NavListItemWrapper>
-      <NavListItemWrapper>{<img className='NavImg' src={img4}/>} 커뮤니티</NavListItemWrapper>
+      <NavListItemWrapper 
+        className='NavImg1'>
+        {<img src={img1}/>} 매칭 찾기
+      </NavListItemWrapper>
+
+      <NavListItemWrapper>
+        {<img className='NavImg' src={img2}/>} 민턴장 찾기
+      </NavListItemWrapper>
+
+      <NavListItemWrapper>
+        {<img className='NavImg' src={img3}/>} 대회 정보
+      </NavListItemWrapper>
+
+      <NavListItemWrapper
+        onClick={() => navigate('/community')}>
+        {<img className='NavImg' src={img4}/>} 커뮤니티
+      </NavListItemWrapper>
     </NavListWrapper>
   );
 }

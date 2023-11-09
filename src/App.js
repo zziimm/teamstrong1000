@@ -14,6 +14,7 @@ import imgBgTitle from "./img/background.title.png";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import PostInsert from "./components/PostInsert";
+import Community from "./pages/Community";
 
 
 
@@ -67,7 +68,8 @@ function App() {
             <Route path="/" element={<MainPage />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/signUp" element={<SignUp />}/>
-            <Route path="/postInsert" element={<PostInsert />} />
+            <Route path="/postInsert" element={<PostInsert />}/>
+            <Route path="community" element={<Community />} />
           </Route>
         </Routes>
       </MainBg>
