@@ -48,6 +48,9 @@ const PostListBtn1 = styled.button`
   border: none;
   cursor: pointer;
   font-size: 12px;
+  &:hover {
+    background-color: #4610C0;
+  }
 `;
 const PostListBtn2 = styled.button`
   width: 80px;
@@ -59,6 +62,9 @@ const PostListBtn2 = styled.button`
   border: none;
   cursor: pointer;
   font-size: 12px;
+  &:hover {
+    background-color: #4610C0;
+  }
 `;
 
 
