@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { selectUserList } from '../features/useinfo/userInfoSlice';
 import { getAllInsert } from '../features/postListSlice/postListInsertSlice';
-
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css"; 
+import { getDate } from 'date-fns';
 const PostInsertWrapper = styled.div`
   background-color: #fff;
   width: 530px;
@@ -12,13 +14,46 @@ const PostInsertWrapper = styled.div`
   flex-flow: column;
 
   input, select {
-    height: 70px;
+    height: 55px;
     background-color: beige;
     margin-bottom: 30px;
     border: none;
     font-size: 20px;
   }
+
+
+  .datePicker {   // 라이브러리 css
+  display: flex;
+  align-items: center;
+  border: 1px solid GRAY;
+  border-radius: 15px;
+  background-color: blue;
+  box-sizing: border-box;
+  width: 100%;
+  height: 46px;
+  color: WHITE;
+  text-align: center;
+  padding-right: 14px;
+  outline: none;
+
+  &:focus {
+    border: 2px solid ORANGE;
+  }
+}
+  .calenderWrapper {
+  background-color: orange;
+}
+.react-datepicker__time-list-item {
+  color: orange;
+  
+  &:hover {
+    color: purple;
+    background-color: aqua;
+  }
+}
 `;
+
+
 const inputStyle = styled.div`
   display: flex;
 `;
@@ -46,6 +81,7 @@ function PostInsert(props) {
   const [gender, setGender] = useState('남')
   const [joinPersonnel, setJoinPersonnel] = useState('1')
   const [game, setGame] = useState('단식')
+  const [selectedDate, setSelectedDate] = useState(new Date());
   
   const dispatch = useDispatch()
 
@@ -56,7 +92,6 @@ function PostInsert(props) {
   const genderChange = (e) => setGender(e.target.value)
   const joinPersonnelChange = (e) => setJoinPersonnel(e.target.value)
   const gameChange = (e) => setGame(e.target.value)
-
   
   return (
     <PostInsertWrapper>
@@ -135,6 +170,22 @@ function PostInsert(props) {
           game:game
         }))}}
       >submit</StyledButton>
+
+                  <DatePicker 
+                  className='datePicker'
+                  calendarClassName='calenderWrapper'
+                  dayClassName={(d) => (d.getDate() === !selectedDate.getDate() ? '.selectedDay' : '.unselectedDay')}
+                  dateFormat="yyyy/MM/dd h:mm aa" // 날짜 형태
+                  showTimeSelect // 시간 나오게 하기
+                  timeFormat="HH:mm" //시간 포맷 
+                  timeIntervals={30} // 15분 단위로 선택 가능한 box가 나옴
+                  timeCaption="time"
+                  shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
+                  minDate={new Date()} // minDate 이전 날짜 선택 불가
+                  maxDate={new Date('2050-01-01')} // maxDate 이후 날짜 선택 불가
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  />
     </PostInsertWrapper>
   );
 }
