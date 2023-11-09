@@ -11,6 +11,7 @@ import imgBgTitle from "./img/background.title.png";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import PostInsert from "./components/PostInsert";
+import Community from "./pages/Community";
 import MyCalendar from "./pages/MyCalendar";
 
 
@@ -66,6 +67,8 @@ function App() {
             <Route path="/login" element={<Login />}/>
             <Route path="/myCalendar" element={<MyCalendar />}/>
             <Route path="/signUp" element={<SignUp />}/>
+            <Route path="/postInsert" element={<PostInsert />}/>
+            <Route path="community" element={<Community />} />
             <Route path="/postInsert" element={<PostInsert />} />
             <Route path="*" element={<div>페이지가 존재하지 않습니다.</div>} />
           </Route>

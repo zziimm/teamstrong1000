@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { selectUserList } from '../features/useinfo/userInfoSlice';
+import { useDispatch } from 'react-redux';
+import { getAllInsert } from '../features/postListSlice/postListInsertSlice';
 
-const PostInsertWrapper = styled.form`
+import styled from 'styled-components';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css"; 
+import { getDate } from 'date-fns';
+import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import { Navigate, useNavigate } from 'react-router-dom';
+
+const PostInsertWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
@@ -11,42 +19,63 @@ const PostInsertWrapper = styled.form`
   flex-flow: column;
 
   input, select {
-    height: 70px;
+    height: 55px;
     background-color: beige;
     margin-bottom: 30px;
     border: none;
     font-size: 20px;
   }
-`;
-const inputStyle = styled.div`
-  display: flex;
-`;
-const StyledButton = styled.button`
-  border: none;
-  background: #868e96;
-  color: white;
-  padding: 1rem;
-  font-size: 1.5rem;
+
+
+  .datePicker {   // 라이브러리 css
   display: flex;
   align-items: center;
-  cursor: pointer;
-  transition: 0.2s background;
+  border: 1px solid GRAY;
+  border-radius: 15px;
+  background-color: black;
+  box-sizing: border-box;
+  width: 100%;
+  height: 46px;
+  color: WHITE;
+  text-align: center;
+  padding-right: 14px;
+  outline: none;
 
-  &:hover {
-  background: #adb5bd;
+  &:focus {
+    border: 2px solid ORANGE;
   }
+}
+  .calenderWrapper {
+  background-color: orange;
+}
+.react-datepicker__time-list-item {
+  color: orange;
+  
+  &:hover {
+    color: purple;
+    background-color: aqua;
+  }
+}
+`;
+
+
+const inputStyle = styled.div`
+  display: flex;
 `;
 
 
 function PostInsert(props) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('')
+  const [title, setTitle] = useState('제목입력');
+  const [content, setContent] = useState('내용입력')
   const [selectDate, setSelectDate] = useState(new Date().toISOString().slice(0, 16))
   const [gender, setGender] = useState('남')
   const [joinPersonnel, setJoinPersonnel] = useState('1')
   const [game, setGame] = useState('단식')
+  const [selectedDate, setSelectedDate] = useState(new Date());
   
-  const userInfo = useSelector(selectUserList);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   
   const titleChange = (e) => setTitle(e.target.value)
   const contentChange = (e) => setContent(e.target.value)
@@ -54,7 +83,6 @@ function PostInsert(props) {
   const genderChange = (e) => setGender(e.target.value)
   const joinPersonnelChange = (e) => setJoinPersonnel(e.target.value)
   const gameChange = (e) => setGame(e.target.value)
-
   
   return (
     <PostInsertWrapper>
@@ -78,6 +106,7 @@ function PostInsert(props) {
       <input 
         id='3'
         type='text'
+        placeholder='맵 api 생기면 수정~~~~~~~~~~~~~~~'
       />
       <label htmlFor='4'>날짜/시간</label>
       <input
@@ -123,7 +152,40 @@ function PostInsert(props) {
           <option value={'복식'}>복식</option>
       </select>
 
-      <StyledButton>submit</StyledButton>
+      <Stack gap={2} className="col-md-5 mx-auto">
+        <Button
+          variant="secondary"
+          onClick={() => {dispatch(getAllInsert({
+          title:title,
+          content:content,
+          selectDate:selectDate,
+          gender:gender,
+          joinPersonnel:joinPersonnel,
+          game:game
+        }))}}
+          >Save changes</Button>
+        <Button 
+          variant="outline-secondary"
+          onClick={() => navigate('/')}
+        >Cancel</Button>
+      </Stack>
+
+                  {/* <DatePicker 
+                  className='datePicker'
+                  calendarClassName='calenderWrapper'
+                  dayClassName={(d) => (d.getDate() === !selectedDate.getDate() ? '.selectedDay' : '.unselectedDay')}
+                  dateFormat="yyyy/MM/dd h:mm aa" // 날짜 형태
+                  showTimeSelect // 시간 나오게 하기
+                  timeFormat="HH:mm" //시간 포맷 
+                  timeIntervals={30} // 15분 단위로 선택 가능한 box가 나옴
+                  timeCaption="time"
+                  shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
+                  minDate={new Date()} // minDate 이전 날짜 선택 불가
+                  maxDate={new Date('2050-01-01')} // maxDate 이후 날짜 선택 불가
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  /> */}
+
     </PostInsertWrapper>
   );
 }

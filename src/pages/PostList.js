@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import PostListItem from '../components/PostListItem';
 import { BsArrowDownUp, BsChevronDown } from "react-icons/bs";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUserList } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router';
+import { getAllUserPostList, postInsertList, userPostList } from '../features/postListSlice/postListInsertSlice';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const PostInsertBtn = styled.button`
   display: flex;
@@ -23,7 +26,13 @@ const PostInsertBtn = styled.button`
   border: none;
   line-height: 35px;
   opacity: 0.7;
+  transition: 0.3s;
   cursor: pointer;
+  &:hover {
+    background-color: #4610C0;
+    color: #fff;
+    box-shadow: 1px 1px 1px 1px #000;
+  }
 `;
 const PostListWrapper = styled.div`
   margin: 0 auto;
@@ -39,6 +48,9 @@ const PostListBtn1 = styled.button`
   border: none;
   cursor: pointer;
   font-size: 12px;
+  &:hover {
+    background-color: #4610C0;
+  }
 `;
 const PostListBtn2 = styled.button`
   width: 80px;
@@ -50,23 +62,58 @@ const PostListBtn2 = styled.button`
   border: none;
   cursor: pointer;
   font-size: 12px;
+  &:hover {
+    background-color: #4610C0;
+  }
 `;
 
 
 function PostList(props) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios.get('https://my-json-server.typicode.com/zziimm/db-user/userPostList')
+    .then((response) => {
+      dispatch(getAllUserPostList(response.data))
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  })
+  
   const navigate = useNavigate();
-  const userInfo = useSelector(selectUserList);
+  // const postInsert = useSelector(postInsertList);
+  const postInsert = useSelector(userPostList);
+  // console.log(postInsert.selectDate);
+
   return (
     <PostListWrapper>
       <PostListBtn1><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
-      <PostListBtn2>모든 지역 <BsChevronDown /></PostListBtn2>
-      {userInfo.map((postTestMap) => {
+      <PostListBtn2>모든지역 <BsChevronDown /></PostListBtn2>
+      {/* {postInsert.map((postInsertMap) => {  
         return <PostListItem
-          key={postTestMap.id}
-          id={postTestMap.id}
-          nick={postTestMap.nick}
+          key={postInsertMap.title}  
+          title={postInsertMap.title}
+          content={postInsertMap.content}
+          selectDate={postInsertMap.selectDate}
+          gender={postInsertMap.gender}
+          joinPersonnel={postInsertMap.joinPersonnel}
+          game={postInsertMap.game}
+        />
+      })} */}
+      {postInsert.map((postInsertMap) => {
+        return <PostListItem
+          key={postInsertMap.id}
+          id={postInsertMap.id} 
+          title={postInsertMap.title}
+          content={postInsertMap.content}
+          selectDate={postInsertMap.selectDate}
+          gender={postInsertMap.gender}
+          joinPersonnel={postInsertMap.joinPersonnel}
+          game={postInsertMap.game}
         />
       })}
+
       <PostInsertBtn
         onClick={() => navigate('/postInsert')}
       >
