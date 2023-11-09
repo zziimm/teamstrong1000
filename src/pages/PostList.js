@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PostListItem from '../components/PostListItem';
 import { BsArrowDownUp, BsChevronDown } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router';
 import { getAllUserPostList, postInsertList, userPostList } from '../features/postListSlice/postListInsertSlice';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
+import DistrictModal from '../components/DistrictModal';
 
 const PostInsertBtn = styled.button`
   display: flex;
@@ -65,11 +67,19 @@ const PostListBtn2 = styled.button`
   &:hover {
     background-color: #4610C0;
   }
+  ${props => props.$showModal && css`
+    background-color: #4610C0;
+  `}
 `;
 
 
 function PostList(props) {
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModal = () => {
+    setShowModal(!showModal)
+  };
 
   useEffect(() => {
     axios.get('https://my-json-server.typicode.com/zziimm/db-user/userPostList')
@@ -86,10 +96,16 @@ function PostList(props) {
   const postInsert = useSelector(userPostList);
   // console.log(postInsert.selectDate);
 
+  // 필터
+  const handleFilterBtn = () => {
+
+  };
+
   return (
     <PostListWrapper>
       <PostListBtn1><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
-      <PostListBtn2>모든지역 <BsChevronDown /></PostListBtn2>
+      <PostListBtn2 $showModal={showModal} onClick={handleModal}>모든지역 <BsChevronDown /></PostListBtn2>
+      {showModal && <DistrictModal postList={postInsert} />}
       {/* {postInsert.map((postInsertMap) => {  
         return <PostListItem
           key={postInsertMap.title}  
