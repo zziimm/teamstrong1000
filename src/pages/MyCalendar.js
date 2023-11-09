@@ -5,12 +5,13 @@ import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from '@fullcalendar/react';
 import styled from "styled-components";
 import { useState } from "react";
+import googleCalendarPlugin from "@fullcalendar/google-calendar";
 
 const CalendarWrapper = styled.div`
   width: 530px;
   height: 100vh;
   background: #fff;
-  position: relative;
+  
   
   .fc-event {
     background-color: #4610C0;
@@ -41,16 +42,13 @@ const CalendarWrapper = styled.div`
     background-color: #4610C0;
     color: #fff;
   }
-  /* thead tr th.fc-col-header:first-child,
-  thead tr th.fc-col-header:last-child {
-    background-color: #5E0AFD;
-  } */
   `;
 
 const InputArea = styled.div`
   padding: 50px;
   background: #4610C0;
   border-radius: 15px;
+  position: relative;
 
   button {
     cursor: pointer;
@@ -100,9 +98,7 @@ function MyCalendar(props) {
   const [todo, setTodo] = useState('');
   const [inputStartDate, setInputStartDate] = useState('');
   const [inputEndDate, setInputEndDate] = useState('');
-  const [list, setList] = useState([
-    {}
-  ]);
+  const [list, setList] = useState([]);
 
 
   const handletodo = (e) => {
@@ -112,6 +108,11 @@ function MyCalendar(props) {
     setInputStartDate(e.target.value)
   };
   const handleInputEndDate = (e) => {
+    // if (inputStartDate > inputEndDate) {
+    //   alert('정확한 날짜를 입력해주세요!')
+    //   return
+    // } else {
+    // }
     setInputEndDate(e.target.value)
   };
 
@@ -131,17 +132,29 @@ function MyCalendar(props) {
     <>
       <CalendarWrapper>
         <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
+          plugins={[dayGridPlugin, interactionPlugin, googleCalendarPlugin]}
           initialView="dayGridMonth"
           dayMaxEvents={true}
           events={list}
           dateClick={() => {
             alert('클릭')
-          }}  
+          }} 
+          eventClick={() => {
+            
+          }}
           height={'550px'}
           width={'500px'}
           editable={true}
           locale='ko'
+          googleCalendarApiKey="AIzaSyBKjGhLK_Xjl8DgqkIMLiWIzGdPrivNWM4"
+          eventSources={[
+            {
+              googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com", 
+              color: 'red', 
+              textColor: 'white'
+            }
+          ]}
+
         />
         <InputArea>
           <InputAreaDetail>
