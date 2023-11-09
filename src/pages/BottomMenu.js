@@ -45,7 +45,7 @@ function BottomMenu(props) {
           <MdDensityMedium />
           HOME
         </ButtonStyle>
-        <ButtonStyle>
+        <ButtonStyle onClick={() => navigate('/myCalendar')}>
           <MdCalendarMonth />
           내일정
         </ButtonStyle>

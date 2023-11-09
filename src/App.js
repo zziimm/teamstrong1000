@@ -1,6 +1,3 @@
-import Header from "./pages/Header";
-import NavList from "./pages/NavList";
-import PostList from "./pages/PostList";
 import { createGlobalStyle, styled } from "styled-components";
 import { Reset } from "styled-reset";
 
@@ -14,6 +11,7 @@ import imgBgTitle from "./img/background.title.png";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import PostInsert from "./components/PostInsert";
+import MyCalendar from "./pages/MyCalendar";
 
 
 
@@ -66,8 +64,10 @@ function App() {
           <Route path="/" element={<BottomMenu />}>
             <Route path="/" element={<MainPage />}/>
             <Route path="/login" element={<Login />}/>
+            <Route path="/myCalendar" element={<MyCalendar />}/>
             <Route path="/signUp" element={<SignUp />}/>
             <Route path="/postInsert" element={<PostInsert />} />
+            <Route path="*" element={<div>페이지가 존재하지 않습니다.</div>} />
           </Route>
         </Routes>
       </MainBg>
