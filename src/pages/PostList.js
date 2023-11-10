@@ -79,7 +79,7 @@ function PostList(props) {
     .catch((error) => {
       console.error(error);
     })
-  })
+  },[])
   
   const navigate = useNavigate();
   // const postInsert = useSelector(postInsertList);
@@ -120,48 +120,29 @@ function PostList(props) {
       >
         게시글 추가
       </PostInsertBtn>
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
-      {<div>saaaaaaaaaa</div>}
+
+
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+
+
     </PostListWrapper>
   );
 }

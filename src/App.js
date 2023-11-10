@@ -24,14 +24,14 @@ const GlobalStyle = createGlobalStyle`
     color: #1C1B1F;
     background-color: #fff;
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 6px;
 }
 ::-webkit-scrollbar-thumb {
     height: 35%;
     background: #1c1b1f;
     border-radius: 30px;
-}
+} */
   }
 
   .box {
@@ -42,6 +42,15 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: inherit;
+
+    ::-webkit-scrollbar {
+    width: 6px;
+}
+    ::-webkit-scrollbar-thumb {
+    height: 35%;
+    background: #1c1b1f;
+    border-radius: 30px;
+}
   }
 `;
 
