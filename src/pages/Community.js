@@ -19,6 +19,7 @@ const CommunityWrapper = styled.div`
   }
 `;
 
+
 function Community(props) {
   return (
     <CommunityWrapper>
