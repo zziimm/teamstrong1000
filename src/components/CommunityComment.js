@@ -22,11 +22,18 @@ const CommunityCommentWrapper = styled.div`
   margin-top: 18px;
 }
 `;
-
+const CommunityCommentList = styled.div`
+  background-color: orange;
+`;
+const CommunityCommentIsert = styled.div`
+  background-color: yellow;
+`;
 function CommunityComment(props) {
   return (
     <CommunityCommentWrapper>
-      댓글창입니다!~~~
+      댓글창입니다!~~~ㅇㅇㅇㅇ내일 여기 끝내고 커뮤니티 인서트 만드러야징집집집집집집
+      <CommunityCommentList>코맨트 리스트</CommunityCommentList>
+      <CommunityCommentIsert>코맨트 인서트</CommunityCommentIsert>
     </CommunityCommentWrapper>
   );
 }

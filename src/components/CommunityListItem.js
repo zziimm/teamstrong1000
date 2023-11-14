@@ -147,7 +147,7 @@ function CommunityListItem(props) {
           <span className='경과일'>{elapsedTime(aaa)}</span>
         </div>}
         </>
-        : <CommunityComment />
+        : <CommunityComment />  // 댓글창
       }
 
         {<div className='div-start'>
