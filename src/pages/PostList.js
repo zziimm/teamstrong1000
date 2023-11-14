@@ -18,9 +18,8 @@ const PostInsertBtn = styled.button`
   position: absolute;
   left: 492px;
   right: 0;
-  margin: 0 auto;
   bottom: 60px;
-  justify-content: space-around;
+  margin: 0 auto;
   background-color: #eee;
   box-shadow: 1px 1px 1px 1px gray;
   width: 200px;
@@ -147,6 +146,7 @@ function PostList(props) {
           gender={postInsertMap.gender}
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
+          district={postInsertMap.district}
         />
       })}
       {district && postInsert.map((postInsertMap) => {
@@ -200,6 +200,29 @@ function PostList(props) {
       >
         게시글 추가
       </PostInsertBtn>
+
+
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+
+
     </PostListWrapper>
   );
 }

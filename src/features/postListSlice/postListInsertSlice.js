@@ -14,7 +14,7 @@ const postListInsertSlice = createSlice({
       console.log(state.postInsert);
       console.log(action.payload);
     },
-    getAllUserPostList: (state, action) => {
+    getAllUserPostList: (state, action) => { // 더미데이터
       state.postInsert = action.payload;
     },
     // handleFilterAll: (state, action) => {

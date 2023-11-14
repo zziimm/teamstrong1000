@@ -30,7 +30,11 @@ const PostListItemWrapper = styled.div`
   display: block;
   margin-bottom: 3px;
 }
-.gender {
+/* .gender {
+  font-size: 14px;
+  color: #9b9b9b;
+} */
+.district {
   font-size: 14px;
   color: #9b9b9b;
 }
@@ -46,6 +50,7 @@ const PostListItemWrapper = styled.div`
   font-size: 12px;
   display: flex;
   justify-content: end;
+  margin-top: 5px;
 }
 `;
 
@@ -53,7 +58,11 @@ function PostListItem(props) {
   const navigate = useNavigate()
 
   return (
-    <PostListItemWrapper key={props.title} onClick={() => navigate('/PostDetail')}>
+    <PostListItemWrapper 
+      key={props.title} 
+      onClick={() => navigate('/PostDetail')}
+      
+      >
       {/* {props.title} <br/> */}
       {/* {props.content} */}
         <span className='title'>
@@ -62,8 +71,11 @@ function PostListItem(props) {
         <span className='selectDate'>
           날짜: {props.selectDate} <br/>
         </span>
-        <span className='gender'>
+        {/* <span className='gender'>
           성별: {props.gender} |&nbsp;
+        </span> */}
+        <span className='district'>
+          지역: {props.district} |&nbsp;
         </span>
         <span className='joinPersonnel'>
           참여 인원: {props.joinPersonnel} |&nbsp;

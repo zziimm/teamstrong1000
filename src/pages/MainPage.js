@@ -12,7 +12,8 @@ const MainWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
-  overflow-y: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 function MainPage(props) {
