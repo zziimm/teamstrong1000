@@ -13,6 +13,18 @@ const CalendarWrapper = styled.div`
   background: #fff;
   
   
+  th a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  td a {
+    text-decoration: none;
+    color: black;
+  }
+  .fc-theme-standard td {
+    border: 1px solid #5e0afd3b;
+  }
   .fc-event {
     background-color: #4610C0;
     border: none;
@@ -77,9 +89,14 @@ const InputAreaDetail = styled.div`
   & + & {
     margin-top: 10px;
   }
+  input[type="date"] {
+    text-align: center;
+    width: auto;
+  }
   input {
+    width: 350px;
+    padding: 5px 10px;
     color: black;
-    /* transition: 0.3; */
     background: #FFF;
     outline: none;
     border: none;

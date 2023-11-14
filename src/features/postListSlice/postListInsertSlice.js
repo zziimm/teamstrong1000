@@ -17,12 +17,20 @@ const postListInsertSlice = createSlice({
     getAllUserPostList: (state, action) => { // 더미데이터
       state.postInsert = action.payload;
     },
-    
+    // handleFilterAll: (state, action) => {
+    //   console.log(action.payload);
+    //   const items = state.postInsert.filter((item) => item.district === '서울')
+    //   state.postInsert = items
+    // },
+    // handleFilter: (state) => {
+    //   const items = state.postInsert.filter((item) => item.district === '인천')
+    //   state.postInsert = items
+    // },
   }
 
 })
 
-export const { getAllInsert, getAllUserPostList } = postListInsertSlice.actions;
+export const { getAllInsert, getAllUserPostList, handleFilterAll ,handleFilter } = postListInsertSlice.actions;
 
 export const postInsertList = state => state.postList.postInsert;
 export const userPostList = state => state.postList.postInsert;

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import KakaoLogin from '../components/KakaoLogin';
+import logoImg from "../img/logo.png";
 
 // kakao
 
@@ -19,7 +20,42 @@ const SignArea = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
+  gap: 10px;
+
+  button {
+    margin-top: 20px;
+    border: none;
+    background: #4610C0;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #fff;
+    color: #4610C0;
+  }
+  button + button {
+    margin: 10px 0;
+  }
+
+  input {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+  }
+  input:focus {
+    outline: none;
+    border: 1px solid #4610C0;
+    background: #d8d1e8;
+  }
 `;
+
+const LogoImg = styled.img`
+  margin-bottom: 20px;
+`;
+
 
 
 function Login(props) {
@@ -72,6 +108,7 @@ function Login(props) {
 
   return (
     <SignArea>
+      <LogoImg src={logoImg}/>
       아이디<input type='text' value={inputUserId} onChange={handleInputUserId} />
       비밀번호<input type='password' value={inputUserPass} onChange={handleInputUserPass} />
       
