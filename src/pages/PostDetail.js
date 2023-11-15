@@ -70,7 +70,7 @@ function PostDetail(props) {
   useEffect(() => {
     const fetchUserId = async () => {
       try {
-        const response = await axios.get(`https://my-json-server.typicode.com/zziimm/db-user/userPostList/${userId}`)
+        const response = await axios.get(`http://localhost:3000/userPostList/${userId}`)
         console.log(response.data);
         dispatch(getSelectPost(response.data))
       } catch (error) {
