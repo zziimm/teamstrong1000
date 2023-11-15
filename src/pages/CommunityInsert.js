@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getAllCommunityInsert } from '../features/communityListSlice/communityListSlice';
+import axios from 'axios';
 
 const CommunityInsertWrapper = styled.div`
   background-color: #fff;
@@ -43,11 +44,33 @@ function CommunityInsert(props) {
 
   const [insertTitle, setInsertTitle] = useState('');
   const [insertContent, setInsertContent] = useState('');
-  const [insertImgUp, setInsertImgUp] = useState();
+  const [insertImgUp, setInsertImgUp] = useState([]);
+
 
   const changeTitle = (e) => setInsertTitle(e.target.value)
   const changeContent = (e) => setInsertContent(e.target.value)
   const changeImgUp = (e) => setInsertImgUp(e.target.value)
+
+  const imgRef = useRef();
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setInsertImgUp(reader.result);
+    };
+  };
+
+  const communityInput = {
+    id: insertTitle,
+    content: insertContent,
+    imagePath: insertImgUp
+  }
+  const handlePushCommunity = () => {
+    axios.post(`http://localhost:3000/userCummunityList`, communityInput)
+    alert('게시글이 작성되었습니다!')
+    navigate('/community')
+  };
 
   return (
     <CommunityInsertWrapper>
@@ -55,7 +78,7 @@ function CommunityInsert(props) {
         {<input
           className='title'
           type='text'
-          placeholder='제목입력'
+          placeholder='아이디입력'
           value={insertTitle}
           onChange={changeTitle}
           />}
@@ -69,21 +92,22 @@ function CommunityInsert(props) {
           className='imgup'
           type='file'
           accept='image/*'
-          value={insertImgUp}
-          onChange={changeImgUp}
+          ref={imgRef}
+          onChange={saveImgFile}
         />}
       </div>}
 
       <Stack gap={2} className="col-md-5 mx-auto">
         <Button
           variant="secondary"
-          onClick={() => {
-            dispatch(getAllCommunityInsert({
-              title:insertTitle,
-              content:insertContent,
-              imagePath:insertImgUp
-            })); 
-            navigate('/community')}}
+          onClick={handlePushCommunity}
+          // onClick={() => {
+          //   dispatch(getAllCommunityInsert({
+          //     title:insertTitle,
+          //     content:insertContent,
+          //     imagePath:insertImgUp
+          //   })); 
+          //   navigate('/community')}}
           >Save changes</Button>
         <Button 
           variant="outline-secondary"

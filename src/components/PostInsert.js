@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const PostInsertWrapper = styled.div`
   background-color: #fff;
@@ -67,6 +68,7 @@ const inputStyle = styled.div`
 function PostInsert(props) {
   const [title, setTitle] = useState('제목입력');
   const [content, setContent] = useState('내용입력')
+  const [district, setDistrict] = useState('');
   const [selectDate, setSelectDate] = useState(new Date().toISOString().slice(0, 16))
   const [gender, setGender] = useState('남')
   const [joinPersonnel, setJoinPersonnel] = useState('1')
@@ -79,11 +81,25 @@ function PostInsert(props) {
   
   const titleChange = (e) => setTitle(e.target.value)
   const contentChange = (e) => setContent(e.target.value)
+  const districtChange = (e) => setDistrict(e.target.value)
   const selectDateChange = (e) => setSelectDate(e.target.value)
   const genderChange = (e) => setGender(e.target.value)
   const joinPersonnelChange = (e) => setJoinPersonnel(e.target.value)
   const gameChange = (e) => setGame(e.target.value)
   
+  // 게시글: 타이틀, 날짜, 지역, 참여인원, 경기방식, 작성자
+  const postInput = {
+    title: title,
+    selectDate: selectDate,
+    district: district,
+    joinPersonnel: joinPersonnel,
+    game: game,
+  }
+  const handlePushPost = () => {
+    axios.post(`http://localhost:3000/userPostList`, postInput)
+    alert('매칭 등록이 완료되었습니다!')
+    navigate('/')
+  };
   return (
     <PostInsertWrapper>
       <label htmlFor='1'>제목</label>
@@ -107,11 +123,13 @@ function PostInsert(props) {
         id='3'
         type='text'
         placeholder='맵 api 생기면 수정~~~~~~~~~~~~~~~'
+        value={district}
+        onChange={districtChange}
       />
       <label htmlFor='4'>날짜/시간</label>
       <input
         id='4'
-        type='datetime-local'
+        type='date'
         value={selectDate}
         onChange={selectDateChange}
       />
@@ -155,14 +173,15 @@ function PostInsert(props) {
       <Stack gap={2} className="col-md-5 mx-auto">
         <Button
           variant="secondary"
-          onClick={() => {dispatch(getAllInsert({
-          title:title,
-          content:content,
-          selectDate:selectDate,
-          gender:gender,
-          joinPersonnel:joinPersonnel,
-          game:game
-        }))}}
+          onClick={handlePushPost}
+        //   onClick={() => {dispatch(getAllInsert({
+        //   title:title,
+        //   content:content,
+        //   selectDate:selectDate,
+        //   gender:gender,
+        //   joinPersonnel:joinPersonnel,
+        //   game:game
+        // }))}}
           >Save changes</Button>
         <Button 
           variant="outline-secondary"

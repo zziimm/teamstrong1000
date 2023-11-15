@@ -46,7 +46,7 @@ function CommunityList(props) {
   const navigate = useNavigate();
   
   useEffect(() => {
-    axios.get('https://my-json-server.typicode.com/zziimm/db-user/userCummunityList')
+    axios.get('http://localhost:3000/userCummunityList')
     .then((response) => {
       dispatch(getAllUserCommunityList(response.data))
     })

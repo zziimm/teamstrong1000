@@ -38,6 +38,7 @@ const PostInsertBtn = styled.button`
 `;
 const PostListWrapper = styled.div`
   margin: 0 auto;
+  margin-bottom: 70px;
   width: 417px;
 `;
 const PostListBtn1 = styled.button`
@@ -200,27 +201,6 @@ function PostList(props) {
       >
         게시글 추가
       </PostInsertBtn>
-
-
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
-      <PostListItem />
 
 
     </PostListWrapper>
