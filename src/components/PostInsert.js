@@ -17,53 +17,69 @@ const PostInsertWrapper = styled.div`
   width: 530px;
   height: 100vh;
   display: flex;
-  flex-flow: column;
-
-  input, select {
-    height: 55px;
-    background-color: beige;
-    margin-bottom: 30px;
-    border: none;
-    font-size: 20px;
-  }
-
-
-  .datePicker {   // 라이브러리 css
-  display: flex;
   align-items: center;
-  border: 1px solid GRAY;
-  border-radius: 15px;
-  background-color: black;
-  box-sizing: border-box;
-  width: 100%;
-  height: 46px;
-  color: WHITE;
-  text-align: center;
-  padding-right: 14px;
-  outline: none;
-
-  &:focus {
-    border: 2px solid ORANGE;
+  padding-top: 100px;
+  justify-content: center;
+  flex-direction: column;
+  * {
+    border-radius: 7px;
   }
-}
-  .calenderWrapper {
-  background-color: orange;
-}
-.react-datepicker__time-list-item {
-  color: orange;
-  
-  &:hover {
-    color: purple;
-    background-color: aqua;
-  }
-}
 `;
-
-
-const inputStyle = styled.div`
+const TitleContentDiv = styled.div`
+  width: 95%;
+  height: 270px;
+  background-color: aliceblue;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+  .title {
+    width: 90%;
+    height: 45px;
+    margin-bottom: 15px;
+  }
+  .content {
+    width: 90%;
+    height: 190px;
+  }
 `;
-
+const DistrictDateDiv = styled.div`
+  width: 95%;
+  height: 80px;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  .district {
+    height: 35px;
+    margin-right: 25px;
+  }
+  .date {
+    height: 35px;
+  }
+`;
+const GenderJoinPersonnelGameDiv = styled.div`
+  width: 95%;
+  height: 80px;
+  background-color: aliceblue;
+  display: flex;
+  margin-bottom: 100px;
+  justify-content: center;
+  align-items: center;
+  .gender {
+    height: 35px;
+    margin-right: 25px;
+  }
+  .joinpersonnel {
+    height: 35px;
+    margin-right: 25px;
+  }
+  .game {
+    height: 35px;
+  }
+`;
 
 function PostInsert(props) {
   const [title, setTitle] = useState('제목입력');
@@ -102,73 +118,90 @@ function PostInsert(props) {
   };
   return (
     <PostInsertWrapper>
-      <label htmlFor='1'>제목</label>
-      <input
-        id='1'
-        type='text'
-        value={title}
-        onChange={titleChange}
+      <TitleContentDiv>
+        <label htmlFor='1'></label>
+        <input
+          className='title'
+          id='1'
+          type='text'
+          placeholder='제목을 입력하세요.'
+          value={title}
+          onChange={titleChange}
+          />
+
+        <label htmlFor='2'></label>
+        <textarea 
+          className='content'
+          placeholder='내용을 입력하세요.'
+          id='2'
+          value={content}
+          onChange={contentChange}
         />
+      </TitleContentDiv>
 
-      <label htmlFor='2'>내용</label>
-      <input 
-        id='2'
-        type='text'
-        value={content}
-        onChange={contentChange}
-      />
-
-      <label htmlFor='3'>장소</label>   {/* 장소 api */}
-      <input 
-        id='3'
-        type='text'
-        placeholder='맵 api 생기면 수정~~~~~~~~~~~~~~~'
-        value={district}
-        onChange={districtChange}
-      />
-      <label htmlFor='4'>날짜/시간</label>
-      <input
-        id='4'
-        type='date'
-        value={selectDate}
-        onChange={selectDateChange}
-      />
-
-      <label htmlFor='5'>성별</label>
-      <select
-        id='5'
-        value={gender}
-        onChange={genderChange}
-      >
-        <option value={'남'}>남</option>
-        <option value={'여'}>여</option>
-      </select>
-
-      <label htmlFor='6'>참여 인원</label>
-      <select
-          id='6'
-          value={joinPersonnel}
-          onChange={joinPersonnelChange}
+      <DistrictDateDiv>
+        <label htmlFor='3'>장소 : &nbsp;</label>
+        <select
+          className='district'
+          id='3'
+          value={district}
+          onChange={districtChange}
         >
-        <option value={'1'}>1</option>
-        <option value={'2'}>2</option>
-        <option value={'3'}>3</option>
-        <option value={'4'}>4</option>
-        <option value={'5'}>5</option>
-        <option value={'6'}>6</option>
-        <option value={'7'}>7</option>
-        <option value={'8'}>8</option>
-      </select>
+          <option value={'1'}>서울</option>
+          <option value={'2'}>경기</option>
+          <option value={'3'}>인천</option>
+        </select>
 
-      <label htmlFor='7'>경기 방식</label>
-      <select
-          id='7'
-          value={game}
-          onChange={gameChange}
+        <label htmlFor='4'>날짜/시간 : &nbsp;</label>
+        <input
+          className='date'
+          id='4'
+          type='date'
+          value={selectDate}
+          onChange={selectDateChange}
+        />
+      </DistrictDateDiv>
+
+      <GenderJoinPersonnelGameDiv>
+        <label htmlFor='5'>성별 : &nbsp;</label>
+        <select
+          className='gender'
+          id='5'
+          value={gender}
+          onChange={genderChange}
         >
-          <option value={'단식'}>단식</option>
-          <option value={'복식'}>복식</option>
-      </select>
+          <option value={'남'}>남</option>
+          <option value={'여'}>여</option>
+        </select>
+
+        <label htmlFor='6'>참여 인원 : &nbsp;</label>
+        <select
+            className='joinpersonnel'
+            id='6'
+            value={joinPersonnel}
+            onChange={joinPersonnelChange}
+          >
+          <option value={'1'}>1</option>
+          <option value={'2'}>2</option>
+          <option value={'3'}>3</option>
+          <option value={'4'}>4</option>
+          <option value={'5'}>5</option>
+          <option value={'6'}>6</option>
+          <option value={'7'}>7</option>
+          <option value={'8'}>8</option>
+        </select>
+
+        <label htmlFor='7'>경기 방식 : &nbsp;</label>
+        <select
+            className='game'
+            id='7'
+            value={game}
+            onChange={gameChange}
+          >
+            <option value={'단식'}>단식</option>
+            <option value={'복식'}>복식</option>
+        </select>
+      </GenderJoinPersonnelGameDiv>
 
       <Stack gap={2} className="col-md-5 mx-auto">
         <Button
