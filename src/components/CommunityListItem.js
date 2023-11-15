@@ -33,6 +33,7 @@ img {
 .div-start {
   display: flex;
   justify-content: start;
+  align-items: center;
   margin: 10px;
 }
 .id {
@@ -84,6 +85,7 @@ function CommunityListItem(props) {
   const [more, setMore] = useState(false);
   const [iconRed, setIconRed] = useState(false);
   const [comment, setComment] = useState(true);
+  const [like, setLike] = useState(17);
   
   const aaa = new Date(2023, 8, 5)
   function elapsedTime(date) {
@@ -115,6 +117,9 @@ function CommunityListItem(props) {
   }
   const handleComment = () => {
     setComment(!comment)
+  }
+  const handleLike = () => {
+    setLike(Number(`${iconRed ? like - 1 : like + 1}`))
   }
   
   return (
@@ -154,10 +159,11 @@ function CommunityListItem(props) {
           <button 
             class={`material-symbols-outlined ${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`}
             value={iconRed} 
-            onClick={() => {handleRed()}}
+            onClick={() => {handleRed();  handleLike();}}
           >
             favorite
           </button>
+          <span>{like}</span>   {/* 좋아요 수 */}
           <button 
             class="material-symbols-outlined"
             value={comment}
