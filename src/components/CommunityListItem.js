@@ -85,7 +85,7 @@ function CommunityListItem(props) {
   const [more, setMore] = useState(false);
   const [iconRed, setIconRed] = useState(false);
   const [comment, setComment] = useState(true);
-  const [like, setLike] = useState(17);
+  const [like, setLike] = useState(7);
   
   const aaa = new Date(2023, 8, 5)
   function elapsedTime(date) {
