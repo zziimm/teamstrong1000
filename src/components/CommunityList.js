@@ -12,6 +12,7 @@ const CommunityListWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-flow: column;
+  margin-bottom: 70px;
 `;
 const CommunityInsertBtn = styled.button`
   display: flex;

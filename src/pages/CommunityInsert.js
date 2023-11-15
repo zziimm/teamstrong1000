@@ -47,6 +47,7 @@ function CommunityInsert(props) {
 
   const changeTitle = (e) => setInsertTitle(e.target.value)
   const changeContent = (e) => setInsertContent(e.target.value)
+  const changeImgUp = (e) => setInsertImgUp(e.target.value)
 
   return (
     <CommunityInsertWrapper>
@@ -67,7 +68,9 @@ function CommunityInsert(props) {
         {<input 
           className='imgup'
           type='file'
+          accept='image/*'
           value={insertImgUp}
+          onChange={changeImgUp}
         />}
       </div>}
 
@@ -76,9 +79,11 @@ function CommunityInsert(props) {
           variant="secondary"
           onClick={() => {
             dispatch(getAllCommunityInsert({
-              insertTitle:insertTitle,
-              insertContent:insertContent
-            }))}}
+              title:insertTitle,
+              content:insertContent,
+              imagePath:insertImgUp
+            })); 
+            navigate('/community')}}
           >Save changes</Button>
         <Button 
           variant="outline-secondary"
