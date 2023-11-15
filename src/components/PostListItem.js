@@ -63,29 +63,12 @@ function PostListItem(props) {
       key={props.title} 
       onClick={() => navigate(`/PostDetail/${props.id}`)}
       >
-      {/* {props.title} <br/> */}
-      {/* {props.content} */}
-        <span className='title'>
-          {props.title} <br/>
-        </span>
-        <span className='selectDate'>
-          날짜: {props.selectDate} <br/>
-        </span>
-        {/* <span className='gender'>
-          성별: {props.gender} |&nbsp;
-        </span> */}
-        <span className='district'>
-          지역: {props.district} |&nbsp;
-        </span>
-        <span className='joinPersonnel'>
-          참여 인원: {props.joinPersonnel} |&nbsp;
-        </span>
-        <span className='game'>
-          경기 방식: {props.game} &emsp; <br/>
-        </span>
-        <span className='id'>
-          작성자: {props.id}
-        </span>
+        <span className='title'>{props.title} <br/></span>
+        <span className='selectDate'>날짜: {props.selectDate} <br/></span>
+        <span className='district'>지역: {props.district} |&nbsp;</span>
+        <span className='joinPersonnel'>참여 인원: {props.joinPersonnel} |&nbsp;</span>
+        <span className='game'>경기 방식: {props.game} &emsp; <br/></span>
+        <span className='id'>작성자: {props.id}</span>
         
       {/* 성별: {props.gender} &emsp;
       참여 인원: {props.joinPersonnel} &emsp;
