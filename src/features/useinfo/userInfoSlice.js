@@ -10,6 +10,7 @@ const userInfoSlice = createSlice({
     getAllUserInfo: (state, action) => {
       state.userInfo = action.payload;
       console.log(action.payload);
+      console.log(state.userInfo);
     },
     getUserInfo: (state, { payload: inputInfo }) => {
       const targetInfo = state.userInfo.find(info => info.id === inputInfo.id)
@@ -20,13 +21,17 @@ const userInfoSlice = createSlice({
         state.userInfo.push(inputInfo)
       }
     },
-    loginController: (state, { payload: loginInfo }) => {
-      
+    pushUserInfo: (state, action) => {
+      console.log(action.payload);
+      state.userInfo.push(action.payload)
+      console.log(state.userInfo);
     },
+
+
   }
 });
 
-export const { getUserInfo, getAllUserInfo } = userInfoSlice.actions;
+export const { getUserInfo, getAllUserInfo, pushUserInfo } = userInfoSlice.actions;
 
 export const selectUserList = state => state.userInfo.userInfo;
 

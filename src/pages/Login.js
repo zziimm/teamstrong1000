@@ -66,9 +66,9 @@ function Login(props) {
   
   const dispatch = useDispatch();
   useEffect(() => {
-    axios.get('https://my-json-server.typicode.com/zziimm/db-user/userInfo')
+    axios.get('http://localhost:3000/userInfo')
       .then((reponse) => {
-        console.log(reponse);
+        console.log(reponse.data);
         dispatch(getAllUserInfo(reponse.data))
       })
       .catch((error) => {
@@ -115,7 +115,7 @@ function Login(props) {
       <button onClick={handLogin}>
         로그인
       </button>
-      <button disabled onClick={() => navigate('/signUp')}>
+      <button onClick={() => navigate('/signUp')}>
         회원가입
       </button>
       <KakaoLogin />

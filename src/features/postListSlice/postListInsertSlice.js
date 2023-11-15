@@ -22,7 +22,6 @@ const postListInsertSlice = createSlice({
       state.postInsert.sort((a, b) => new Date(a.selectDate) - new Date(b.selectDate))
     },
     getSelectPost: (state, action) => {
-      console.log(action.payload);
       state.selectPost = action.payload
     },
 
