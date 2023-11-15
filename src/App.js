@@ -15,6 +15,7 @@ import Community from "./pages/Community";
 import MyCalendar from "./pages/MyCalendar";
 import PostDetail from "./pages/PostDetail";
 import CommunityInsert from "./pages/CommunityInsert";
+import Map from "./pages/Map";
 
 
 
@@ -87,9 +88,10 @@ function App() {
             <Route path="/signUp" element={<SignUp />}/>
             <Route path="/postInsert" element={<PostInsert />}/>
             <Route path="/postInsert" element={<PostInsert />}/>
-            <Route path="/postDetail" element={<PostDetail />}/>
+            <Route path="/postDetail/:userId" element={<PostDetail />}/>
             <Route path="/community" element={<Community />} />
             <Route path="/CommunityInsert" element={<CommunityInsert />} />
+            <Route path="/map" element={<Map />} />
             <Route path="*" element={<div>페이지가 존재하지 않습니다.</div>} />
           </Route>
         </Routes>

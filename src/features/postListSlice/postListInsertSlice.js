@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  postInsert: []
+  postInsert: [],
+  selectPost: null,
 }
 
 const postListInsertSlice = createSlice({
@@ -17,22 +18,22 @@ const postListInsertSlice = createSlice({
     getAllUserPostList: (state, action) => { // 더미데이터
       state.postInsert = action.payload;
     },
-    // handleFilterAll: (state, action) => {
-    //   console.log(action.payload);
-    //   const items = state.postInsert.filter((item) => item.district === '서울')
-    //   state.postInsert = items
-    // },
-    // handleFilter: (state) => {
-    //   const items = state.postInsert.filter((item) => item.district === '인천')
-    //   state.postInsert = items
-    // },
+    sortList: (state) => {
+      state.postInsert.sort((a, b) => new Date(a.selectDate) - new Date(b.selectDate))
+    },
+    getSelectPost: (state, action) => {
+      console.log(action.payload);
+      state.selectPost = action.payload
+    },
+
   }
 
 })
 
-export const { getAllInsert, getAllUserPostList, handleFilterAll ,handleFilter } = postListInsertSlice.actions;
+export const { getAllInsert, getAllUserPostList, sortList, getSelectPost } = postListInsertSlice.actions;
 
 export const postInsertList = state => state.postList.postInsert;
+export const selectedPost = state => state.postList.selectPost;
 export const userPostList = state => state.postList.postInsert;
 
 export default postListInsertSlice.reducer;
