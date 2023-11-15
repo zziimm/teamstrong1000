@@ -5,7 +5,7 @@ import { BsArrowDownUp, BsChevronDown } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserList } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router';
-import { getAllUserPostList, handleFilter, postInsertList, userPostList } from '../features/postListSlice/postListInsertSlice';
+import { getAllUserPostList, handleFilter, postInsertList, sortList, userPostList } from '../features/postListSlice/postListInsertSlice';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -121,7 +121,7 @@ function PostList(props) {
 
   return (
     <PostListWrapper>
-      <PostListBtn1><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
+      <PostListBtn1 onClick={() => {dispatch(sortList())}}><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
       <PostListBtn2 $showModal={showModal} onClick={handleModal}>모든지역 <BsChevronDown /></PostListBtn2>
       {showModal && <DistrictModal postList={postInsert} district={district} district2={district2} district3={district3} handleDistrict0={handleDistrict0} handleDistrict={handleDistrict} handleDistrict2={handleDistrict2} handleDistrict3={handleDistrict3}/>}
       {/* {postInsert.map((postInsertMap) => {  

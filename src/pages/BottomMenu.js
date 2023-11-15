@@ -17,6 +17,7 @@ const ButtonArea = styled.div`
   width: 530px;
   height: 55px;
   background: #1c1b1f;
+  z-index: 99;
   `;
 
 const ButtonStyle = styled.div`

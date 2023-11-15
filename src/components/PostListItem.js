@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import PostDetail from '../pages/PostDetail';
 
 const PostListItemWrapper = styled.div`
   box-sizing: border-box;
@@ -60,8 +61,7 @@ function PostListItem(props) {
   return (
     <PostListItemWrapper 
       key={props.title} 
-      onClick={() => navigate('/PostDetail')}
-      
+      onClick={() => navigate(`/PostDetail/${props.id}`)}
       >
       {/* {props.title} <br/> */}
       {/* {props.content} */}

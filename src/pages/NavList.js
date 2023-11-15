@@ -63,7 +63,9 @@ function NavList(props) {
         {<img src={img1}/>} 매칭 찾기
       </NavListItemWrapper>
 
-      <NavListItemWrapper>
+      <NavListItemWrapper
+        onClick={() => {navigate('/map')}}
+      >
         {<img className='NavImg' src={img2}/>} 민턴장 찾기
       </NavListItemWrapper>
 
@@ -72,7 +74,8 @@ function NavList(props) {
       </NavListItemWrapper>
 
       <NavListItemWrapper
-        onClick={() => navigate('/community')}>
+        onClick={() => navigate('/community')}
+      >
         {<img className='NavImg' src={img4}/>} 커뮤니티
       </NavListItemWrapper>
     </NavListWrapper>
