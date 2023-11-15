@@ -22,14 +22,18 @@ const postListInsertSlice = createSlice({
       state.postInsert.sort((a, b) => new Date(a.selectDate) - new Date(b.selectDate))
     },
     getSelectPost: (state, action) => {
+      console.log(action.payload);
       state.selectPost = action.payload
+    },
+    clearSelectedPost: (state) => {
+      state.selectPost = null;
     },
 
   }
 
 })
 
-export const { getAllInsert, getAllUserPostList, sortList, getSelectPost } = postListInsertSlice.actions;
+export const { getAllInsert, getAllUserPostList, sortList, getSelectPost, clearSelectedPost } = postListInsertSlice.actions;
 
 export const postInsertList = state => state.postList.postInsert;
 export const selectedPost = state => state.postList.selectPost;
