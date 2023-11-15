@@ -1,0 +1,172 @@
+{
+  "userInfo": [
+    {
+      "id": "badminton1",
+      "passwd": "bad1",
+      "nick": "Arcsaber 11 Pro",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1645767865278s0.png",
+      "gender": "남",
+      "rank": "A"
+    },
+    {
+      "id": "badminton2",
+      "passwd": "bad2",
+      "nick": "Yonex Shirts",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1659329583483s0.png",
+      "gender": "남",
+      "rank": "C"
+    },
+    {
+      "id": "badminton3",
+      "passwd": "bad3",
+      "nick": "Aerus Z",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1667190100104s0.png",
+      "gender": "여",
+      "rank": "초보"
+    },
+    {
+      "id": "badminton4",
+      "passwd": "bad4",
+      "nick": "요넥스 백팩",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1667282273374s0.png",
+      "gender": "여",
+      "rank": "B"
+    },
+    {
+      "id": "badminton5",
+      "passwd": "bad5",
+      "nick": "라켓보이즈 모자",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1638434200729s0.png",
+      "gender": "여",
+      "rank": "자강"
+    },
+    {
+      "id": "badminton6",
+      "passwd": "bad6",
+      "nick": "트레이닝 매트",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1640582675794s0.png",
+      "gender": "남",
+      "rank": "D"
+    },
+    {
+      "id": "12",
+      "passwd": "12",
+      "nick": "12"
+    },
+    {
+      "id": "badminton7",
+      "passwd": "bad7",
+      "nick": "배드6"
+    },
+    {
+      "id": "badminton8",
+      "passwd": "bad7",
+      "nick": "주누"
+    }
+  ],
+  "userPostList": [
+    {
+      "id": "badminton5",
+      "title": "연수 체육공원에서 배드민턴 같이 치실분~",
+      "content": "연수 체육공원에서 배드민턴 같이 치실분구합니다~",
+      "selectDate": "2023-11-08",
+      "gender": "여",
+      "joinPersonnel": "4",
+      "game": "복식경기",
+      "district": "인천"
+    },
+    {
+      "id": "badminton2",
+      "title": "단식 연습 상대 구합니다!",
+      "content": "단식 하실분~",
+      "selectDate": "2023-11-20",
+      "gender": "남",
+      "joinPersonnel": "2",
+      "game": "단식경기",
+      "district": "인천"
+    },
+    {
+      "id": "badminton3",
+      "title": "배민팟 구해염",
+      "content": "배민하실분~",
+      "selectDate": "2023-11-18",
+      "gender": "여",
+      "joinPersonnel": "8",
+      "game": "복식경기",
+      "district": "서울"
+    },
+    {
+      "id": "badminton1",
+      "title": "12월에 배드민턴 치실분~",
+      "content": "구해봅니당",
+      "selectDate": "2023-12-08",
+      "gender": "남",
+      "joinPersonnel": "4",
+      "game": "복식경기",
+      "district": "경기"
+    },
+    {
+      "id": "badminton6",
+      "title": "같이 칠사람 구합니다~~",
+      "content": "같이 치면서 노실 분 구합니다~",
+      "selectDate": "2023-12-08",
+      "gender": "남",
+      "joinPersonnel": "4",
+      "game": "복식경기",
+      "district": "경기"
+    },
+    {
+      "id": "badminton4",
+      "title": "배민 선생님 찾아용",
+      "content": "고수만",
+      "selectDate": "2023-12-08",
+      "gender": "여",
+      "joinPersonnel": "8",
+      "game": "복식경기",
+      "district": "인천"
+    }
+  ],
+  "userCummunityList": [
+    {
+      "id": "badminton4",
+      "title": "배민 선생님 찾아용",
+      "content": "고수만배민 선생님 찾아용배민 선생님 찾아용배민 선생님 찾아용배민 선생님 찾아용배민 선생님 찾아용",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1667282273374s0.png"
+    },
+    {
+      "id": "badminton2",
+      "title": "점심 같이 드실분~",
+      "content": "점심메뉴를 골라보자 골라이 골라이 골라리 골라 짱짱 소고기를 먹어보자보자 돼지고기",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1640582675794s0.png"
+    },
+    {
+      "id": "badminton3",
+      "title": "저녁 같이 드실분~",
+      "content": "저녁 같이 먹어용가리치킨사이다이소머리어카센터미널어쩌구 저쩌구",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1667190100104s0.png"
+    },
+    {
+      "id": "badminton1",
+      "title": "술한잔 하실분~",
+      "content": "한잔해영두잔해요 세잔 네잔 어쩌구 와랄라 컄컄 으갸갸갹",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1638434200729s0.png"
+    },
+    {
+      "id": "badminton5",
+      "title": "badminton3님 경기 즐거웠습니다!",
+      "content": "잘치시네요 ㅎㅎㅎ 진짜 너무 잘쳐용 으악 갹",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1659329583483s0.png"
+    },
+    {
+      "id": "badminton6",
+      "title": "배드민턴 접어요 장비 팔아요",
+      "content": "제시점",
+      "imagePath": "https://www.yonexmall.com/shop/data/goods/1645767865278s0.png"
+    }
+  ],
+  "user": {
+    "name": "JH Kim",
+    "email": "geoblo@naver.com",
+    "role": "admin"
+  }
+}

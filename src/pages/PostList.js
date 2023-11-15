@@ -88,7 +88,7 @@ function PostList(props) {
 
   useEffect(() => {
     setLoading(true);
-    axios.get('https://my-json-server.typicode.com/zziimm/db-user/userPostList')
+    axios.get('http://localhost:3000/userPostList')
     .then((response) => {
       dispatch(getAllUserPostList(response.data))
     })
