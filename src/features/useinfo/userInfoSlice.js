@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   userInfo: [],
   teamInfo: null,
-  firstTeam: null,
+  myCalendar: null,
 }
 const userInfoSlice = createSlice({
   name: 'user',
@@ -31,16 +31,20 @@ const userInfoSlice = createSlice({
         return (b.winscore / (b.winscore + b.losescore)) - (a.winscore / (a.winscore + a.losescore))
       })
       state.teamInfo = sortscore;
+    },
+    getAllCalendarInfo: (state, action) => {
       console.log(action.payload);
+      state.myCalendar = action.payload;
     },
 
 
   }
 });
 
-export const { getUserInfo, getAllUserInfo, pushUserInfo, getAllTeamInfo } = userInfoSlice.actions;
+export const { getUserInfo, getAllUserInfo, pushUserInfo, getAllTeamInfo, getAllCalendarInfo } = userInfoSlice.actions;
 
 export const selectUserList = state => state.userInfo.userInfo;
 export const getTeamInfo = state => state.userInfo.teamInfo;
+export const getMyCalendarInfo = state => state.userInfo.myCalendar;
 
 export default userInfoSlice.reducer;

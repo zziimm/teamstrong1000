@@ -62,6 +62,16 @@
       "id": "badminton8",
       "passwd": "bad7",
       "nick": "주누"
+    },
+    {
+      "id": "지민",
+      "passwd": "123",
+      "nick": "지민"
+    },
+    {
+      "id": "지민2",
+      "passwd": "123",
+      "nick": "지민2"
     }
   ],
   "userPostList": [
@@ -220,28 +230,58 @@
       "winscore": 13,
       "losescore": 2,
       "maindistrict": "인천",
-      "members": ["강하경", "천준우", "천지민"]
+      "members": [
+        "강하경",
+        "천준우",
+        "천지민"
+      ]
     },
     {
       "teamName": "SKT1",
       "winscore": 5,
       "losescore": 3,
       "maindistrict": "서울",
-      "members": ["페이커", "구마유시", "케리아"]
+      "members": [
+        "페이커",
+        "구마유시",
+        "케리아"
+      ]
     },
     {
       "teamName": "우리동네최고",
       "winscore": 16,
       "losescore": 10,
       "maindistrict": "서울",
-      "members": ["김아무개", "김지민", "하나", "두리"]
+      "members": [
+        "김아무개",
+        "김지민",
+        "하나",
+        "두리"
+      ]
     },
     {
       "teamName": "팀인천",
       "winscore": 4,
       "losescore": 2,
       "maindistrict": "인천",
-      "members": ["김인천", "박송도", "이구월", "최부평"]
+      "members": [
+        "김인천",
+        "박송도",
+        "이구월",
+        "최부평"
+      ]
+    }
+  ],
+  "myCalendar": [
+    {
+      "title": "송도에서 매치",
+      "start": "2023-11-25",
+      "end": "2023-11-26"
+    },
+    {
+      "title": "송도에서 매치",
+      "start": "2023-11-25",
+      "end": "2023-11-26"
     }
   ],
   "user": {
