@@ -27,8 +27,9 @@ Done:
 <준우>
 
 Doing: 오류수정
-Todo: ''
--
+Todo:
+- 커뮤니티 검색 컴포넌트 따로 만들기
+
 Done:
 - 피그마로 만든 틀, 스크롤바 css 구현
 - 메인 페이지(매칭 찾기(postlist, item, insert)) 제작
