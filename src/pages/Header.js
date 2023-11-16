@@ -2,15 +2,17 @@ import React from 'react';
 import {  } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import logoImg from "../img/logo.png";
+import logoImg from "../img/logo2.png";
 import Search_modal from '../components/Search_modal';
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 530px;
+  width: 430px;
   margin: 0 auto;
+  align-items: center;
+  
   .logo {
-    margin: 34px 0 34px 16px;
+    margin: 20px 0 34px 0px;
   }
   .search {
     margin: 34px 16px 34px 0;

@@ -11,8 +11,7 @@ const NavListWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  &:hover {
-  }
+
 :nth-child(1) {
     width: 86px;
     height: 88px;
@@ -23,8 +22,8 @@ const NavListWrapper = styled.div`
     }
   }
   .NavImg1 {
-    background-color: #BEEFFF;
-    border: 2px solid #9b9b9b;
+    border: 2px solid #4610C0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
   }
 `;
 
@@ -41,8 +40,10 @@ align-items: center;
 font-weight: bold;
 font-size: 14px;
 cursor: pointer;
+
 &:hover {
-  border: 3px solid #4610C0;
+  border: 2px solid #4610C0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 .NavImg {
