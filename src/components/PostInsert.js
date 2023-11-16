@@ -9,7 +9,7 @@ import { getDate } from 'date-fns';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, redirect, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const PostInsertWrapper = styled.div`
@@ -72,6 +72,12 @@ const TitleContentDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    transition: 0.3s;
+  }
+
+  .title:focus {
+    border: 1px solid #4610C0;
+    
   }
 
   .content {
@@ -82,8 +88,14 @@ const TitleContentDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    transition: 0.3s;
+  }
+
+  .content:focus {
+    border: 1px solid #4610C0;
   }
 `;
+
 const DistrictDateDiv = styled.div`
   width: 100%;
   display: flex;
@@ -98,7 +110,13 @@ const DistrictDateDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    transition: 0.3s;
   }
+
+  .district:focus {
+    border: 1px solid #4610C0;
+  }
+
   .date {
     width: 220px;
     padding: 10px;
@@ -107,16 +125,21 @@ const DistrictDateDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    transition: 0.3s;
+  }
+
+  .date:focus{
+    border: 1px solid #4610C0;
   }
 `;
+
 const GenderJoinPersonnelGameDiv = styled.div`
   width: 100%;
   display: flex;
   gap: 11px; 
   align-items: center;
   justify-content: space-between;
-  .디브 {
-  }
+
 
   .gender {
     width: 140px;
@@ -126,7 +149,14 @@ const GenderJoinPersonnelGameDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    transition: 0.3s;
   }
+
+  .gender:focus {
+    border: 1px solid #4610C0;
+  }
+
+
   .joinpersonnel {
     width: 140px;
     padding: 10px;
@@ -135,7 +165,13 @@ const GenderJoinPersonnelGameDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    transition: 0.3s;
   }
+
+  .joinpersonnel:focus {
+    border: 1px solid #4610C0;
+  }
+
   .game {
     width: 140px;
     padding: 10px;
@@ -144,11 +180,50 @@ const GenderJoinPersonnelGameDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    transition: 0.3s;
   }
-`;
 
-const Buttons = styled(Button)`
+  .game:focus {
+    border: 1px solid #4610C0;
+  }
+
+
+  
+  `;
+
+const SaveButton = styled.button`
   background-color: #4610C0;
+  width: 450px;
+  height: 47px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 18px;
+  transition: 0.3s;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  
+  &:hover {
+    background: #36009C;
+  }
+`
+
+const CancelButton = styled.button`
+  background-color: #E9E9E9;
+  width: 450px;
+  height: 47px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  color: #1C1B1F;
+  font-size: 18px;
+  transition: 0.3s;
+
+  &:hover {
+    background: #CECECE;
+  }
+
 `
 
 
@@ -293,18 +368,8 @@ function PostInsert(props) {
           onChange={contentChange}
         />
 
-        <Buttons>
-          <Stack gap={2} className="col-md-5 mx-auto">
-            <Button
-              variant="secondary"
-              onClick={handlePushPost}
-              >Save changes</Button>
-            <Button 
-              variant="outline-secondary"
-              onClick={() => navigate('/')}
-            >Cancel</Button>
-          </Stack>
-        </Buttons>
+          <SaveButton onClick={handlePushPost} >매칭 등록하기</SaveButton>        
+          <CancelButton onClick={() => navigate('/')}>취소하기</CancelButton>        
       </TitleContentDiv>
     </PostInsertWrapper>
   );
