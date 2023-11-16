@@ -16,10 +16,12 @@ const PostDetailWrapper = styled.div`
 .top-box{
   width: 490px;
   margin: 0 auto;
+  margin-top: 30px;
   border: 1px solid #e9e9e9;
   border-radius: 7px;
   margin-top: 20px;
   padding: 20px ;
+
 }
 
 .date {
@@ -56,10 +58,10 @@ const PostDetailWrapper = styled.div`
   height: auto;
   margin: 0 auto;
   background-color: #36009C;
-  border: 1px solid #e9e9e9;
   border-radius: 7px;
   margin-top: 20px;
   padding: 20px ;
+
 }
 
 .title2 {

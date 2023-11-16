@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import KakaoLogin from '../components/KakaoLogin';
-import logoImg from "../img/logo.png";
+import logoImg from "../img/logo2.png";
 
 // kakao
 
@@ -23,6 +23,8 @@ const SignArea = styled.div`
   gap: 10px;
 
   button {
+    width: 200px;
+    height: 30px;
     margin-top: 20px;
     border: none;
     background: #4610C0;
@@ -33,29 +35,37 @@ const SignArea = styled.div`
     border: 1px solid #4610C0;
     cursor: pointer;
   }
+
   button:hover {
     background: #fff;
     color: #4610C0;
     border: 1px solid #4610C0;
   }
   button + button {
-    margin: 10px 0;
+    margin: 2px 0;
   }
 
   input {
-    border-radius: 10px;
-    border: 1px solid #ccc;
+    width: 300px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
     transition: 0.3s;
   }
+
   input:focus {
     outline: none;
     border: 1px solid #4610C0;
-    background: #d8d1e8;
   }
 `;
 
 const LogoImg = styled.img`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  margin-left: 5px;
+  width: 200px;
 `;
 
 

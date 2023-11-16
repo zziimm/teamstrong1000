@@ -149,6 +149,7 @@ const GenderJoinPersonnelGameDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    cursor: pointer;
     transition: 0.3s;
   }
 
@@ -165,6 +166,7 @@ const GenderJoinPersonnelGameDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    cursor: pointer;
     transition: 0.3s;
   }
 
@@ -181,6 +183,7 @@ const GenderJoinPersonnelGameDiv = styled.div`
     border-radius: 7px;
     outline: none;
     transition: 0.3s;
+    cursor: pointer;
   }
 
   .game:focus {
@@ -226,7 +229,6 @@ const CancelButton = styled.button`
   &:hover {
     background: #CECECE;
     box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-
   }
 
 `
