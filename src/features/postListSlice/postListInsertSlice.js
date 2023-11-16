@@ -12,8 +12,6 @@ const postListInsertSlice = createSlice({
 
     getAllInsert: (state, action) => {
       state.postInsert.push(action.payload);
-      console.log(state.postInsert);
-      console.log(action.payload);
     },
     getAllUserPostList: (state, action) => { // 더미데이터
       state.postInsert = action.payload;
@@ -22,13 +20,11 @@ const postListInsertSlice = createSlice({
       state.postInsert.sort((a, b) => new Date(a.selectDate) - new Date(b.selectDate))
     },
     getSelectPost: (state, action) => {
-      console.log(action.payload);
       state.selectPost = action.payload
     },
     clearSelectedPost: (state) => {
       state.selectPost = null;
     },
-
   }
 
 })
