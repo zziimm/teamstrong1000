@@ -9,69 +9,238 @@ import { getDate } from 'date-fns';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, redirect, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const PostInsertWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
-  display: flex;
-  flex-flow: column;
 
-  input, select {
-    height: 55px;
-    background-color: beige;
-    margin-bottom: 30px;
-    border: none;
-    font-size: 20px;
+  * {
+    color: #1c1b1f;
+  }
+  
+
+  .매칭찾기 {
+    margin: 44px 0 14px 37px;
+    color: #1c1b1f;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+  hr {
+    margin: 0 37px;
+    border: 1px solid #4610C0;
+    margin-bottom: 34px;
+  }
+
+  span {
+    color: #4610C0;
+    font-weight: 800;
+  }
+
+  select {
+    display: block;
+  }
+
+  .선택 {
+    font-size: 12px;
+    color: #4610C0
   }
 
 
-  .datePicker {   // 라이브러리 css
-  display: flex;
-  align-items: center;
-  border: 1px solid GRAY;
-  border-radius: 15px;
-  background-color: black;
-  box-sizing: border-box;
+  
+`;
+const TitleContentDiv = styled.div`
   width: 100%;
-  height: 46px;
-  color: WHITE;
-  text-align: center;
-  padding-right: 14px;
-  outline: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0 37px;
 
-  &:focus {
-    border: 2px solid ORANGE;
+  label {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
   }
-}
-  .calenderWrapper {
-  background-color: orange;
-}
-.react-datepicker__time-list-item {
-  color: orange;
+
+  .title {
+    width: 100%;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .title:focus {
+    border: 1px solid #4610C0;
+    
+  }
+
+  .content {
+    width: 100%;
+    padding: 10px;
+    height: 150px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .content:focus {
+    border: 1px solid #4610C0;
+  }
+`;
+
+const DistrictDateDiv = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+
+  .district {
+    width: 220px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .district:focus {
+    border: 1px solid #4610C0;
+  }
+
+  .date {
+    width: 220px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .date:focus{
+    border: 1px solid #4610C0;
+  }
+`;
+
+const GenderJoinPersonnelGameDiv = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 11px; 
+  align-items: center;
+  justify-content: space-between;
+
+
+  .gender {
+    width: 140px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .gender:focus {
+    border: 1px solid #4610C0;
+  }
+
+
+  .joinpersonnel {
+    width: 140px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .joinpersonnel:focus {
+    border: 1px solid #4610C0;
+  }
+
+  .game {
+    width: 140px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .game:focus {
+    border: 1px solid #4610C0;
+  }
+
+
+  
+  `;
+
+const SaveButton = styled.button`
+  background-color: #4610C0;
+  width: 450px;
+  height: 47px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 18px;
+  transition: 0.3s;
+  margin-top: 20px;
+  margin-bottom: 10px;
   
   &:hover {
-    color: purple;
-    background-color: aqua;
+    background: #36009C;
   }
-}
-`;
+`
+
+const CancelButton = styled.button`
+  background-color: #E9E9E9;
+  width: 450px;
+  height: 47px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  color: #1C1B1F;
+  font-size: 18px;
+  transition: 0.3s;
+
+  &:hover {
+    background: #CECECE;
+  }
+
+`
 
 
-const inputStyle = styled.div`
-  display: flex;
-`;
+
+
+
+
+
 
 
 function PostInsert(props) {
-  const [title, setTitle] = useState('제목입력');
-  const [content, setContent] = useState('내용입력')
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('')
   const [district, setDistrict] = useState('');
   const [selectDate, setSelectDate] = useState(new Date().toISOString().slice(0, 16))
   const [gender, setGender] = useState('남')
-  const [joinPersonnel, setJoinPersonnel] = useState('1')
+  const [joinPersonnel, setJoinPersonnel] = useState('2')
   const [game, setGame] = useState('단식')
   const [selectedDate, setSelectedDate] = useState(new Date());
   
@@ -102,109 +271,106 @@ function PostInsert(props) {
   };
   return (
     <PostInsertWrapper>
-      <label htmlFor='1'>제목</label>
-      <input
-        id='1'
-        type='text'
-        value={title}
-        onChange={titleChange}
+        <div className='매칭찾기'>매칭찾기</div>
+        <hr/>
+      <TitleContentDiv>
+        <label htmlFor='1' className='제목'>제목을 입력해 주세요<span>*</span></label>
+        <input
+          className='title'
+          id='1'
+          type='text'
+          placeholder='제목을 입력해 주세요.'
+          value={title}
+          onChange={titleChange}
+          />
+
+        <DistrictDateDiv>
+          <div>
+            <label htmlFor='3'>장소<span>*</span></label>
+            <select
+              className='district'
+              id='3'
+              value={district}
+              onChange={districtChange}
+            >
+              <option value={'1'}>서울</option>
+              <option value={'2'}>경기</option>
+              <option value={'3'}>인천</option>
+            </select>
+          </div>
+
+
+          <div>
+            <label htmlFor='4'>날짜/시간<span>*</span></label>
+            <input
+              className='date'
+              id='4'
+              type='date'
+              value={selectDate}
+              onChange={selectDateChange}
+            />
+          </div>
+        </DistrictDateDiv>
+       
+
+        <GenderJoinPersonnelGameDiv>
+        <div>
+            <label htmlFor='7'>경기 방식<span>*</span></label>
+            <select
+                className='game'
+                id='7'
+                value={game}
+                onChange={gameChange}
+              >
+                <option value={'단식'}>단식</option>
+                <option value={'복식'}>복식</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor='6'>참여 인원<span>*</span></label>
+            <select
+                className='joinpersonnel'
+                id='6'
+                value={joinPersonnel}
+                onChange={joinPersonnelChange}
+              >
+              <option value={'2'}>2</option>
+              <option value={'3'}>3</option>
+              <option value={'4'}>4</option>
+              <option value={'5'}>5</option>
+              <option value={'6'}>6</option>
+              <option value={'7'}>7</option>
+              <option value={'8'}>8</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor='5'>성별<span className='선택'>(선택)</span></label>
+            <select
+              className='gender'
+              id='5'
+              value={gender}
+              onChange={genderChange}
+            >
+              <option value={'남'}>남</option>
+              <option value={'여'}>여</option>
+            </select>
+          </div>
+        </GenderJoinPersonnelGameDiv>
+
+        <label htmlFor='2'>일정 소개를 입력해 주세요<span>*</span></label>
+        <textarea 
+          className='content'
+          placeholder='일정 소개를 입력해 주세요.'
+          id='2'
+          value={content}
+          onChange={contentChange}
         />
 
-      <label htmlFor='2'>내용</label>
-      <input 
-        id='2'
-        type='text'
-        value={content}
-        onChange={contentChange}
-      />
-
-      <label htmlFor='3'>장소</label>   {/* 장소 api */}
-      <input 
-        id='3'
-        type='text'
-        placeholder='맵 api 생기면 수정~~~~~~~~~~~~~~~'
-        value={district}
-        onChange={districtChange}
-      />
-      <label htmlFor='4'>날짜/시간</label>
-      <input
-        id='4'
-        type='date'
-        value={selectDate}
-        onChange={selectDateChange}
-      />
-
-      <label htmlFor='5'>성별</label>
-      <select
-        id='5'
-        value={gender}
-        onChange={genderChange}
-      >
-        <option value={'남'}>남</option>
-        <option value={'여'}>여</option>
-      </select>
-
-      <label htmlFor='6'>참여 인원</label>
-      <select
-          id='6'
-          value={joinPersonnel}
-          onChange={joinPersonnelChange}
-        >
-        <option value={'1'}>1</option>
-        <option value={'2'}>2</option>
-        <option value={'3'}>3</option>
-        <option value={'4'}>4</option>
-        <option value={'5'}>5</option>
-        <option value={'6'}>6</option>
-        <option value={'7'}>7</option>
-        <option value={'8'}>8</option>
-      </select>
-
-      <label htmlFor='7'>경기 방식</label>
-      <select
-          id='7'
-          value={game}
-          onChange={gameChange}
-        >
-          <option value={'단식'}>단식</option>
-          <option value={'복식'}>복식</option>
-      </select>
-
-      <Stack gap={2} className="col-md-5 mx-auto">
-        <Button
-          variant="secondary"
-          onClick={handlePushPost}
-        //   onClick={() => {dispatch(getAllInsert({
-        //   title:title,
-        //   content:content,
-        //   selectDate:selectDate,
-        //   gender:gender,
-        //   joinPersonnel:joinPersonnel,
-        //   game:game
-        // }))}}
-          >Save changes</Button>
-        <Button 
-          variant="outline-secondary"
-          onClick={() => navigate('/')}
-        >Cancel</Button>
-      </Stack>
-
-                  {/* <DatePicker 
-                  className='datePicker'
-                  calendarClassName='calenderWrapper'
-                  dayClassName={(d) => (d.getDate() === !selectedDate.getDate() ? '.selectedDay' : '.unselectedDay')}
-                  dateFormat="yyyy/MM/dd h:mm aa" // 날짜 형태
-                  showTimeSelect // 시간 나오게 하기
-                  timeFormat="HH:mm" //시간 포맷 
-                  timeIntervals={30} // 15분 단위로 선택 가능한 box가 나옴
-                  timeCaption="time"
-                  shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
-                  minDate={new Date()} // minDate 이전 날짜 선택 불가
-                  maxDate={new Date('2050-01-01')} // maxDate 이후 날짜 선택 불가
-                  selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  /> */}
-
+          <SaveButton onClick={handlePushPost} >매칭 등록하기</SaveButton>        
+          <CancelButton onClick={() => navigate('/')}>취소하기</CancelButton>        
+      </TitleContentDiv>
     </PostInsertWrapper>
   );
 }

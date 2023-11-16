@@ -15,6 +15,7 @@ const CommunityInsertWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow-y: hidden;
   .titleContentDiv {
     width: 95%;
     height: 800px;
@@ -34,6 +35,9 @@ const CommunityInsertWrapper = styled.div`
   }
   .imgup {
     width: 100%;
+  }
+  button:last-child {
+    margin-bottom: 90px;
   }
 `;
 
