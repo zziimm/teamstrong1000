@@ -26,7 +26,7 @@ Done:
 
 <준우>
 
-Doing: ''
+Doing: 오류수정
 Todo: ''
 -
 Done:
