@@ -5,7 +5,7 @@ import PostList from './PostList';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { getAllUserInfo } from '../features/useinfo/userInfoSlice';
+import { getAllTeamInfo, getAllUserInfo } from '../features/useinfo/userInfoSlice';
 import { getAllUserPostList } from '../features/postListSlice/postListInsertSlice';
 
 const MainWrapper = styled.div`
@@ -28,6 +28,11 @@ function MainPage(props) {
         console.error(error);
       });
   },[]);
+  useEffect(() => {
+    axios.get(`http://localhost:3000/team`)
+      .then(response => dispatch(getAllTeamInfo(response.data)))
+      .catch(error => console.error(error))
+  }, [])
 
   return (
     <MainWrapper>

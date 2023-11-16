@@ -30,11 +30,13 @@ const SignArea = styled.div`
     padding: 5px 10px;
     border-radius: 15px;
     transition: 0.3s;
+    border: 1px solid #4610C0;
     cursor: pointer;
   }
   button:hover {
     background: #fff;
     color: #4610C0;
+    border: 1px solid #4610C0;
   }
   button + button {
     margin: 10px 0;

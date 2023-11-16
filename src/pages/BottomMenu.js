@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from "styled-components";
-import { MdDensityMedium, MdCalendarMonth, MdPerson } from "react-icons/md";
+import { MdDensityMedium, MdCalendarMonth, MdPerson, MdGroups } from "react-icons/md";
 import { Outlet, useNavigate } from 'react-router-dom';
 
 
@@ -49,6 +49,10 @@ function BottomMenu(props) {
         <ButtonStyle onClick={() => navigate('/myCalendar')}>
           <MdCalendarMonth />
           내일정
+        </ButtonStyle>
+        <ButtonStyle onClick={() => navigate('/club')}>
+          <MdGroups />
+          클럽
         </ButtonStyle>
         <ButtonStyle onClick={() => navigate('/login')}>
           <MdPerson />

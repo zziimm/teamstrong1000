@@ -17,6 +17,8 @@ import PostDetail from "./pages/PostDetail";
 import CommunityInsert from "./pages/CommunityInsert";
 import Map from "./pages/Map";
 import Ranking from "./pages/Ranking";
+import Club from "./pages/Club";
+import ClubInsert from "./pages/ClubInsert";
 
 
 
@@ -86,6 +88,8 @@ function App() {
             <Route path="/" element={<MainPage />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/myCalendar" element={<MyCalendar />}/>
+            <Route path="/club" element={<Club />} />
+            <Route path="/clubInsert" element={<ClubInsert />} />
             <Route path="/signUp" element={<SignUp />}/>
             <Route path="/postInsert" element={<PostInsert />}/>
             <Route path="/postInsert" element={<PostInsert />}/>
