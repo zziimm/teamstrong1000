@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userInfo: []
+  userInfo: [],
+  teamInfo: null,
+  firstTeam: null,
 }
 const userInfoSlice = createSlice({
   name: 'user',
@@ -22,17 +24,23 @@ const userInfoSlice = createSlice({
       }
     },
     pushUserInfo: (state, action) => {
-      console.log(action.payload);
       state.userInfo.push(action.payload)
-      console.log(state.userInfo);
+    },
+    getAllTeamInfo: (state, action) => {
+      const sortscore = action.payload.sort((a, b) => {
+        return (b.winscore / (b.winscore + b.losescore)) - (a.winscore / (a.winscore + a.losescore))
+      })
+      state.teamInfo = sortscore;
+      console.log(action.payload);
     },
 
 
   }
 });
 
-export const { getUserInfo, getAllUserInfo, pushUserInfo } = userInfoSlice.actions;
+export const { getUserInfo, getAllUserInfo, pushUserInfo, getAllTeamInfo } = userInfoSlice.actions;
 
 export const selectUserList = state => state.userInfo.userInfo;
+export const getTeamInfo = state => state.userInfo.teamInfo;
 
 export default userInfoSlice.reducer;
