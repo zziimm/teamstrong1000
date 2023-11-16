@@ -66,7 +66,7 @@ function ModalBasic(props) {
 
   const [searchValue, setSearchValue] = useState('');
   const searchList = useSelector(userPostList);
-  const fit = searchList.filter((item) =>
+  const searchFilter = searchList.filter((item) =>
     item.title.toLowerCase().includes(searchValue) ||
     item.game.toLowerCase().includes(searchValue) ||
     item.id.toLowerCase().includes(searchValue) ||
@@ -101,7 +101,7 @@ function ModalBasic(props) {
         <Xbutton onClick={closeModal}>취소</Xbutton>
       </Box>
       {<div className='aaa'>
-        {searchValue ? fit.map((item) => {
+        {searchValue ? searchFilter.map((item) => {
           return <PostListItem
             key={item.id}
             id={item.id}
