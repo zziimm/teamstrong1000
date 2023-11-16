@@ -16,82 +16,148 @@ const PostInsertWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  padding-top: 100px;
-  justify-content: center;
-  flex-direction: column;
-  span {
-    color: red;
+
+  * {
+    color: #1c1b1f;
   }
+  
+
+  .매칭찾기 {
+    margin: 44px 0 14px 37px;
+    color: #1c1b1f;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+  hr {
+    margin: 0 37px;
+    border: 1px solid #4610C0;
+    margin-bottom: 34px;
+  }
+
+  span {
+    color: #4610C0;
+    font-weight: 800;
+  }
+
+  select {
+    display: block;
+  }
+
   .선택 {
     font-size: 12px;
-    color: gray;
+    color: #4610C0
   }
-  * {
-    border-radius: 7px;
-  }
+
+
+  
 `;
 const TitleContentDiv = styled.div`
-  width: 95%;
-  height: 350px;
-  background-color: aliceblue;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  margin-bottom: 30px;
-  .title {
-    width: 90%;
-    height: 45px;
-    margin-bottom: 15px;
-  }
-  .content {
-    width: 90%;
-    height: 190px;
-  }
+  padding: 0 37px;
+
   label {
-    position: relative;
-    right: 185px;
-    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    width: 100%;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+  }
+
+  .content {
+    width: 100%;
+    padding: 10px;
+    height: 150px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
   }
 `;
 const DistrictDateDiv = styled.div`
-  width: 95%;
-  height: 80px;
-  background-color: aliceblue;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  gap: 11px;
   align-items: center;
-  margin-bottom: 30px;
+
   .district {
-    height: 35px;
-    margin-right: 25px;
+    width: 220px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
   }
   .date {
-    height: 35px;
+    width: 220px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
   }
 `;
 const GenderJoinPersonnelGameDiv = styled.div`
-  width: 95%;
-  height: 80px;
-  background-color: aliceblue;
+  width: 100%;
   display: flex;
-  margin-bottom: 100px;
-  justify-content: center;
+  gap: 11px; 
   align-items: center;
+  justify-content: space-between;
+  .디브 {
+  }
+
   .gender {
-    height: 35px;
-    margin-right: 25px;
+    width: 140px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
   }
   .joinpersonnel {
-    height: 35px;
-    margin-right: 25px;
+    width: 140px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
   }
   .game {
-    height: 35px;
+    width: 140px;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
   }
 `;
+
+const Buttons = styled(Button)`
+  background-color: #4610C0;
+`
+
+
+
+
+
+
+
+
 
 function PostInsert(props) {
   const [title, setTitle] = useState('');
@@ -130,125 +196,116 @@ function PostInsert(props) {
   };
   return (
     <PostInsertWrapper>
+        <div className='매칭찾기'>매칭찾기</div>
+        <hr/>
       <TitleContentDiv>
-        <label htmlFor='1'>제목 입력<span>*</span></label>
+        <label htmlFor='1' className='제목'>제목을 입력해 주세요<span>*</span></label>
         <input
           className='title'
           id='1'
           type='text'
-          placeholder='제목을 입력하세요.'
+          placeholder='제목을 입력해 주세요.'
           value={title}
           onChange={titleChange}
           />
 
-        <label htmlFor='2'>내용 입력<span>*</span></label>
+        <DistrictDateDiv>
+          <div>
+            <label htmlFor='3'>장소<span>*</span></label>
+            <select
+              className='district'
+              id='3'
+              value={district}
+              onChange={districtChange}
+            >
+              <option value={'1'}>서울</option>
+              <option value={'2'}>경기</option>
+              <option value={'3'}>인천</option>
+            </select>
+          </div>
+
+
+          <div>
+            <label htmlFor='4'>날짜/시간<span>*</span></label>
+            <input
+              className='date'
+              id='4'
+              type='date'
+              value={selectDate}
+              onChange={selectDateChange}
+            />
+          </div>
+        </DistrictDateDiv>
+       
+
+        <GenderJoinPersonnelGameDiv>
+        <div>
+            <label htmlFor='7'>경기 방식<span>*</span></label>
+            <select
+                className='game'
+                id='7'
+                value={game}
+                onChange={gameChange}
+              >
+                <option value={'단식'}>단식</option>
+                <option value={'복식'}>복식</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor='6'>참여 인원<span>*</span></label>
+            <select
+                className='joinpersonnel'
+                id='6'
+                value={joinPersonnel}
+                onChange={joinPersonnelChange}
+              >
+              <option value={'2'}>2</option>
+              <option value={'3'}>3</option>
+              <option value={'4'}>4</option>
+              <option value={'5'}>5</option>
+              <option value={'6'}>6</option>
+              <option value={'7'}>7</option>
+              <option value={'8'}>8</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor='5'>성별<span className='선택'>(선택)</span></label>
+            <select
+              className='gender'
+              id='5'
+              value={gender}
+              onChange={genderChange}
+            >
+              <option value={'남'}>남</option>
+              <option value={'여'}>여</option>
+            </select>
+          </div>
+        </GenderJoinPersonnelGameDiv>
+
+        <label htmlFor='2'>일정 소개를 입력해 주세요<span>*</span></label>
         <textarea 
           className='content'
-          placeholder='내용을 입력하세요.'
+          placeholder='일정 소개를 입력해 주세요.'
           id='2'
           value={content}
           onChange={contentChange}
         />
+
+        <Buttons>
+          <Stack gap={2} className="col-md-5 mx-auto">
+            <Button
+              variant="secondary"
+              onClick={handlePushPost}
+              >Save changes</Button>
+            <Button 
+              variant="outline-secondary"
+              onClick={() => navigate('/')}
+            >Cancel</Button>
+          </Stack>
+        </Buttons>
       </TitleContentDiv>
-
-      <DistrictDateDiv>
-        <label htmlFor='3'>장소<span>*</span> : &nbsp;</label>
-        <select
-          className='district'
-          id='3'
-          value={district}
-          onChange={districtChange}
-        >
-          <option value={'1'}>서울</option>
-          <option value={'2'}>경기</option>
-          <option value={'3'}>인천</option>
-        </select>
-
-        <label htmlFor='4'>날짜/시간<span>*</span> : &nbsp;</label>
-        <input
-          className='date'
-          id='4'
-          type='date'
-          value={selectDate}
-          onChange={selectDateChange}
-        />
-      </DistrictDateDiv>
-
-      <GenderJoinPersonnelGameDiv>
-        <label htmlFor='5'>성별<span className='선택'>(선택)</span> : &nbsp;</label>
-        <select
-          className='gender'
-          id='5'
-          value={gender}
-          onChange={genderChange}
-        >
-          <option value={'남'}>남</option>
-          <option value={'여'}>여</option>
-        </select>
-
-        <label htmlFor='6'>참여 인원<span>*</span> : &nbsp;</label>
-        <select
-            className='joinpersonnel'
-            id='6'
-            value={joinPersonnel}
-            onChange={joinPersonnelChange}
-          >
-          <option value={'2'}>2</option>
-          <option value={'3'}>3</option>
-          <option value={'4'}>4</option>
-          <option value={'5'}>5</option>
-          <option value={'6'}>6</option>
-          <option value={'7'}>7</option>
-          <option value={'8'}>8</option>
-        </select>
-
-        <label htmlFor='7'>경기 방식<span>*</span> : &nbsp;</label>
-        <select
-            className='game'
-            id='7'
-            value={game}
-            onChange={gameChange}
-          >
-            <option value={'단식'}>단식</option>
-            <option value={'복식'}>복식</option>
-        </select>
-      </GenderJoinPersonnelGameDiv>
-
-      <Stack gap={2} className="col-md-5 mx-auto">
-        <Button
-          variant="secondary"
-          onClick={handlePushPost}
-        //   onClick={() => {dispatch(getAllInsert({
-        //   title:title,
-        //   content:content,
-        //   selectDate:selectDate,
-        //   gender:gender,
-        //   joinPersonnel:joinPersonnel,
-        //   game:game
-        // }))}}
-          >Save changes</Button>
-        <Button 
-          variant="outline-secondary"
-          onClick={() => navigate('/')}
-        >Cancel</Button>
-      </Stack>
-
-                  {/* <DatePicker 
-                  className='datePicker'
-                  calendarClassName='calenderWrapper'
-                  dayClassName={(d) => (d.getDate() === !selectedDate.getDate() ? '.selectedDay' : '.unselectedDay')}
-                  dateFormat="yyyy/MM/dd h:mm aa" // 날짜 형태
-                  showTimeSelect // 시간 나오게 하기
-                  timeFormat="HH:mm" //시간 포맷 
-                  timeIntervals={30} // 15분 단위로 선택 가능한 box가 나옴
-                  timeCaption="time"
-                  shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
-                  minDate={new Date()} // minDate 이전 날짜 선택 불가
-                  maxDate={new Date('2050-01-01')} // maxDate 이후 날짜 선택 불가
-                  selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  /> */}
-
     </PostInsertWrapper>
   );
 }
