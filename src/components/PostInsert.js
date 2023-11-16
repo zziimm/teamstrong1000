@@ -203,9 +203,12 @@ const SaveButton = styled.button`
   transition: 0.3s;
   margin-top: 20px;
   margin-bottom: 10px;
+
   
   &:hover {
     background: #36009C;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+
   }
 `
 
@@ -222,6 +225,8 @@ const CancelButton = styled.button`
 
   &:hover {
     background: #CECECE;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+
   }
 
 `
