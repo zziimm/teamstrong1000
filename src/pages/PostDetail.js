@@ -66,7 +66,6 @@ function PostDetail(props) {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const selectPost = useSelector(selectedPost);
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchUserId = async () => {
       try {
