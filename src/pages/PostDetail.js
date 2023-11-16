@@ -57,10 +57,12 @@ const PostDetailWrapper = styled.div`
   width: 490px;
   height: auto;
   margin: 0 auto;
-  background-color: #36009C;
+  background-color: #fff;
   border-radius: 7px;
   margin-top: 20px;
   padding: 20px ;
+  margin-bottom: 20px;
+  border: 1px solid #e9e9e9;
 
 }
 
@@ -68,7 +70,7 @@ const PostDetailWrapper = styled.div`
   font-size: 22px;
   font-weight: 900;
   margin-bottom: 30px;
-  color: #fff;
+  color: #36009C;
 }
 
 .innerBox {
@@ -81,14 +83,14 @@ const PostDetailWrapper = styled.div`
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 15px;
-  color: #fff;
+  color: #36009C;
 }
 
 .innerBoxContent2 {
   margin-left: 10px;
   flex: 1;
   height: 30px;
-  background-color: #8760FF;
+  background-color: #B197FF;
   font-size: 16px;
   line-height: 30px;
   padding-left: 15px;
@@ -102,9 +104,32 @@ const PostDetailWrapper = styled.div`
   gap: 20px;
 }
 
-
-
 `;
+
+
+
+const Button = styled.button`
+  padding: 0.1px;
+  background-color: #4610C0;
+  width: 450px;
+  height: 47px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  color: #fff;
+  transition: 0.3s;
+  margin-left: 37px;
+  font-weight: 700;
+
+  &:hover {
+    background: #36009C;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+  }
+`
+
+
+
 
 function PostDetail(props) {
   const dispatch = useDispatch();
@@ -170,8 +195,10 @@ function PostDetail(props) {
             <div className='innerBoxContent2'>{gender}</div>
           </div>
         </div>
-
       </div>
+
+      <Button>참여하기</Button>
+
     </PostDetailWrapper>
   );
 }
