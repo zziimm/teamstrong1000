@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getSelectPost, selectedPost } from '../features/postListSlice/postListInsertSlice';
+import { clearSelectedPost, getSelectPost, selectedPost } from '../features/postListSlice/postListInsertSlice';
 
 const PostDetailWrapper = styled.div`
   background-color: #fff;
@@ -60,7 +60,6 @@ const PostDetailWrapper = styled.div`
   margin-top: 20px;
   padding: 20px ;
 }
-
 `;
 
 function PostDetail(props) {
@@ -70,22 +69,34 @@ function PostDetail(props) {
   useEffect(() => {
     const fetchUserId = async () => {
       try {
+        // const response = await axios.get(`https://my-json-server.typicode.com/zziimm/db-user/userPostList/${userId}`)
         const response = await axios.get(`http://localhost:3000/userPostList/${userId}`)
-        console.log(response.data);
         dispatch(getSelectPost(response.data))
       } catch (error) {
         console.error(error);
       }
     };
     fetchUserId();
+    return () => dispatch(clearSelectedPost());
   }, []);
 
-  const {title, content, district, game, gender, id, joinPersonnel, selectDate} = selectPost
+  if (!selectPost) {
+    return null;
+  }
 
-  console.log(selectPost);
+  const { selectDate, title, district, game, joinPersonnel, content } = selectPost;
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/userPostList/${userId}`)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       dispatch(getSelectPost(response.data))
+  //     })
+  //     .catch(error => console.error(error))
+  // }, []);
+
   return (
     <PostDetailWrapper>
-      <div className='top-box'>
+      <div className='top-box'> 
         <div className='date'>{selectDate}</div>
         <div className='title'>{title}</div>
         {/* <div>innerBox */}
@@ -99,8 +110,9 @@ function PostDetail(props) {
           <div className='innerBoxContent'>{joinPersonnel}</div>
           <div className='innerBoxTitle'>일정 소개</div>
           <div className='innerBoxContent'>{content}</div>
-        {/* </div>innerBox */}
+        {/* {/* </div>innerBox */}
       </div>
+
       
       <div className='bottom-box'>
 
