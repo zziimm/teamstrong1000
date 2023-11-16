@@ -21,13 +21,20 @@ const PostInsertWrapper = styled.div`
   padding-top: 100px;
   justify-content: center;
   flex-direction: column;
+  span {
+    color: red;
+  }
+  .선택 {
+    font-size: 12px;
+    color: gray;
+  }
   * {
     border-radius: 7px;
   }
 `;
 const TitleContentDiv = styled.div`
   width: 95%;
-  height: 270px;
+  height: 350px;
   background-color: aliceblue;
   display: flex;
   justify-content: center;
@@ -42,6 +49,11 @@ const TitleContentDiv = styled.div`
   .content {
     width: 90%;
     height: 190px;
+  }
+  label {
+    position: relative;
+    right: 185px;
+    margin-bottom: 8px;
   }
 `;
 const DistrictDateDiv = styled.div`
@@ -82,12 +94,12 @@ const GenderJoinPersonnelGameDiv = styled.div`
 `;
 
 function PostInsert(props) {
-  const [title, setTitle] = useState('제목입력');
-  const [content, setContent] = useState('내용입력')
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('')
   const [district, setDistrict] = useState('');
   const [selectDate, setSelectDate] = useState(new Date().toISOString().slice(0, 16))
   const [gender, setGender] = useState('남')
-  const [joinPersonnel, setJoinPersonnel] = useState('1')
+  const [joinPersonnel, setJoinPersonnel] = useState('2')
   const [game, setGame] = useState('단식')
   const [selectedDate, setSelectedDate] = useState(new Date());
   
@@ -119,7 +131,7 @@ function PostInsert(props) {
   return (
     <PostInsertWrapper>
       <TitleContentDiv>
-        <label htmlFor='1'></label>
+        <label htmlFor='1'>제목 입력<span>*</span></label>
         <input
           className='title'
           id='1'
@@ -129,7 +141,7 @@ function PostInsert(props) {
           onChange={titleChange}
           />
 
-        <label htmlFor='2'></label>
+        <label htmlFor='2'>내용 입력<span>*</span></label>
         <textarea 
           className='content'
           placeholder='내용을 입력하세요.'
@@ -140,7 +152,7 @@ function PostInsert(props) {
       </TitleContentDiv>
 
       <DistrictDateDiv>
-        <label htmlFor='3'>장소 : &nbsp;</label>
+        <label htmlFor='3'>장소<span>*</span> : &nbsp;</label>
         <select
           className='district'
           id='3'
@@ -152,7 +164,7 @@ function PostInsert(props) {
           <option value={'3'}>인천</option>
         </select>
 
-        <label htmlFor='4'>날짜/시간 : &nbsp;</label>
+        <label htmlFor='4'>날짜/시간<span>*</span> : &nbsp;</label>
         <input
           className='date'
           id='4'
@@ -163,7 +175,7 @@ function PostInsert(props) {
       </DistrictDateDiv>
 
       <GenderJoinPersonnelGameDiv>
-        <label htmlFor='5'>성별 : &nbsp;</label>
+        <label htmlFor='5'>성별<span className='선택'>(선택)</span> : &nbsp;</label>
         <select
           className='gender'
           id='5'
@@ -174,14 +186,13 @@ function PostInsert(props) {
           <option value={'여'}>여</option>
         </select>
 
-        <label htmlFor='6'>참여 인원 : &nbsp;</label>
+        <label htmlFor='6'>참여 인원<span>*</span> : &nbsp;</label>
         <select
             className='joinpersonnel'
             id='6'
             value={joinPersonnel}
             onChange={joinPersonnelChange}
           >
-          <option value={'1'}>1</option>
           <option value={'2'}>2</option>
           <option value={'3'}>3</option>
           <option value={'4'}>4</option>
@@ -191,7 +202,7 @@ function PostInsert(props) {
           <option value={'8'}>8</option>
         </select>
 
-        <label htmlFor='7'>경기 방식 : &nbsp;</label>
+        <label htmlFor='7'>경기 방식<span>*</span> : &nbsp;</label>
         <select
             className='game'
             id='7'
