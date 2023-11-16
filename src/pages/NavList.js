@@ -69,8 +69,10 @@ function NavList(props) {
         {<img className='NavImg' src={img2}/>} 민턴장 찾기
       </NavListItemWrapper>
 
-      <NavListItemWrapper>
-        {<img className='NavImg' src={img3}/>} 대회 정보
+      <NavListItemWrapper
+        onClick={() => navigate('/ranking')}
+      >
+        {<img className='NavImg' src={img3}/>} 명예의 전당
       </NavListItemWrapper>
 
       <NavListItemWrapper
