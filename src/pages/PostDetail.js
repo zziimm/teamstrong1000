@@ -53,6 +53,7 @@ const PostDetailWrapper = styled.div`
 
 .bottom-box{
   width: 490px;
+  height: auto;
   margin: 0 auto;
   background-color: #36009C;
   border: 1px solid #e9e9e9;
@@ -60,6 +61,47 @@ const PostDetailWrapper = styled.div`
   margin-top: 20px;
   padding: 20px ;
 }
+
+.title2 {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.innerBox {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.innerBoxTitle2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.innerBoxContent2 {
+  margin-left: 10px;
+  flex: 1;
+  height: 30px;
+  background-color: #8760FF;
+  font-size: 16px;
+  line-height: 30px;
+  padding-left: 15px;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.innerBigBox {
+  display: flex;
+  gap: 20px;
+}
+
+
+
 `;
 
 function PostDetail(props) {
@@ -84,7 +126,7 @@ function PostDetail(props) {
     return null;
   }
 
-  const { selectDate, title, district, game, joinPersonnel, content } = selectPost;
+  const { selectDate, title, district, game, joinPersonnel, content, id, gender} = selectPost;
   // useEffect(() => {
   //   axios.get(`http://localhost:3000/userPostList/${userId}`)
   //     .then((response) => {
@@ -115,6 +157,17 @@ function PostDetail(props) {
 
       
       <div className='bottom-box'>
+        <div className='title2'>주최좌 정보</div>
+        <div className='innerBigBox'>
+          <div className='innerBox'>
+            <div className='innerBoxTitle2'>닉네임</div>
+            <div className='innerBoxContent2'>{id}</div>
+          </div>
+          <div className='innerBox'>
+            <div className='innerBoxTitle2'>성별</div>
+            <div className='innerBoxContent2'>{gender}</div>
+          </div>
+        </div>
 
       </div>
     </PostDetailWrapper>
