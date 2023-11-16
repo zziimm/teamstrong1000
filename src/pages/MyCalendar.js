@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -6,6 +6,10 @@ import FullCalendar from '@fullcalendar/react';
 import styled from "styled-components";
 import { useState } from "react";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCalendarInfo, getMyCalendarInfo } from "../features/useinfo/userInfoSlice";
+import { useNavigate } from "react-router-dom";
 
 const CalendarWrapper = styled.div`
   width: 530px;
@@ -116,8 +120,21 @@ function MyCalendar(props) {
   const [inputStartDate, setInputStartDate] = useState('');
   const [inputEndDate, setInputEndDate] = useState('');
   const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const calendarList = useSelector(getMyCalendarInfo);
+  
+  useEffect(() => {
+    axios.get(`http://localhost:3000/myCalendar`)
+    .then(response => {
+      console.log(response.data);
+      dispatch(getAllCalendarInfo(response.data))
+    })
+    .catch(error => console.error(error))
+  }, [setInputEndDate]);
 
-
+  
+  
   const handletodo = (e) => {
     setTodo(e.target.value)
   };
@@ -134,7 +151,13 @@ function MyCalendar(props) {
   };
 
 
-  const handlePush = () => {
+  // const data = { title: todo, start: inputStartDate, end: inputEndDate }
+
+  // const handlePush = (data) => {
+  //   axios.post(`http://localhost:3000/myCalendar`, data)
+  //   setInputEndDate('')
+  // }
+  const handlePush = (list) => {
     const copyList = [...list]
     copyList.push({title: todo, start: inputStartDate, end: inputEndDate});
     
@@ -143,7 +166,9 @@ function MyCalendar(props) {
     setInputStartDate('')
     setInputEndDate('')
   }
-
+  if (!calendarList) {
+    return null;
+  }
 
   return (
     <>
@@ -156,12 +181,9 @@ function MyCalendar(props) {
           dateClick={() => {
             alert('클릭')
           }} 
-          eventClick={() => {
-            
-          }}
           height={'550px'}
           width={'500px'}
-          editable={true}
+          editable={false}
           locale='ko'
           googleCalendarApiKey="AIzaSyBKjGhLK_Xjl8DgqkIMLiWIzGdPrivNWM4"
           eventSources={[
@@ -173,12 +195,13 @@ function MyCalendar(props) {
           ]}
 
         />
+        
         <InputArea>
           <InputAreaDetail>
             <InputH4>
               추가할 일정
             </InputH4>
-            <input value={todo} onChange={handletodo}/>
+            <input type="text" value={todo} onChange={handletodo}/>
           </InputAreaDetail>
           <InputAreaDetail>
             <InputH4>
@@ -192,7 +215,7 @@ function MyCalendar(props) {
             </InputH4>
             <input type="date" value={inputEndDate} onChange={handleInputEndDate}/>
           </InputAreaDetail>
-          <button onClick={handlePush}>
+          <button onClick={() => handlePush(list)}>
             일정 추가하기
           </button>
         </InputArea>
