@@ -42,10 +42,14 @@ const CommunityCommentIsert = styled.form`
     flex: 1;
     margin-right: 5px;
     border-radius: 7px;
+    border: none;
   }
   button {
-    background-color: aquamarine;
+    background-color: #FF5959;
+    outline: none;
     height: 40px;
+    width: 80px;
+    border: none;
     border-radius: 7px;
   }
 `;
