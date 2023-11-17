@@ -177,7 +177,7 @@ function MyCalendar(props) {
           plugins={[dayGridPlugin, interactionPlugin, googleCalendarPlugin]}
           initialView="dayGridMonth"
           dayMaxEvents={true}
-          events={list}
+          events={calendarList}
           dateClick={() => {
             alert('클릭')
           }} 
