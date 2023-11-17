@@ -13,7 +13,7 @@ const SearchModalWrapper = styled.div`
   background-color: #370e97;
   width: 530px;
   min-height: 400px;
-  max-height: 900px;
+  max-height: 800px;
   border-radius: 20px;
   padding: 0.1px;
   position: absolute;
