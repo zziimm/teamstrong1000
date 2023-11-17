@@ -12,14 +12,14 @@ import CommunityListItem from './CommunityListItem';
 const SearchModalWrapper = styled.div`
   background-color: #370e97;
   width: 530px;
-  min-height: 30%;
-  max-height: 75%;
+  min-height: 400px;
+  max-height: 900px;
   border-radius: 20px;
   padding: 0.1px;
   position: absolute;
   top: 70px;
-  right: 450px;
-  opacity: 0.95;
+  right: -48px;
+  opacity: 0.98;
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 1px 1px 1px 1px #000;
@@ -31,11 +31,14 @@ const SearchModalWrapper = styled.div`
     align-items: center;
     margin: 35px 0;
     div {
-      background-color: #e9e9e9;
+      background-color: #fff;
       border: 1px solid #000;
+      .sc-jrsKJM.bKDgIy {
+        background-color: pink;
+      }
     }
   }
-`
+`;
 const Box = styled.div`
   margin: 0 auto;
   width: 400px;
@@ -43,7 +46,7 @@ const Box = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 100px;
-`
+`;
 const InputBox = styled.input`
   background: none;
   border: 1px solid #fff;
@@ -52,7 +55,7 @@ const InputBox = styled.input`
   flex: 1;
   padding: 12px;
   color: #fff;
-`
+`;
 const Xbutton = styled.button`
   background: none;
   color: #fff;
@@ -60,23 +63,23 @@ const Xbutton = styled.button`
   font-weight: 700;
   font-size: 16px;
   margin-left: 10px;
-`
+`;
 
 function ModalBasic(props) {
   const { setModalOpen } = props;
   const dispatch = useDispatch();
 
   const [searchValue, setSearchValue] = useState('');
-  const searchList = useSelector(userPostList); // 포스트
-  const serrchCom = useSelector(userCommunityList); // 커뮤니티
+  const searchList = useSelector(userPostList);
+  const serrchCom = useSelector(userCommunityList);
 
-  const searchFilter = searchList.filter((item) => // 포스트필터
+  const searchFilter = searchList.filter((item) =>
     item.title.toLowerCase().includes(searchValue) ||
     item.game.toLowerCase().includes(searchValue) ||
     item.id.toLowerCase().includes(searchValue) ||
     item.district.toLowerCase().includes(searchValue)
   );
-  const serrchComFilter = serrchCom.filter((itemCom) => // 커뮤니티 필터
+  const serrchComFilter = serrchCom.filter((itemCom) =>
     itemCom.id.toLowerCase().includes(searchValue) ||
     itemCom.content.toLowerCase().includes(searchValue)
   );

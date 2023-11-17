@@ -88,7 +88,7 @@ function CommunityListItem(props) {
   const [comment, setComment] = useState(true);
   const [like, setLike] = useState(7);
   
-  const aaa = new Date(2023, 8, 5)
+  const aaa = new Date(2023, 7, 5)
   function elapsedTime(date) {
     const start = new Date(date);
     const end = new Date();
@@ -125,9 +125,7 @@ function CommunityListItem(props) {
   
   const navigate = useNavigate();
   return (
-      <CommunityListItemWrapper
-      onClick={() => { navigate('/community') }}
-      >
+      <CommunityListItemWrapper>
         {<div className='div-between'>
           <span className='id'>{props.id}</span>
           <span className='date'>{aaa.getFullYear()}/{(aaa.getMonth() + 1)}/{aaa.getDate()}</span>

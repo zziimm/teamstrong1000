@@ -13,7 +13,7 @@ function Map() {
         style={{
           position: 'relative',
           width: '530px',
-          height: '1080px',
+          height: '100vh',
         }}
       >
         <MapSetting />

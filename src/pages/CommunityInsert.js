@@ -1,7 +1,5 @@
 import React, { useRef } from 'react';
 import { useState } from 'react';
-import { Button, Stack } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getAllCommunityInsert } from '../features/communityListSlice/communityListSlice';
@@ -12,26 +10,67 @@ const CommunityInsertWrapper = styled.div`
   width: 530px;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   overflow-y: hidden;
+  * {
+    color: #1c1b1f;
+  }
+  .커뮤니티글쓰기 {
+    width: 100%;
+    margin: 44px 0 15px;
+    color: #1c1b1f;
+    font-size: 24px;
+    font-weight: 800;
+    padding: 0 37px;
+  }
+  hr {
+    width: 450px;
+    margin: 0 37px;
+    margin-bottom: 15px;
+    border: 1px solid #4610C0;
+  }
+  span {
+    color: #4610C0;
+  }
   .titleContentDiv {
-    width: 95%;
-    height: 800px;
+    width: 100%;
+    height: 600px;
     display: flex;
     flex-direction: column;
+    padding: 0 37px;
     margin: 15px 0;
+  }
+  label {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
   }
   .title {
     width: 100%;
     height: 50px;
-    margin-bottom: 10px;
+    margin-bottom: 24px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.3s;
+    &:focus {
+    border: 1px solid #4610C0;
+    }
   }
   .content {
     width: 100%;
-    height: 700px;
+    height: 400px;
     margin-bottom: 10px;
+    border: 1px solid #E9E9E9;
+    border-radius: 7px;
+    resize: none;
+    outline: none;
+    transition: 0.3s;
+    &:focus {
+    border: 1px solid #4610C0;
+    }
   }
   .imgup {
     width: 100%;
@@ -41,10 +80,48 @@ const CommunityInsertWrapper = styled.div`
   }
 `;
 
+const SaveButton = styled.button`
+  background-color: #4610C0;
+  width: 450px;
+  height: 47px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 18px;
+  transition: 0.3s;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  
+  &:hover {
+    background: #36009C;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+
+  }
+`
+
+const CancelButton = styled.button`
+  background-color: #E9E9E9;
+  width: 450px;
+  height: 47px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  color: #1C1B1F;
+  font-size: 18px;
+  transition: 0.3s;
+
+  &:hover {
+    background: #CECECE;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+  }
+
+`
+
 function CommunityInsert(props) {
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [insertTitle, setInsertTitle] = useState('');
   const [insertContent, setInsertContent] = useState('');
@@ -53,7 +130,6 @@ function CommunityInsert(props) {
 
   const changeTitle = (e) => setInsertTitle(e.target.value)
   const changeContent = (e) => setInsertContent(e.target.value)
-  const changeImgUp = (e) => setInsertImgUp(e.target.value)
 
   const imgRef = useRef();
   const saveImgFile = () => {
@@ -72,27 +148,34 @@ function CommunityInsert(props) {
   }
   const handlePushCommunity = () => {
     axios.post(`http://localhost:3000/userCummunityList`, communityInput)
-    alert('게시글이 작성되었습니다!')
     navigate('/community')
   };
 
   return (
     <CommunityInsertWrapper>
+      <div className='커뮤니티글쓰기'><div>커뮤니티 글쓰기</div></div>
+      <hr/>
       {<div className='titleContentDiv'>
+        <label htmlFor='1'>제목입력<span>*</span></label>
         {<input
+          id='1'
           className='title'
           type='text'
           placeholder='아이디입력'
           value={insertTitle}
           onChange={changeTitle}
           />}
+        <label htmlFor='2'>내용 입력<span>*</span></label>
         {<textarea 
+          id='2'
           className='content'
           placeholder='내용 입력'
           value={insertContent}
           onChange={changeContent}
         />}
+        <label htmlFor='3' />
         {<input 
+          id='3'
           className='imgup'
           type='file'
           accept='image/*'
@@ -101,28 +184,12 @@ function CommunityInsert(props) {
         />}
       </div>}
 
-      <Stack gap={2} className="col-md-5 mx-auto">
-        <Button
-          variant="secondary"
-          onClick={handlePushCommunity}
-          // onClick={() => {
-          //   dispatch(getAllCommunityInsert({
-          //     title:insertTitle,
-          //     content:insertContent,
-          //     imagePath:insertImgUp
-          //   })); 
-          //   navigate('/community')}}
-          >Save changes</Button>
-        <Button 
-          variant="outline-secondary"
-          onClick={() => navigate('/community')}
-        >Cancel</Button>
-      </Stack>
-
-
+          <SaveButton onClick={() => {handlePushCommunity(); alert('게시글이 작성되었습니다!')}}>게시글 추가하기</SaveButton>
+          <CancelButton onClick={() => {navigate('/community')}}>취소하기</CancelButton>
 
     </CommunityInsertWrapper>
   );
 }
 
 export default CommunityInsert;
+
