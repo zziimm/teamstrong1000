@@ -29,7 +29,7 @@ function CommunityCommentListItem(props) {
   return (
     <CommunityCommentListItemWrapper>
         {<span className='a'>{props.text}</span>}
-        {<span className='b'>작성자:GONI</span>}
+        {<span className='b'>작성자:junwoo</span>}
     </CommunityCommentListItemWrapper>
   );
 }
