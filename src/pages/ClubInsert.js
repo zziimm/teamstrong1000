@@ -4,23 +4,27 @@ import styled from 'styled-components';
 import logoImg from "../img/logo2.png";
 
 
-const HeaderWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 430px;
-  margin: 0 auto;
-  align-items: center;
-  
-  .logo {
-    margin: 20px 0 34px 0px;
-  }
-`;
 
 const ClubInsertWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
   color: #1c1b1f;
+
+    .매칭찾기 {
+    margin: 44px 0 14px 37px;
+    color: #1c1b1f;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+  hr {
+    margin: 0 37px;
+    border: 1px solid #4610C0;
+  }
+
+  
+  
 
   h1 {
     font-size: 35px;
@@ -109,10 +113,9 @@ function ClubInsert(props) {
   const navigate = useNavigate();
   return (
       <ClubInsertWrapper>
-        <HeaderWrapper>
-          <div className='logo' href='#'><img src={logoImg} /></div>
-        </HeaderWrapper>
-        <h1>클럽 개설하기</h1>
+
+<div className='매칭찾기'>클럽 개설하기</div>
+      <hr/>
         <InputWrapper>
           <h2>클럽명</h2>
           <InputBox />

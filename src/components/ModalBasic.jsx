@@ -33,9 +33,6 @@ const SearchModalWrapper = styled.div`
     div {
       background-color: #fff;
       border: 1px solid #000;
-      .sc-jrsKJM.bKDgIy {
-        background-color: pink;
-      }
     }
   }
 `;

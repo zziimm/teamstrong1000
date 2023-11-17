@@ -38,18 +38,15 @@ img {
   margin: 10px;
 }
 .id {
-  color: #000;
+  color: #4610C0;
+  font-weight: 800;
   font-size: 18px;
 }
 .date {
   color: #9b9b9b;
   font-size: 14px;
 }
-.title {
-  color: #000;
-  font-size: 18px;
-  margin-left: 10px;  
-}
+
 .콘텐츠줄임표 {
   font-size: 18px;
   overflow: hidden;
@@ -58,6 +55,7 @@ img {
   -webkit-line-clamp: 2;
   flex: 4;
 }
+
 .말줄임표없을때 {
   font-size: 18px;
   flex: 4;

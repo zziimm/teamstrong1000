@@ -12,9 +12,7 @@ const CommunityCommentListItemWrapper = styled.div`
   align-items: center;
   padding: 0 10px;
   border-radius: 7px;
-  & +& {
-    margin-bottom: 7px;
-  }
+  margin: 7px 0;
     .a {
       flex: 1;
       display: block;
