@@ -50,7 +50,8 @@ const SignArea = styled.div`
     padding: 10px;
     height: 45px;
     margin-bottom: 30px;
-    border: 1px solid #E9E9E9;
+    border: none;
+    border-bottom: 1px solid #4610C0;
     border-radius: 7px;
     outline: none;
     transition: 0.3s;
@@ -58,7 +59,6 @@ const SignArea = styled.div`
 
   input:focus {
     outline: none;
-    border: 1px solid #4610C0;
   }
 `;
 
@@ -121,8 +121,8 @@ function Login(props) {
   return (
     <SignArea>
       <LogoImg src={logoImg}/>
-      아이디<input type='text' value={inputUserId} onChange={handleInputUserId} />
-      비밀번호<input type='password' value={inputUserPass} onChange={handleInputUserPass} />
+      <input type='text' value={inputUserId} onChange={handleInputUserId} placeholder='아이디'/>
+      <input type='password' value={inputUserPass} onChange={handleInputUserPass} placeholder='비밀번호'/>
       
       <button onClick={handLogin}>
         로그인
