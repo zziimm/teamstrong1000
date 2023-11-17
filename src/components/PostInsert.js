@@ -16,54 +16,43 @@ const PostInsertWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
-
   * {
     color: #1c1b1f;
   }
-  
-
   .매칭찾기 {
     margin: 44px 0 14px 37px;
     color: #1c1b1f;
     font-size: 24px;
     font-weight: 800;
   }
-  
   hr {
     margin: 0 37px;
     border: 1px solid #4610C0;
     margin-bottom: 34px;
   }
-
   span {
     color: #4610C0;
     font-weight: 800;
   }
-
   select {
     display: block;
   }
-
   .선택 {
     font-size: 12px;
     color: #4610C0
   }
-
-
-  
 `;
+
 const TitleContentDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0 37px;
-
   label {
     font-size: 18px;
     font-weight: 800;
     margin-bottom: 12px;
   }
-
   .title {
     width: 100%;
     padding: 10px;
@@ -74,12 +63,10 @@ const TitleContentDiv = styled.div`
     outline: none;
     transition: 0.3s;
   }
-
   .title:focus {
     border: 1px solid #4610C0;
     
   }
-
   .content {
     width: 100%;
     padding: 10px;
@@ -88,9 +75,9 @@ const TitleContentDiv = styled.div`
     border: 1px solid #E9E9E9;
     border-radius: 7px;
     outline: none;
+    resize: none;
     transition: 0.3s;
   }
-
   .content:focus {
     border: 1px solid #4610C0;
   }
@@ -101,7 +88,6 @@ const DistrictDateDiv = styled.div`
   display: flex;
   gap: 11px;
   align-items: center;
-
   .district {
     width: 220px;
     padding: 10px;
@@ -112,11 +98,9 @@ const DistrictDateDiv = styled.div`
     outline: none;
     transition: 0.3s;
   }
-
   .district:focus {
     border: 1px solid #4610C0;
   }
-
   .date {
     width: 220px;
     padding: 10px;
@@ -127,7 +111,6 @@ const DistrictDateDiv = styled.div`
     outline: none;
     transition: 0.3s;
   }
-
   .date:focus{
     border: 1px solid #4610C0;
   }
@@ -139,8 +122,6 @@ const GenderJoinPersonnelGameDiv = styled.div`
   gap: 11px; 
   align-items: center;
   justify-content: space-between;
-
-
   .gender {
     width: 140px;
     padding: 10px;
@@ -152,12 +133,9 @@ const GenderJoinPersonnelGameDiv = styled.div`
     cursor: pointer;
     transition: 0.3s;
   }
-
   .gender:focus {
     border: 1px solid #4610C0;
   }
-
-
   .joinpersonnel {
     width: 140px;
     padding: 10px;
@@ -169,11 +147,9 @@ const GenderJoinPersonnelGameDiv = styled.div`
     cursor: pointer;
     transition: 0.3s;
   }
-
   .joinpersonnel:focus {
     border: 1px solid #4610C0;
   }
-
   .game {
     width: 140px;
     padding: 10px;
@@ -185,13 +161,9 @@ const GenderJoinPersonnelGameDiv = styled.div`
     transition: 0.3s;
     cursor: pointer;
   }
-
   .game:focus {
     border: 1px solid #4610C0;
   }
-
-
-  
   `;
 
 const SaveButton = styled.button`
@@ -206,14 +178,11 @@ const SaveButton = styled.button`
   transition: 0.3s;
   margin-top: 20px;
   margin-bottom: 10px;
-
-  
   &:hover {
     background: #36009C;
     box-shadow: 0 0 10px rgba(0,0,0,0.5); 
-
   }
-`
+`;
 
 const CancelButton = styled.button`
   background-color: #E9E9E9;
@@ -225,21 +194,11 @@ const CancelButton = styled.button`
   color: #1C1B1F;
   font-size: 18px;
   transition: 0.3s;
-
   &:hover {
     background: #CECECE;
     box-shadow: 0 0 10px rgba(0,0,0,0.1); 
   }
-
-`
-
-
-
-
-
-
-
-
+`;
 
 function PostInsert(props) {
   const [title, setTitle] = useState('');
@@ -253,7 +212,6 @@ function PostInsert(props) {
   
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
   
   const titleChange = (e) => setTitle(e.target.value)
   const contentChange = (e) => setContent(e.target.value)
@@ -306,7 +264,6 @@ function PostInsert(props) {
             </select>
           </div>
 
-
           <div>
             <label htmlFor='4'>날짜/시간<span>*</span></label>
             <input
@@ -318,7 +275,6 @@ function PostInsert(props) {
             />
           </div>
         </DistrictDateDiv>
-       
 
         <GenderJoinPersonnelGameDiv>
         <div>
@@ -375,8 +331,8 @@ function PostInsert(props) {
           onChange={contentChange}
         />
 
-          <SaveButton onClick={handlePushPost} >매칭 등록하기</SaveButton>        
-          <CancelButton onClick={() => navigate('/')}>취소하기</CancelButton>        
+        <SaveButton onClick={handlePushPost} >매칭 등록하기</SaveButton>        
+        <CancelButton onClick={() => navigate('/')}>취소하기</CancelButton>        
       </TitleContentDiv>
     </PostInsertWrapper>
   );

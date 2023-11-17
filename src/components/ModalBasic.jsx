@@ -12,12 +12,13 @@ import CommunityListItem from './CommunityListItem';
 const SearchModalWrapper = styled.div`
   background-color: #370e97;
   width: 530px;
-  min-height: 30%;
-  max-height: 75%;
+  min-height: 400px;
+  max-height: 900px;
   border-radius: 20px;
   padding: 0.1px;
   position: absolute;
   top: 70px;
+  right: -48px;
   opacity: 0.95;
   overflow-y: auto;
   overflow-x: hidden;

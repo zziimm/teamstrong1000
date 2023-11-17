@@ -10,6 +10,7 @@ const HeaderWrapper = styled.div`
   width: 430px;
   margin: 0 auto;
   align-items: center;
+  position: relative;
   
   .logo {
     margin: 20px 0 34px 0px;
