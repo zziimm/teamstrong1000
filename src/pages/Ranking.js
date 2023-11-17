@@ -4,6 +4,8 @@ import Header from './Header';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTeamInfo, getTeamInfo } from '../features/useinfo/userInfoSlice';
+import logoImg from "../img/logo2.png";
+
 
 
 const RankingWrapper = styled.div`
@@ -142,6 +144,19 @@ const ThirdTeam = styled.div`
 }
 `;
 
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 430px;
+  margin: 0 auto;
+  align-items: center;
+  
+  .logo {
+    margin: 20px 0 34px 0px;
+  }
+`;
+
 const TeamList = styled.div`
   width: 457px;
   height: 70px;
@@ -166,12 +181,6 @@ const TeamList = styled.div`
     gap: 20px;
   }
 `;
-
-
-
-
-
-
 function Ranking(props) {
   const dispatch = useDispatch();
   const teamList = useSelector(getTeamInfo);
@@ -192,9 +201,13 @@ function Ranking(props) {
 
   return (
     <RankingWrapper>
+      <HeaderWrapper>
+        <div className='logo' href='#'><img src={logoImg} /></div>
+        <div />
+      </HeaderWrapper>
+      <h1>명예의 전당</h1>
       <div className='매칭찾기'>명예의 전당</div>
       <hr/>
-
       {teamList.map((team, index) => {
         return (
           index === 0

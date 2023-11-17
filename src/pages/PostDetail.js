@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { clearSelectedPost, getSelectPost, selectedPost } from '../features/postListSlice/postListInsertSlice';
+import { getMyCalendarInfo } from '../features/useinfo/userInfoSlice';
+import { hover } from '@testing-library/user-event/dist/hover';
 
 const PostDetailWrapper = styled.div`
   background-color: #fff;
@@ -120,12 +122,39 @@ const Button = styled.button`
   transition: 0.3s;
   margin-left: 37px;
   font-weight: 700;
+  
+  &.isJoined {
+    padding: 0.1px;
+    background-color: #FF5959;
+    width: 450px;
+    height: 47px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    color: #fff;
+    margin-left: 37px;
+    font-weight: 700;
+    &:hover {
+      background: #ff3636;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+    }
+  }
 
   &:hover {
     background: #36009C;
     box-shadow: 0 0 10px rgba(0,0,0,0.3); 
   }
-`
+  
+  ${props => props.$joinGame && css`
+    background: #FF5959;
+
+    &:hover {
+      background: #ff3636;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+    }
+  `}
+`;
 
 
 
@@ -135,6 +164,8 @@ function PostDetail(props) {
   const navigate = useNavigate();
   const { userId } = useParams();
   const selectPost = useSelector(selectedPost);
+  const joinedGame = useSelector(getMyCalendarInfo);
+  const [joinGame, setJoinGame] = useState(false);
   useEffect(() => {
     const fetchUserId = async () => {
       try {
@@ -154,12 +185,18 @@ function PostDetail(props) {
   }
 
   const { selectDate, title, district, game, joinPersonnel, content, id, gender} = selectPost;
-  console.log(selectPost);
+  console.log(joinedGame);
 
   const pushDate = (title, selectDate) => {
-    axios.post(`http://localhost:3000/myCalendar`, {title: title, start: selectDate});
-    alert('참가하기 완료! 일정이 추가되었습니다!')
-    navigate('/')
+    if (joinedGame.find(gameName => gameName.title === title)) {
+      alert('이미 참가한 게임입니다!')
+      return;
+    } else {
+      axios.post(`http://localhost:3000/myCalendar`, {title: title, start: selectDate});
+      setJoinGame(true)
+      alert('참가하기 완료! 일정이 추가되었습니다!')
+      // navigate('/')
+    }
   };
 
   return (
@@ -196,7 +233,10 @@ function PostDetail(props) {
         </div>
       </div>
 
-      <Button onClick={() => {pushDate(title, selectDate)}}>참여하기</Button>
+      { joinedGame.find(gameName => gameName.title === title)
+        ? <Button className='isJoined' disabled={true}>신청되었습니다.</Button>
+        : <Button $joinGame={joinGame} disabled={joinGame} onClick={() => {pushDate(title, selectDate)}}>{joinGame ? "신청되었습니다." : "참여하기"}</Button>
+      }
 
     </PostDetailWrapper>
   );

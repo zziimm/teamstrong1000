@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import CommunityList from '../components/CommunityList';
-import Search_modal from '../components/Search_modal';
-import Header from './Header';
+import logoImg from "../img/logo2.png";
+
 
 
 const CommunityWrapper = styled.div`
@@ -18,12 +18,26 @@ const CommunityWrapper = styled.div`
     margin: 0 0 30px 55px;
   }
 `;
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 430px;
+  margin: 0 auto;
+  align-items: center;
+  
+  .logo {
+    margin: 20px 0 34px 0px;
+  }
+`;
 
 
 function Community(props) {
   return (
     <CommunityWrapper>
-      <Header/>
+      <HeaderWrapper>
+        <div className='logo' href='#'><img src={logoImg} /></div>
+        <div />
+      </HeaderWrapper>
       <h1>커뮤니티</h1>
       <CommunityList />
     </CommunityWrapper>
