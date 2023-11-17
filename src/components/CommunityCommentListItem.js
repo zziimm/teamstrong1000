@@ -7,12 +7,14 @@ const CommunityCommentListItemWrapper = styled.div`
   font-size: 14px;
   background-color: #fff;
   color: #0b0b0b;
-  margin-bottom: 7px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
   border-radius: 7px;
+  & +& {
+    margin-top: 7px;
+  }
     .a {
       flex: 1;
       display: block;

@@ -31,7 +31,7 @@ const CommunityCommentWrapper = styled.div`
 const CommunityCommentList = styled.div`
   overflow-y: scroll;
 `;
-const CommunityCommentIsert = styled.div`
+const CommunityCommentIsert = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,23 +53,29 @@ function CommunityComment(props) {
   const [addComment, setAddComment] = useState();
   const [addCommentbtn, setAddCommentBtn] = useState([ 
     {
+      id:1,
       text:'더미 댓글입니다11'
     },
     {
+      id:2,
       text:'더미 댓글입니다22'
     },
   ]);
 
   const changeAddComment = (e) => setAddComment(e.target.value)
   const handleAddComment = () => {
-    addCommentbtn.push({
-      id:'',
-      text:addComment})
-    setAddComment('')
-    console.log(addCommentbtn);
-  }
-  return (
-    <CommunityCommentWrapper>
+    if (addComment) {
+      addCommentbtn.push({
+        id: "",
+        text:addComment})
+        setAddComment('')
+    } else {
+      alert("댓글 입력")
+    }
+      
+    }
+    return (
+      <CommunityCommentWrapper>
       <CommunityCommentList>
         {addCommentbtn.map((addCommentMap) => {
           return <CommunityCommentListItem
@@ -81,7 +87,7 @@ function CommunityComment(props) {
       </CommunityCommentList>
 
 
-      <CommunityCommentIsert>
+      <CommunityCommentIsert onSubmit={(e) => {handleAddComment(); e.preventDefault()}}>
         <input
           type='text'
           value={addComment}

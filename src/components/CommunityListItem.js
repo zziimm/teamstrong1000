@@ -125,9 +125,7 @@ function CommunityListItem(props) {
   
   const navigate = useNavigate();
   return (
-      <CommunityListItemWrapper
-      onClick={() => { navigate('/community') }}
-      >
+      <CommunityListItemWrapper>
         {<div className='div-between'>
           <span className='id'>{props.id}</span>
           <span className='date'>{aaa.getFullYear()}/{(aaa.getMonth() + 1)}/{aaa.getDate()}</span>
