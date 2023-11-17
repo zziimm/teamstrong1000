@@ -88,21 +88,35 @@ function SignUp(props) {
       navigate('/login')
     }
   };
-
+  console.log(userId.find(id => id.id === "지민"));
 
   return (
     <SignArea>
       아이디 <input type='text' value={inputUserId} onChange={handleInputUserId}/>
+      {
+        !(inputUserId !== '')
+        ? <span></span>
+        : userId.find(id => id.id === inputUserId)
+          ? <span>이미 가입된 아이디입니다.</span>
+          : <span>사용할 수 있는 아이디입니다.</span>
+      }
       비밀번호 <input type='password' value={inputUserPass} onChange={handleInputUserPass}/>
       비밀번호 확인<input type='password' value={inputUserPassCheck} onChange={handleInputUserPassCheck}/>
       {
         !(inputUserPass !== '')
         ? <span></span>
         : inputUserPass === inputUserPassCheck
-          ? <span>비밀번호가 일치합니다</span>
+          ? <span>비밀번호가 일치합니다.</span>
           : <span>비밀번호가 일치하지 않습니다.</span>
       }
       닉네임 <input type='text' value={inputUserNick} onChange={handleInputUserNick}/>
+      {
+        !(inputUserNick !== '')
+        ? <span></span>
+        : userId.find(id => id.nick === inputUserNick)
+          ? <span>이미 가입된 닉네임입니다.</span>
+          : <span>사용할 수 있는 닉네임입니다.</span>
+      }
       <button onClick={() => handlePushUserInfo(signUp)}>
         가입하기
       </button>

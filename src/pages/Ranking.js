@@ -4,6 +4,8 @@ import Header from './Header';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTeamInfo, getTeamInfo } from '../features/useinfo/userInfoSlice';
+import logoImg from "../img/logo2.png";
+
 
 const RankingWrapper = styled.div`
   background-color: #fff;
@@ -94,6 +96,18 @@ const ThirdTeam = styled.div`
   background-color: #743531;
 `;
 
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 430px;
+  margin: 0 auto;
+  align-items: center;
+  
+  .logo {
+    margin: 20px 0 34px 0px;
+  }
+`;
+
 function Ranking(props) {
   const dispatch = useDispatch();
   const teamList = useSelector(getTeamInfo);
@@ -114,7 +128,10 @@ function Ranking(props) {
 
   return (
     <RankingWrapper>
-      <Header />
+      <HeaderWrapper>
+        <div className='logo' href='#'><img src={logoImg} /></div>
+        <div />
+      </HeaderWrapper>
       <h1>명예의 전당</h1>
       {teamList.map((team, index) => {
         return (

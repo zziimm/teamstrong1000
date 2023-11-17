@@ -5,7 +5,7 @@ import PostList from './PostList';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { getAllTeamInfo, getAllUserInfo } from '../features/useinfo/userInfoSlice';
+import { getAllCalendarInfo, getAllTeamInfo, getAllUserInfo } from '../features/useinfo/userInfoSlice';
 import { getAllUserPostList } from '../features/postListSlice/postListInsertSlice';
 
 const MainWrapper = styled.div`
@@ -33,6 +33,13 @@ function MainPage(props) {
       .then(response => dispatch(getAllTeamInfo(response.data)))
       .catch(error => console.error(error))
   }, [])
+  useEffect(() => {
+    axios.get(`http://localhost:3000/myCalendar`)
+    .then(response => {
+      dispatch(getAllCalendarInfo(response.data))
+    })
+    .catch(error => console.error(error))
+  }, []);
 
   return (
     <MainWrapper>

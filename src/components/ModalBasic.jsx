@@ -17,6 +17,7 @@ const SearchModalWrapper = styled.div`
   padding: 0.1px;
   position: absolute;
   top: 70px;
+  right: 450px;
   opacity: 0.95;
   overflow-y: auto;
   overflow-x: hidden;

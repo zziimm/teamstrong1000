@@ -244,7 +244,7 @@ const CancelButton = styled.button`
 function PostInsert(props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('')
-  const [district, setDistrict] = useState('');
+  const [district, setDistrict] = useState('서울');
   const [selectDate, setSelectDate] = useState(new Date().toISOString().slice(0, 16))
   const [gender, setGender] = useState('남')
   const [joinPersonnel, setJoinPersonnel] = useState('2')
@@ -266,10 +266,12 @@ function PostInsert(props) {
   // 게시글: 타이틀, 날짜, 지역, 참여인원, 경기방식, 작성자
   const postInput = {
     title: title,
+    content: content,
     selectDate: selectDate,
     district: district,
     joinPersonnel: joinPersonnel,
     game: game,
+    gender: gender
   }
   const handlePushPost = () => {
     axios.post(`http://localhost:3000/userPostList`, postInput)
@@ -300,9 +302,9 @@ function PostInsert(props) {
               value={district}
               onChange={districtChange}
             >
-              <option value={'1'}>서울</option>
-              <option value={'2'}>경기</option>
-              <option value={'3'}>인천</option>
+              <option value={'서울'}>서울</option>
+              <option value={'경기'}>경기</option>
+              <option value={'인천'}>인천</option>
             </select>
           </div>
 

@@ -58,6 +58,15 @@ const CalendarWrapper = styled.div`
     background-color: #4610C0;
     color: #fff;
   }
+
+  .fc-day-sun div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner { background-color: #ffe5e3; }
+  .fc-day-sat div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner { background-color: #ffe5e3; }
+  td.fc-day.fc-day-sat.fc-day-future.fc-daygrid-day a{ color: red;}
+  td.fc-day.fc-day-sat.fc-day-past.fc-daygrid-day a{ color: red;}
+  td.fc-day.fc-day-sun.fc-day-future.fc-daygrid-day a{ color: red;}
+  td.fc-day.fc-day-sun.fc-day-past.fc-daygrid-day a{ color: red;}
+
+  
   `;
 
 const InputArea = styled.div`
@@ -151,7 +160,7 @@ function MyCalendar(props) {
   };
 
 
-  // const data = { title: todo, start: inputStartDate, end: inputEndDate }
+  const data = { title: todo, start: inputStartDate, end: inputEndDate, backgroundColor: "#008000" }
 
   // const handlePush = (data) => {
   //   axios.post(`http://localhost:3000/myCalendar`, data)
@@ -178,9 +187,6 @@ function MyCalendar(props) {
           initialView="dayGridMonth"
           dayMaxEvents={true}
           events={calendarList}
-          dateClick={() => {
-            alert('클릭')
-          }} 
           height={'550px'}
           width={'500px'}
           editable={false}
@@ -193,6 +199,19 @@ function MyCalendar(props) {
               textColor: 'white'
             }
           ]}
+          dayCellContent= {function (info) {
+            let number = document.createElement("a");
+            number.classList.add("fc-daygrid-day-number");
+            number.innerHTML = info.dayNumberText.replace("일", "");
+            if (info.view.type === "dayGridMonth") {
+              return {
+                html: number.outerHTML
+              };
+            }
+            return {
+              domNodes: []
+            }
+          }}
 
         />
         

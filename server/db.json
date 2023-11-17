@@ -150,30 +150,6 @@
       "joinPersonnel": "4",
       "game": "복식",
       "id": "hXwQdot"
-    },
-    {
-      "title": "제목입력",
-      "selectDate": "2023-11-15T11:19",
-      "district": "",
-      "joinPersonnel": "1",
-      "game": "단식",
-      "id": "tynnLvZ"
-    },
-    {
-      "title": "제목입력",
-      "selectDate": "2023-11-15T11:20",
-      "district": "",
-      "joinPersonnel": "1",
-      "game": "단식",
-      "id": "g-_WSdl"
-    },
-    {
-      "title": "제목입력",
-      "selectDate": "2023-11-15T12:31",
-      "district": "",
-      "joinPersonnel": "1",
-      "game": "단식",
-      "id": "2j87kdy"
     }
   ],
   "userCummunityList": [
@@ -279,9 +255,14 @@
       "id": 1
     },
     {
-      "title": "단식 연습 상대 구합니다!",
-      "start": "2023-11-20",
+      "title": "같이 칠사람 구합니다~~",
+      "start": "2023-12-08",
       "id": 2
+    },
+    {
+      "title": "12월에 배드민턴 치실분~",
+      "start": "2023-12-08",
+      "id": 3
     }
   ],
   "user": {

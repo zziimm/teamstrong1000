@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from './Header';
 import { useSelector } from 'react-redux';
 import { getTeamInfo } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router-dom';
+import logoImg from "../img/logo2.png";
+
 
 
 const ClubWrapper = styled.div`
@@ -116,13 +117,28 @@ const CommunityInsertBtn = styled.button`
   }
 `;
 
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 430px;
+  margin: 0 auto;
+  align-items: center;
+  
+  .logo {
+    margin: 20px 0 34px 0px;
+  }
+`;
+
 function Club(props) {
   const teamInfo = useSelector(getTeamInfo);
   const navigate = useNavigate();
   
   return (
     <ClubWrapper>
-      <Header />
+      <HeaderWrapper>
+        <div className='logo' href='#'><img src={logoImg} /></div>
+        <div />
+      </HeaderWrapper>
       <h1>클럽</h1>
       <h2>내 클럽</h2>
       {teamInfo.map((myTeam) => {
