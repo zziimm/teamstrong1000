@@ -12,61 +12,134 @@ const ClubWrapper = styled.div`
   height: 100vh;
   color: #1c1b1f;
 
-  h1 {
-    font-size: 35px;
-    font-weight: bold;
-    margin: 0 0 30px 55px;
+  .매칭찾기 {
+    margin: 44px 0 14px 37px;
+    color: #1c1b1f;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+  hr {
+    margin: 0 37px;
+    border: 1px solid #4610C0;
   }
 
-  h2 {
-    font-size: 25px;
-    font-weight: bold;
-    margin: 0 30px 20px;
-    margin-top: 40px;
+  .bigDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 37px;
   }
+  
+  .제목 {
+    margin-top: 34px;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  
+
 `;
 
 const MyClub = styled.div`
-  width: 480px;
-  margin: 0 auto;
-  border: 1px solid #e9e9e9;
+  width: 100%;
+  border: 2px solid #4610C0;
   border-radius: 7px;
   padding: 20px ;
-  cursor: pointer;
   line-height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+  .team {
+    font-size: 12px;
+    color: #fff;
+    width: 60px;
+    padding: 2px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 30px;
+    background-color: #4610C0;
+  }
 
   h4 {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+
   }
 
-  &:hover {
-    border: 1px solid #9b9b9b;
+  span {
+    font-weight: 900;
+  }
+  
+  .right {
+    padding-left: 60px;
+    border-left: 1px solid #E9E9E9;
+  }
+
+  .members {
+    margin-bottom: 8px;
+    margin-right: 30px;
+    background-color: #D9D9D9;
+    width: 120px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 30px;
   }
 `;
+
 const OtherClub = styled.div`
-  width: 480px;
-  margin: 0 auto;
-  border: 1px solid #e9e9e9;
+  width: 100%;
+  border: 1px solid #E9E9E9;
   border-radius: 7px;
   padding: 20px ;
-  cursor: pointer;
   line-height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+
+  .team {
+    font-size: 12px;
+    color: #fff;
+    width: 60px;
+    padding: 2px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 30px;
+    background-color: #000;
+  }
 
   h4 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+
   }
 
-  &:hover {
-    border: 1px solid #9b9b9b;
+  span {
+    font-weight: 900;
   }
-  & + & {
-    margin-top: 20px;
+
+    .right {
+    padding-left: 60px;
+    border-left: 1px solid #E9E9E9;
+  }
+
+  .members {
+    margin-bottom: 8px;
+    margin-right: 30px;
+    background-color: #D9D9D9;
+    width: 120px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 30px;
   }
 `;
+
 
 const CommunityInsertBtn = styled.button`
   position: relative;
@@ -122,33 +195,40 @@ function Club(props) {
   
   return (
     <ClubWrapper>
-      <Header />
-      <h1>클럽</h1>
-      <h2>내 클럽</h2>
+      <div className='매칭찾기'>클럽</div>
+      <hr/>
+
+      <div className='bigDiv'>
+        <p className='제목'>내가 속한 클럽</p>
       {teamInfo.map((myTeam) => {
         return (
           myTeam.teamName === 'Strong1000' &&
           <MyClub>
-            <h4>{myTeam.teamName}</h4>
-            <p>지역: {myTeam.maindistrict}</p>
-            <p>
-              팀원:
-              {myTeam.members.map(member => <span> {member} </span>)}
-            </p>
+            <div className='left'>
+              <div className='team'>TEAM</div>
+              <h4>{myTeam.teamName}</h4>
+              <p><span>지역 | </span>{myTeam.maindistrict}</p>
+            </div>
+            <div className='right'>
+            {myTeam.members.map(member => <div className='members'> {member} </div>)}
+            </div>
           </MyClub>
         )
       })}
-      <h2>이웃 클럽</h2>
+      <p className='제목'>이웃 클럽</p>
       {teamInfo.map((myTeam) => {
         return (
           !(myTeam.teamName === 'Strong1000') &&
           <OtherClub>
-            <h4>{myTeam.teamName}</h4>
-            <p>지역: {myTeam.maindistrict}</p>
-            <p>
-              팀원:
-              {myTeam.members.map(member => <span> {member} </span>)}
-            </p>
+            <div className='left'>
+            <div className='team'>TEAM</div>
+              <h4>{myTeam.teamName}</h4>
+              <p><span>지역 | </span>{myTeam.maindistrict}</p>
+            </div>
+
+            <div className='right'>
+            {myTeam.members.map(member => <div className='members'> {member} </div>)}
+            </div>
           </OtherClub>
         )
       })}
@@ -160,6 +240,7 @@ function Club(props) {
         +
         <span className='hoverText'>클럽 개설하기</span>
       </CommunityInsertBtn>
+      </div>
     </ClubWrapper>
   );
 }
