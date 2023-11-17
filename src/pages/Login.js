@@ -52,7 +52,6 @@ const SignArea = styled.div`
     margin-bottom: 30px;
     border: none;
     border-bottom: 1px solid #4610C0;
-    /* border: 1px solid #E9E9E9; */
     border-radius: 7px;
     outline: none;
     transition: 0.3s;
@@ -60,7 +59,6 @@ const SignArea = styled.div`
 
   input:focus {
     outline: none;
-    /* border: 2px solid #4610C0; */
   }
 `;
 
