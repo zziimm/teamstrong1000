@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { clearSelectedPost, getSelectPost, selectedPost } from '../features/postListSlice/postListInsertSlice';
 
@@ -132,6 +132,7 @@ const Button = styled.button`
 
 function PostDetail(props) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { userId } = useParams();
   const selectPost = useSelector(selectedPost);
   useEffect(() => {
@@ -153,14 +154,13 @@ function PostDetail(props) {
   }
 
   const { selectDate, title, district, game, joinPersonnel, content, id, gender} = selectPost;
-  // useEffect(() => {
-  //   axios.get(`http://localhost:3000/userPostList/${userId}`)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       dispatch(getSelectPost(response.data))
-  //     })
-  //     .catch(error => console.error(error))
-  // }, []);
+  console.log(selectPost);
+
+  const pushDate = (title, selectDate) => {
+    axios.post(`http://localhost:3000/myCalendar`, {title: title, start: selectDate});
+    alert('참가하기 완료! 일정이 추가되었습니다!')
+    navigate('/')
+  };
 
   return (
     <PostDetailWrapper>
@@ -196,7 +196,7 @@ function PostDetail(props) {
         </div>
       </div>
 
-      <Button>참여하기</Button>
+      <Button onClick={() => {pushDate(title, selectDate)}}>참여하기</Button>
 
     </PostDetailWrapper>
   );
