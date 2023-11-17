@@ -11,14 +11,12 @@ const PostListItemWrapper = styled.div`
   border-radius: 8px;
   text-align: left;
   padding: 9px;
+  margin: 18px 0;
   cursor: pointer;
   &:hover {
     border: 1px solid #9b9b9b;
   }
 
-& + & {
-  margin-top: 18px;
-}
 .title {
   display: block;
   font-size: 16px;
