@@ -13,14 +13,15 @@ const NavListWrapper = styled.div`
   text-align: center;
 
 :nth-child(1) {
-    width: 86px;
+    width: 88px;
     height: 88px;
     :nth-child(1) {
       width: 50px;
-      height: 37px;
+      height: 30px;
       margin-bottom: 4px;
     }
   }
+
   .NavImg1 {
     border: 2px solid #4610C0;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -40,6 +41,7 @@ align-items: center;
 font-weight: bold;
 font-size: 14px;
 cursor: pointer;
+transition: 0.1s;
 
 &:hover {
   border: 2px solid #4610C0;

@@ -42,21 +42,22 @@ const PostListWrapper = styled.div`
   width: 417px;
 `;
 const PostListBtn1 = styled.button`
-  width: 113px;
+  width: 120px;
   height: 24px;
   border-radius: 23px;
   background-color: #ff5959;
   color: #fff;
-  margin: 22px 15px 0 0;
+  margin: 22px 10px 0 0;
   border: none;
   cursor: pointer;
   font-size: 12px;
+  transition: 0.1s;
   &:hover {
-    background-color: #4610C0;
+    background-color: #E31E1E;
   }
 `;
 const PostListBtn2 = styled.button`
-  width: 80px;
+  width: 100px;
   height: 24px;
   border-radius: 23px;
   background-color: #ff5959;
@@ -65,8 +66,10 @@ const PostListBtn2 = styled.button`
   border: none;
   cursor: pointer;
   font-size: 12px;
+  transition: 0.1s;
+
   &:hover {
-    background-color: #4610C0;
+    background-color: #E31E1E;
   }
   ${props => props.$showModal && css`
     background-color: #4610C0;
