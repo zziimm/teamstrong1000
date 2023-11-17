@@ -107,7 +107,6 @@ const PostDetailWrapper = styled.div`
 `;
 
 
-
 const Button = styled.button`
   padding: 0.1px;
   background-color: #4610C0;
