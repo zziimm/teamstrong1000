@@ -14,7 +14,6 @@ const communityListSlice = createSlice({
     },
     getAllUserCommunityList: (state, action) => { // 더미데이터
       state.communityInsert = action.payload;
-      console.log(action.payload);
     },
     
   }

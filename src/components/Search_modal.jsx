@@ -30,6 +30,3 @@ function Search_modal(props) {
 }
 
 export default Search_modal;
-
-// 추후 검색 기능 제작 예정
-// https://velog.io/@jahommer/React-%EA%B2%80%EC%83%89%EC%B0%BD-%EB%A7%8C%EB%93%A4%EA%B8%B0

@@ -13,6 +13,7 @@ const HeaderWrapper = styled.div`
   
   .logo {
     margin: 20px 0 34px 0px;
+    cursor: pointer;
   }
   .search {
     margin: 34px 16px 34px 0;
@@ -20,13 +21,18 @@ const HeaderWrapper = styled.div`
 `;
 
 function Header(props) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <header>
       <HeaderWrapper>
-        <div className='logo' href='#'><img src={logoImg} /></div>
+        <div 
+          className='logo'
+          href='#'
+          onClick={() => {navigate('/')}}
+          >
+          <img src={logoImg} />
+        </div>
         <Search_modal />
-        {/* <div className='search'><img src={search}/></div> */}
       </HeaderWrapper>
     </header>
   );
