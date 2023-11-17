@@ -5,24 +5,37 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTeamInfo, getTeamInfo } from '../features/useinfo/userInfoSlice';
 
+
 const RankingWrapper = styled.div`
-  background-color: #fff;
+  background-color: #001a35;
   width: 530px;
   height: 100vh;
-  color: #1c1b1f;
+  background-image: url(/back.png);
+  background-size: cover;
+
+
+    .매칭찾기 {
+    margin: 44px 0 14px 37px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 800;
+  }
   
+  hr {
+    margin: 0 37px;
+    border: 1px solid #fff;
+    margin-bottom: 34px;
+  }
+
+
   div + div {
     margin-top: 10px;
   }
 
-  h1 {
-    font-size: 35px;
-    font-weight: bold;
-    margin: 0 0 30px 55px;
-  }
+
 
   &:nth-child(){
-    width: 450px;
+    width: 450px; 
     height: 120px;
     margin: 0 auto;
     border: 1px solid #e9e9e9;
@@ -57,42 +70,107 @@ const RankingWrapper = styled.div`
   }
 `;
 
-const TeamList = styled.div`
-  width: 450px;
-  height: 50px;
-  margin: 0 auto;
-  border: 1px solid #e9e9e9;
-  border-radius: 7px;
-  background-color: #c0c0c0;
 
-`;
 
 const FirstTeam = styled.div`
-  width: 450px;
-  height: 120px;
+  width: 457px;
+  height: 160px;
   margin: 0 auto;
-  border: 1px solid #e9e9e9;
-  border-radius: 7px;
-  background-color: #ffd700;
+  color: #fff;
+  border: none;
+  background-image: url(/gold.png);
+  background-size: cover;
+
+.inner {
+  font-size: 14px;
+  margin-left: 150px;
+  padding-top: 30px;
+  line-height: 22px;
+}
+
+
+.teamTitle {
+  font-size: 35px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
 `;
 
+
 const SecondTeam = styled.div`
-  width: 450px;
-  height: 80px;
+  width: 457px;
+  height: 140px;
   margin: 0 auto;
-  border: 1px solid #e9e9e9;
-  border-radius: 7px;
-  background-color: #c0c0c0;
+  background-image: url(/silver.png);
+  color: #fff;
+  
+.inner {
+  font-size: 14px;
+  margin-left: 150px;
+  padding-top: 30px;
+  line-height: 22px;
+}
+
+
+.teamTitle {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
 `;
 
 const ThirdTeam = styled.div`
-  width: 450px;
-  height: 70px;
+  width: 457px;
+  height: 110px;
   margin: 0 auto;
-  border: 1px solid #e9e9e9;
-  border-radius: 7px;
-  background-color: #743531;
+  background-image: url(/copper.png);
+  color: #fff;
+
+  .inner {
+  font-size: 14px;
+  margin-left: 150px;
+  padding-top: 20px;
+  line-height: 22px;
+}
+
+
+.teamTitle {
+  font-size: 25px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
 `;
+
+const TeamList = styled.div`
+  width: 457px;
+  height: 70px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border: 2px solid #003a76;
+  border-radius: 7px;
+  background-color: #000e1c;
+  color: #fff;
+  display: flex;
+  gap: 50px;
+  align-items: center;
+
+  .teamTitle{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+  }
+
+  .lastdiv {
+    display: flex;
+    gap: 20px;
+  }
+`;
+
+
+
+
+
 
 function Ranking(props) {
   const dispatch = useDispatch();
@@ -114,37 +192,47 @@ function Ranking(props) {
 
   return (
     <RankingWrapper>
-      <Header />
-      <h1>명예의 전당</h1>
+      <div className='매칭찾기'>명예의 전당</div>
+      <hr/>
+
       {teamList.map((team, index) => {
         return (
           index === 0
           ?
             <FirstTeam key={team.teamName}>
-              <p>{team.teamName}</p>
-              <p>승률: {Math.round(100 * (team.winscore / (team.winscore + team.losescore)))}%</p>
-              <p>{team.maindistrict}</p>
-              {team.members.map(member => <span>{member} </span>)}
+              <div className='inner'>
+                <p className='teamTitle'>{team.teamName}</p>
+                <p >승률 | {Math.round(100 * (team.winscore / (team.winscore + team.losescore)))}%</p>
+                <p >지역 | {team.maindistrict}</p>
+                {team.members.map(member => <span>{member} </span>)}
+              </div>
             </FirstTeam>
           : index === 1
             ?
               <SecondTeam key={team.teamName}>
-                  <p>{team.teamName}</p>
-                  <p>승률: {Math.round(100 * (team.winscore / (team.winscore + team.losescore)))}%</p>
-                  <p>{team.maindistrict}</p>
+              <div className='inner'>
+                  <p className='teamTitle'>{team.teamName}</p>
+                  <p >승률 | {Math.round(100 * (team.winscore / (team.winscore + team.losescore)))}%</p>
+                  <p className>지역 |{team.maindistrict}</p>
+              </div>
               </SecondTeam>
             : index === 2
               ?
+              
                 <ThirdTeam key={team.teamName}>
-                  <p>{team.teamName}</p>
-                  <p>승률: {Math.round(100 * (team.winscore / (team.winscore + team.losescore)))}%</p>
-                  <p>{team.maindistrict}</p>
+                  <div className='inner'>
+                    <p className='teamTitle'>{team.teamName}</p>
+                    <p>승률 | {Math.round(100 * (team.winscore / (team.winscore + team.losescore)))}%</p>
+                    <p>지역 |{team.maindistrict}</p>
+                  </div>
                 </ThirdTeam>
               :
                 <TeamList key={team.teamName}>
-                  <p>{team.teamName}</p>
-                  <p>승률: {Math.round(100 * (team.winscore / (team.winscore + team.losescore)))}%</p>
-                  <p>{team.maindistrict}</p>
+                  <p className='teamTitle'>{team.teamName}</p>
+                  <div className='lastdiv'>
+                    <p>승률 | {Math.round(100 * (team.winscore / (team.winscore + team.losescore)))}%</p>
+                    <p>지역 | {team.maindistrict}</p>
+                  </div>
                 </TeamList>
         )
       })}
