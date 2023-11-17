@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getAllUserPostList, postInsertList, searchList, userPostList } from '../features/postListSlice/postListInsertSlice';
+import { getAllUserPostList, userPostList } from '../features/postListSlice/postListInsertSlice';
 import PostListItem from './PostListItem';
+import { getAllUserCommunityList, userCommunityList } from '../features/communityListSlice/communityListSlice';
+import CommunityListItem from './CommunityListItem';
 
 
 // 검색창 스타일
@@ -66,12 +67,18 @@ function ModalBasic(props) {
   const dispatch = useDispatch();
 
   const [searchValue, setSearchValue] = useState('');
-  const searchList = useSelector(userPostList);
-  const searchFilter = searchList.filter((item) =>
+  const searchList = useSelector(userPostList); // 포스트
+  const serrchCom = useSelector(userCommunityList); // 커뮤니티
+
+  const searchFilter = searchList.filter((item) => // 포스트필터
     item.title.toLowerCase().includes(searchValue) ||
     item.game.toLowerCase().includes(searchValue) ||
     item.id.toLowerCase().includes(searchValue) ||
     item.district.toLowerCase().includes(searchValue)
+  );
+  const serrchComFilter = serrchCom.filter((itemCom) => // 커뮤니티 필터
+    itemCom.id.toLowerCase().includes(searchValue) ||
+    itemCom.content.toLowerCase().includes(searchValue)
   );
 
   useEffect(() => {
@@ -83,10 +90,20 @@ function ModalBasic(props) {
         console.error(error);
       })
   }, [])
+  useEffect(() => {
+    axios.get('http://localhost:3000/userCummunityList')
+      .then((res) => {
+        dispatch(getAllUserCommunityList(res.data))
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }, [])
 
   const closeModal = () => setModalOpen(false)
   const changeSearch = (e) => {
-    setSearchValue(e.target.value.toLowerCase())
+    setSearchValue(e.target.value.toLowerCase());
+
   }
 
   return (
@@ -101,6 +118,7 @@ function ModalBasic(props) {
         <style>{`::placeholder {color: #9B9B9B;}`}</style>
         <Xbutton onClick={closeModal}>취소</Xbutton>
       </Box>
+
       {<div className='aaa'>
         {searchValue ? searchFilter.map((item) => {
           return <PostListItem
@@ -115,7 +133,17 @@ function ModalBasic(props) {
             district={item.district}
           />
         }) : null}
+        {searchValue ? serrchComFilter.map((itemCom) => {
+          return <CommunityListItem
+            key={itemCom.id}
+            id={itemCom.id}
+            title={itemCom.title}
+            content={itemCom.content}
+            imagePath={itemCom.imagePath}
+          />
+        }) : null}
       </div>}
+
     </SearchModalWrapper>
   );
 }

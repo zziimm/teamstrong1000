@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import CommunityComment from './CommunityComment';
+import { useNavigate } from 'react-router-dom';
 
 const CommunityListItemWrapper = styled.div`
   box-sizing: border-box;
@@ -122,8 +123,11 @@ function CommunityListItem(props) {
     setLike(Number(`${iconRed ? like - 1 : like + 1}`))
   }
   
+  const navigate = useNavigate();
   return (
-      <CommunityListItemWrapper>
+      <CommunityListItemWrapper
+      onClick={() => { navigate('/community') }}
+      >
         {<div className='div-between'>
           <span className='id'>{props.id}</span>
           <span className='date'>{aaa.getFullYear()}/{(aaa.getMonth() + 1)}/{aaa.getDate()}</span>
