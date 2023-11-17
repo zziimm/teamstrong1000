@@ -160,6 +160,7 @@ function PostList(props) {
           gender={postInsertMap.gender}
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
+          district={postInsertMap.district}
         />
       })}
       {district2 && postInsert.map((postInsertMap) => {
@@ -172,6 +173,7 @@ function PostList(props) {
           gender={postInsertMap.gender}
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
+          district={postInsertMap.district}
         />
       })}
       {district3 && postInsert.map((postInsertMap) => {
@@ -184,6 +186,7 @@ function PostList(props) {
           gender={postInsertMap.gender}
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
+          district={postInsertMap.district}
         />
       })}
 
