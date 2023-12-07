@@ -147,7 +147,7 @@ function CommunityInsert(props) {
     imagePath: insertImgUp
   }
   const handlePushCommunity = () => {
-    axios.post(`http://localhost:3000/userCummunityList`, communityInput)
+    axios.post(`http://localhost:8088/communityInsert`, communityInput)
     navigate('/community')
   };
 

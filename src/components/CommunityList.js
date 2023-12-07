@@ -46,11 +46,13 @@ function CommunityList(props) {
   const navigate = useNavigate();
   
   useEffect(() => {
-    axios.get('http://localhost:3000/userCummunityList')
+    axios.get('http://localhost:8088/community')
     .then((response) => {
       dispatch(getAllUserCommunityList(response.data))
     })
   }, [])
+
+  
 
   const communityInsert = useSelector(userCommunityList);
   return (
