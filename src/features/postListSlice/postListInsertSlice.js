@@ -14,7 +14,7 @@ const postListInsertSlice = createSlice({
       state.postInsert.push(action.payload);
     },
     getAllUserPostList: (state, action) => { // 더미데이터
-      state.postInsert = action.payload;
+      state.postInsert = action.payload.data;
     },
     sortList: (state) => {
       state.postInsert.sort((a, b) => new Date(a.selectDate) - new Date(b.selectDate))

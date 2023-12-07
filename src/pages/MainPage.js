@@ -19,7 +19,7 @@ const MainWrapper = styled.div`
 function MainPage(props) {
   const dispatch = useDispatch();
   useEffect(() => {
-    axios.get('http://localhost:3000/userInfo')
+    axios.get(`${process.env.REACT_APP_ADDRESS}`)
       .then((reponse) => {
         console.log(reponse);
         dispatch(getAllUserInfo(reponse.data))

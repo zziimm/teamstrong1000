@@ -231,8 +231,8 @@ function PostInsert(props) {
     game: game,
     gender: gender
   }
-  const handlePushPost = () => {
-    axios.post(`http://localhost:3000/userPostList`, postInput)
+  const handlePushPost = async () => {
+    await axios.post(`${process.env.REACT_APP_ADDRESS}/matchingInsert`, postInput)
     alert('매칭 등록이 완료되었습니다!')
     navigate('/')
   };

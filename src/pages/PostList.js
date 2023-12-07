@@ -92,7 +92,7 @@ function PostList(props) {
 
   useEffect(() => {
     setLoading(true);
-    axios.get('http://localhost:3000/userPostList')
+    axios.get(`${process.env.REACT_APP_ADDRESS}`)
     .then((response) => {
       dispatch(getAllUserPostList(response.data))
     })
