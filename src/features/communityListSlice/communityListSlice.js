@@ -10,7 +10,7 @@ const communityListSlice = createSlice({
   reducers: {
 
     getAllCommunityInsert: (state, action) => {
-      state.communityInsert.push(action.payload);
+      state.communityInsert.push(action.payload.data);
     },
     getAllUserCommunityList: (state, action) => { // 더미데이터
       state.communityInsert = action.payload;

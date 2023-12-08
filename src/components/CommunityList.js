@@ -45,19 +45,31 @@ function CommunityList(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  useEffect(() => {
-    axios.get('http://localhost:8088/community')
-    .then((response) => {
-      dispatch(getAllUserCommunityList(response.data))
-    })
-  }, [])
+  // useEffect(() => {
+  //   axios.get('http://localhost:8088/community')
+  //   .then((response) => {
+  //     const a = dispatch(getAllUserCommunityList(response.data));
+  //     console.log(a);
+  //   });
+  // }, []);
+  useEffect(async () => {
+    try {
+      await axios.get('http://localhost:8088/community', (res) => { 
+        dispatch(getAllUserCommunityList(res.data));
+        console.log(res);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
 
   
 
   const communityInsert = useSelector(userCommunityList);
+  console.log(communityInsert);
   return (
     <CommunityListWrapper>
-      {communityInsert.map((CommunityInsertMap) => {
+      {communityInsert.data.map((CommunityInsertMap) => {
         return <CommunityListItem
           key={CommunityInsertMap.id}
           id={CommunityInsertMap.id}
