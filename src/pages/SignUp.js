@@ -60,9 +60,7 @@ function SignUp(props) {
   
 
 
-  const handleInputUserId = (e) => {
-    setInputUserId(e.target.value)
-  };
+  const handleInputUserId = (e) => {setInputUserId(e.target.value)};
   const handleInputUserPass = (e) => setInputUserPass(e.target.value);
   const handleInputUserPassCheck = (e) => {
     setInputUserPassCheck(e.target.value);
@@ -70,36 +68,46 @@ function SignUp(props) {
 
   const handleInputUserNick = (e) => setInputUserNick(e.target.value);
 
-  const handlePushUserInfo = (signUp) => {
-    console.log(signUp);
-    if (inputUserId === '') {
-      alert('ID를 입력해주세요!')
-    } else if (inputUserPass !== inputUserPassCheck) {
-      alert('비밀번호가 일치하지 않습니다!')
-    } else if (userId.find(id => id.id === inputUserId)) {
-      alert('이미 가입된 아이디 입니다!')
-    } else if (inputUserNick === '') {
-      alert('닉네임을 입력해주세요!')
-    } else if (userId.find(id => id.nick === inputUserNick)) {
-      alert('이미 존재하는 닉네임입니다!')
-    } else {
-      axios.post(`http://localhost:3000/userInfo`, signUp)
+
+  const handlePushUserInfo = async (signUp) => {
+    const result = await axios.post(`http://localhost:8088/register`, signUp)
+    if (result.data.flag === true) {
       alert('가입을 환영합니다! 로그인해주세요!')
       navigate('/login')
+    } else {
+      alert(`${result.data.message}`)
     }
+    console.log(result.data);
+
+
+    // if (inputUserId === '') {
+    //   alert('ID를 입력해주세요!')
+    // } else if (inputUserPass !== inputUserPassCheck) {
+    //   alert('비밀번호가 일치하지 않습니다!')
+    // } else if (userId.find(id => id.id === inputUserId)) {
+    //   alert('이미 가입된 아이디 입니다!')
+    // } else if (inputUserNick === '') {
+    //   alert('닉네임을 입력해주세요!')
+    // } else if (userId.find(id => id.nick === inputUserNick)) {
+    //   alert('이미 존재하는 닉네임입니다!')
+    // } else {
+    //   axios.post(`http://localhost:8088/cors`, signUp)
+    //   alert('가입을 환영합니다! 로그인해주세요!')
+    //   navigate('/login')
+    // }
   };
-  console.log(userId.find(id => id.id === "지민"));
+  // console.log(userId.find(id => id.id === "지민"));
 
   return (
     <SignArea>
       아이디 <input type='text' value={inputUserId} onChange={handleInputUserId}/>
-      {
+      {/* {
         !(inputUserId !== '')
         ? <span></span>
         : userId.find(id => id.id === inputUserId)
           ? <span>이미 가입된 아이디입니다.</span>
           : <span>사용할 수 있는 아이디입니다.</span>
-      }
+      } */}
       비밀번호 <input type='password' value={inputUserPass} onChange={handleInputUserPass}/>
       비밀번호 확인<input type='password' value={inputUserPassCheck} onChange={handleInputUserPassCheck}/>
       {
@@ -110,13 +118,13 @@ function SignUp(props) {
           : <span>비밀번호가 일치하지 않습니다.</span>
       }
       닉네임 <input type='text' value={inputUserNick} onChange={handleInputUserNick}/>
-      {
+      {/* {
         !(inputUserNick !== '')
         ? <span></span>
         : userId.find(id => id.nick === inputUserNick)
           ? <span>이미 가입된 닉네임입니다.</span>
           : <span>사용할 수 있는 닉네임입니다.</span>
-      }
+      } */}
       <button onClick={() => handlePushUserInfo(signUp)}>
         가입하기
       </button>
