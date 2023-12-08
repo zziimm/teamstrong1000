@@ -3,10 +3,21 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './app/store';
+import axios from 'axios';
+import { getLoginUser, getLoginUserInfo } from './features/useinfo/userInfoSlice';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const loginUser = async () => {
+  const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/user/loginUser`, {withCredentials: true});
+  console.log(result.data);
+  store.dispatch(getLoginUserInfo(result.data.data));
+}
+loginUser();
+
+
 root.render(
   <Provider store={store}>
     <BrowserRouter>

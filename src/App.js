@@ -4,6 +4,7 @@ import { Reset } from "styled-reset";
 import { Route, Routes } from "react-router-dom";
 import BottomMenu from "./pages/BottomMenu";
 import Login from "./pages/Login";
+import MyPage from "./pages/MyPage";
 import SignUp from "./pages/SignUp";
 import MainPage from "./pages/MainPage";
 import imgBg from "./img/background_01.png";
@@ -87,6 +88,7 @@ function App() {
           <Route path="/" element={<BottomMenu />}>
             <Route path="/" element={<MainPage />}/>
             <Route path="/login" element={<Login />}/>
+            <Route path="/myPage" element={<MyPage />}/>
             <Route path="/myCalendar" element={<MyCalendar />}/>
             <Route path="/club" element={<Club />} />
             <Route path="/clubInsert" element={<ClubInsert />} />

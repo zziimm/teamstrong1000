@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logoImg from "../img/logo2.png";
 import Search_modal from '../components/Search_modal';
+import { useSelector } from 'react-redux';
+import { getLoginUser } from '../features/useinfo/userInfoSlice';
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -23,6 +25,8 @@ const HeaderWrapper = styled.div`
 
 function Header(props) {
   const navigate = useNavigate();
+  const loginUser = useSelector(getLoginUser);
+
   return (
     <header>
       <HeaderWrapper>
@@ -33,7 +37,14 @@ function Header(props) {
           >
           <img src={logoImg} />
         </div>
-        <Search_modal />
+        <div>
+          {loginUser 
+            ? <span>{loginUser}님 반갑습니다!</span>
+            : ''
+          }
+          
+          <Search_modal />
+        </div>
       </HeaderWrapper>
     </header>
   );

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInfo: [],
+  loginUserInfo: null,
   teamInfo: null,
   myCalendar: null,
 }
@@ -36,15 +37,20 @@ const userInfoSlice = createSlice({
       console.log(action.payload);
       state.myCalendar = action.payload;
     },
+    getLoginUserInfo: (state, action) => {
+      console.log(action.payload);
+      state.loginUserInfo = action.payload?.userId;
+    },
 
 
   }
 });
 
-export const { getUserInfo, getAllUserInfo, pushUserInfo, getAllTeamInfo, getAllCalendarInfo } = userInfoSlice.actions;
+export const { getUserInfo, getAllUserInfo, pushUserInfo, getAllTeamInfo, getAllCalendarInfo, getLoginUserInfo } = userInfoSlice.actions;
 
 export const selectUserList = state => state.userInfo.userInfo;
 export const getTeamInfo = state => state.userInfo.teamInfo;
 export const getMyCalendarInfo = state => state.userInfo.myCalendar;
+export const getLoginUser = state => state.userInfo.loginUserInfo;
 
 export default userInfoSlice.reducer;
