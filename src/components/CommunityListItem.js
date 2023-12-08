@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import CommunityComment from './CommunityComment';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const CommunityListItemWrapper = styled.div`
   box-sizing: border-box;
@@ -114,7 +115,7 @@ function CommunityListItem(props) {
   const handleRed = () => {
     setIconRed(!iconRed)
   }
-  const handleComment = () => {
+  const handleComment = async () => {
     setComment(!comment)
   }
   const handleLike = () => {
@@ -168,8 +169,9 @@ function CommunityListItem(props) {
             class="material-symbols-outlined"
             value={comment}
             onClick={() => {handleComment()}}
-            >mode_comment</button>
-          </div>}
+            >mode_comment
+          </button>
+        </div>}
       </CommunityListItemWrapper>
   );
 }

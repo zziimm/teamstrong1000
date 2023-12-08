@@ -44,20 +44,20 @@ const CommunityInsertBtn = styled.button`
 function CommunityList(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let a = {}
   
   // useEffect(() => {
   //   axios.get('http://localhost:8088/community')
-  //   .then((response) => {
-  //     const a = dispatch(getAllUserCommunityList(response.data));
-  //     console.log(a);
-  //   });
+  //     .then((response) => {
+  //       const a = dispatch(getAllUserCommunityList(response.data));
+  //       console.log(a);
+  //     });
   // }, []);
+
   useEffect(async () => {
     try {
-      await axios.get('http://localhost:8088/community', (res) => { 
-        dispatch(getAllUserCommunityList(res.data));
-        console.log(res);
-      });
+      const response = await axios.get('http://localhost:8088/community');
+      dispatch(getAllUserCommunityList(response.data.communityData));
     } catch (err) {
       console.error(err);
     }
@@ -69,7 +69,7 @@ function CommunityList(props) {
   console.log(communityInsert);
   return (
     <CommunityListWrapper>
-      {communityInsert.data.map((CommunityInsertMap) => {
+      {communityInsert.map((CommunityInsertMap) => {
         return <CommunityListItem
           key={CommunityInsertMap.id}
           id={CommunityInsertMap.id}
