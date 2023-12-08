@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUserInfo, getUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
+import { getAllUserInfo, getLoginUserInfo, getUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -91,23 +91,38 @@ function Login(props) {
 
   const userId = userInfo.find(user => inputUserId === user.id);
 
-  const handLogin = () => {
+  const handLogin = async () => {
     if (inputUserId== '') {
       toast.error('아이디를 입력해주세요!');
       return
     } else if (inputUserPass === '') {
       toast.error('비밀번호를 입력해주세요!');
       return
-    } else if (userId === undefined) {
-      toast.error('회원가입되지 않은 ID 입니다!');
-    } else if (userId.passwd !== inputUserPass) {
-      toast.error('비밀번호가 다릅니다!');
-      return
     } else {
-      alert(`환영합니다! ${userId.nick}님!`);
+      const result = await axios.post('http://localhost:8088/user/login', { userId: inputUserId, passwd: inputUserPass }, {withCredentials: true});
+      console.log(result);
+      dispatch(getLoginUserInfo(result.data.user));
+      alert(`환영합니다! ${result.data.user.userId} 님!`);
       navigate('/')
     }
   };
+  // const handLogin = () => {
+  //   if (inputUserId== '') {
+  //     toast.error('아이디를 입력해주세요!');
+  //     return
+  //   } else if (inputUserPass === '') {
+  //     toast.error('비밀번호를 입력해주세요!');
+  //     return
+  //   } else if (userId === undefined) {
+  //     toast.error('회원가입되지 않은 ID 입니다!');
+  //   } else if (userId.passwd !== inputUserPass) {
+  //     toast.error('비밀번호가 다릅니다!');
+  //     return
+  //   } else {
+  //     alert(`환영합니다! ${userId.nick}님!`);
+  //     navigate('/')
+  //   }
+  // };
 
   const navigate = useNavigate();
 

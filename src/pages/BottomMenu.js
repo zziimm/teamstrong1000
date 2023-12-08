@@ -2,6 +2,10 @@ import React from 'react';
 import { styled } from "styled-components";
 import { MdDensityMedium, MdCalendarMonth, MdPerson, MdGroups } from "react-icons/md";
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 
 const ButtonArea = styled.div`
@@ -36,6 +40,15 @@ const ButtonStyle = styled.div`
 `;
 
 function BottomMenu(props) {
+  const loginUser = useSelector(getLoginUser);
+    // useEffect( async () => {
+    //   if (loginUser) {
+    //     await axios.get(`${process.env.REACT_APP_ADDRESS}/user/loginUser`, {withCredentials: true})
+    //   } else {
+    //     return
+    //   }
+    // }, []);
+
   
   const navigate = useNavigate();
 
@@ -54,10 +67,18 @@ function BottomMenu(props) {
           <MdGroups />
           클럽
         </ButtonStyle>
-        <ButtonStyle onClick={() => navigate('/login')}>
-          <MdPerson />
-          마이
-        </ButtonStyle>
+        { loginUser 
+          ?
+          <ButtonStyle onClick={() => navigate('/myPage')}>
+            <MdPerson />
+            마이페이지
+          </ButtonStyle>
+          :
+          <ButtonStyle onClick={() => navigate('/login')}>
+            <MdPerson />
+            로그인
+          </ButtonStyle>
+        }
       </ButtonArea>
 
       <Outlet />

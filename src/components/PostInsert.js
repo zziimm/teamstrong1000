@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllInsert } from '../features/postListSlice/postListInsertSlice';
 
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import Stack from 'react-bootstrap/Stack';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { Navigate, redirect, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { getLoginUser } from '../features/useinfo/userInfoSlice';
 
 const PostInsertWrapper = styled.div`
   background-color: #fff;
@@ -208,8 +209,7 @@ function PostInsert(props) {
   const [gender, setGender] = useState('남')
   const [joinPersonnel, setJoinPersonnel] = useState('2')
   const [game, setGame] = useState('단식')
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  
+  const loginUser = useSelector(getLoginUser);
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
@@ -229,7 +229,8 @@ function PostInsert(props) {
     district: district,
     joinPersonnel: joinPersonnel,
     game: game,
-    gender: gender
+    gender: gender,
+    id: loginUser
   }
   const handlePushPost = async () => {
     await axios.post(`${process.env.REACT_APP_ADDRESS}/matchingInsert`, postInput)

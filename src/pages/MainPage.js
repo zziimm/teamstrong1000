@@ -3,9 +3,9 @@ import Header from './Header';
 import NavList from './NavList';
 import PostList from './PostList';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { getAllCalendarInfo, getAllTeamInfo, getAllUserInfo } from '../features/useinfo/userInfoSlice';
+import { getAllCalendarInfo, getAllTeamInfo, getAllUserInfo, getLoginUser, getLoginUserInfo } from '../features/useinfo/userInfoSlice';
 import { getAllUserPostList } from '../features/postListSlice/postListInsertSlice';
 
 const MainWrapper = styled.div`
@@ -19,7 +19,7 @@ const MainWrapper = styled.div`
 function MainPage(props) {
   const dispatch = useDispatch();
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_ADDRESS}`)
+    axios.get(`${process.env.REACT_APP_ADDRESS}`, {withCredentials: true})
       .then((reponse) => {
         console.log(reponse);
         dispatch(getAllUserInfo(reponse.data))
