@@ -28,18 +28,25 @@ function MainPage(props) {
         console.error(error);
       });
   },[]);
-  useEffect(() => {
-    axios.get(`http://localhost:3000/team`)
-      .then(response => dispatch(getAllTeamInfo(response.data)))
-      .catch(error => console.error(error))
-  }, [])
-  useEffect(() => {
-    axios.get(`http://localhost:3000/myCalendar`)
-    .then(response => {
-      dispatch(getAllCalendarInfo(response.data))
-    })
-    .catch(error => console.error(error))
-  }, []);
+  // const doSometing = async () => {
+  //   const result = await axios.get(`${process.env.REACT_APP_ADDRESS}`, {withCredentials: true})
+  //   dispatch(getAllUserInfo(result.data.data))
+  // };
+  // useEffect(() => {
+  //   doSometing();
+  // }, [])
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/team`)
+  //     .then(response => dispatch(getAllTeamInfo(response.data)))
+  //     .catch(error => console.error(error))
+  // }, [])
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/myCalendar`)
+  //   .then(response => {
+  //     dispatch(getAllCalendarInfo(response.data))
+  //   })
+  //   .catch(error => console.error(error))
+  // }, []);
 
   return (
     <MainWrapper>

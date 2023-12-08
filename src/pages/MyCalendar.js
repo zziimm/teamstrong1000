@@ -131,17 +131,15 @@ function MyCalendar(props) {
   const [list, setList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const calendarList = useSelector(getMyCalendarInfo);
   
   useEffect(() => {
-    axios.get(`http://localhost:3000/myCalendar`)
-    .then(response => {
-      console.log(response.data);
-      dispatch(getAllCalendarInfo(response.data))
-    })
-    .catch(error => console.error(error))
+    axios.get(`${process.env.REACT_APP_ADDRESS}/myCalender`) 
+      .then((res) => {
+        dispatch(getAllCalendarInfo(res.data.data))
+      })
   }, [setInputEndDate]);
-
+  
+  const calendarList = useSelector(getMyCalendarInfo);
   
   
   const handletodo = (e) => {
