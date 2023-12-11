@@ -173,13 +173,30 @@ function Ranking(props) {
   const teamList = useSelector(getTeamInfo);
 
 
+
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/team`)
+  //     .then((response) => {
+  //       dispatch(getAllTeamInfo(response.data))
+  //     })
+  //     .catch(error => console.error(error))
+  // }, []);
+
+
   useEffect(() => {
-    axios.get(`http://localhost:3000/team`)
-      .then((response) => {
-        dispatch(getAllTeamInfo(response.data))
-      })
-      .catch(error => console.error(error))
-  }, []);
+    const data = async () => {
+      try {
+        const response = await axios.get('http://localhost:8088/club')
+        dispatch(getAllTeamInfo(response.data.data))
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    data();
+  }, [])
+
+
 
   if (!teamList) {
     return null;

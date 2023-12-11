@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { getTeamInfo } from '../features/useinfo/userInfoSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllTeamInfo, getTeamInfo } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router-dom';
 import logoImg from "../img/logo2.png";
+import axios from 'axios';
 
 
 
@@ -11,6 +12,7 @@ const ClubWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
+  overflow-y: scroll;
   color: #1c1b1f;
 
   .매칭찾기 {
@@ -191,8 +193,35 @@ const CommunityInsertBtn = styled.button`
 `;
 
 function Club(props) {
+  const dispatch = useDispatch();
   const teamInfo = useSelector(getTeamInfo);
+  console.log(teamInfo);
   const navigate = useNavigate();
+
+  // useEffect((club) => {
+  //   axios.get(`http://localhost:8088/club`, club)
+  //     .then((response) => {
+  //       console.log(response);
+  //       dispatch(getAllTeamInfo(response.data))
+  //     })
+  //     .catch(error => console.error(error));
+  // }, []);
+
+  useEffect(() => {
+    const data = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8088/club`);
+        console.log(response);
+        dispatch(getAllTeamInfo(response.data.data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    data();
+  }, []);
+  
+  
   
   return (
     <ClubWrapper>
@@ -201,7 +230,7 @@ function Club(props) {
 
       <div className='bigDiv'>
         <p className='제목'>내가 속한 클럽</p>
-      {teamInfo.map((myTeam) => {
+      {teamInfo?.map((myTeam) => {
         return (
           myTeam.teamName === 'Strong1000' &&
           <MyClub>
@@ -217,7 +246,7 @@ function Club(props) {
         )
       })}
       <p className='제목'>이웃 클럽</p>
-      {teamInfo.map((myTeam) => {
+      {teamInfo?.map((myTeam) => {
         return (
           !(myTeam.teamName === 'Strong1000') &&
           <OtherClub>
