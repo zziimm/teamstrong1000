@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import CommunityCommentListItem from './CommunityCommentListItem';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const CommunityCommentWrapper = styled.div`
   display: flex;
@@ -54,51 +56,48 @@ const CommunityCommentIsert = styled.form`
   }
 `;
 function CommunityComment(props) {
-  const [addComment, setAddComment] = useState();
-  const [addCommentbtn, setAddCommentBtn] = useState([ 
-    {
-      id:1,
-      text:'더미 댓글입니다11'
-    },
-    {
-      id:2,
-      text:'더미 댓글입니다22'
-    },
-  ]);
+  const [addComment, setAddComment] = useState('');
+  const [addCommentE, setAddCommentE] = useState([]);
+  
+  useEffect(() => {
+    const getComments = async () => {  try {
+      const comments = await axios.get('http://localhost:8088/community/communityComment');
+      setAddCommentE(comments.data.comments)
+    } catch (err) {
+      console.error(err);
+    }};
+    getComments();
 
-  const changeAddComment = (e) => setAddComment(e.target.value)
-  const handleAddComment = () => {
-    if (addComment) {
-      addCommentbtn.push({
-        id: "",
-        text:addComment})
-        setAddComment('')
-    } else {
-      alert("댓글 입력")
-    }
-      
+  }, []);
+  console.log(addCommentE); //  댓글 DB 객체
+  console.log(addComment); // 댓글 입력값
+  
+  const changeAddComment = (e) => setAddComment(e.target.value);
+  const handleAddComment = async () => {
+    await axios.post(`http://localhost:8088/community/communityComment`, {addComment})
     }
     return (
       <CommunityCommentWrapper>
       <CommunityCommentList>
-        {addCommentbtn.map((addCommentMap) => {
+        {addCommentE.map((addCommentMap) => {
           return <CommunityCommentListItem
             key={addCommentMap.id}
-            content={addCommentMap.content}
+            // content={addCommentMap.content}
             text={addCommentMap.text}
           />
         })}
       </CommunityCommentList>
 
 
-      <CommunityCommentIsert onSubmit={(e) => {handleAddComment(); e.preventDefault()}}>
+      <CommunityCommentIsert /* onSubmit={(e) => {handleAddComment(); e.preventDefault()}} */>
         <input
           type='text'
+          name='content'
           value={addComment}
           onChange={changeAddComment}
         />
         <button
-          type='button'
+          type='submit'
           onClick={() => {handleAddComment()}}
           >
             게시

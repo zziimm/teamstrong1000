@@ -44,15 +44,29 @@ const CommunityInsertBtn = styled.button`
 function CommunityList(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let a = {}
   
-  useEffect(() => {
-    axios.get('http://localhost:3000/userCummunityList')
-    .then((response) => {
-      dispatch(getAllUserCommunityList(response.data))
-    })
-  }, [])
+  // useEffect(() => {
+  //   axios.get('http://localhost:8088/community')
+  //     .then((response) => {
+  //       const a = dispatch(getAllUserCommunityList(response.data));
+  //       console.log(a);
+  //     });
+  // }, []);
+
+  useEffect(async () => {
+    try {
+      const response = await axios.get('http://localhost:8088/community');
+      dispatch(getAllUserCommunityList(response.data.communityData));
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  
 
   const communityInsert = useSelector(userCommunityList);
+  console.log(communityInsert);
   return (
     <CommunityListWrapper>
       {communityInsert.map((CommunityInsertMap) => {

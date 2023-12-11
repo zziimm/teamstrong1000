@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getAllCommunityInsert } from '../features/communityListSlice/communityListSlice';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const CommunityInsertWrapper = styled.div`
   background-color: #fff;
@@ -146,8 +147,12 @@ function CommunityInsert(props) {
     content: insertContent,
     imagePath: insertImgUp
   }
+  // const handlePushCommunity = () => {
+  //   axios.post(`http://localhost:8088/communityInsert`, communityInput)
+  //   navigate('/community')
+  // };
   const handlePushCommunity = () => {
-    axios.post(`http://localhost:3000/userCummunityList`, communityInput)
+    axios.post(`http://localhost:8088/community/communityInsert`, communityInput)
     navigate('/community')
   };
 
@@ -155,13 +160,13 @@ function CommunityInsert(props) {
     <CommunityInsertWrapper>
       <div className='커뮤니티글쓰기'><div>커뮤니티 글쓰기</div></div>
       <hr/>
-      {<div className='titleContentDiv'>
+      {<form className='titleContentDiv'>
         <label htmlFor='1'>제목입력<span>*</span></label>
         {<input
           id='1'
           className='title'
           type='text'
-          placeholder='아이디입력'
+          placeholder='제목입력'
           value={insertTitle}
           onChange={changeTitle}
           />}
@@ -182,9 +187,11 @@ function CommunityInsert(props) {
           ref={imgRef}
           onChange={saveImgFile}
         />}
-      </div>}
+      </form>}
 
-          <SaveButton onClick={() => {handlePushCommunity(); alert('게시글이 작성되었습니다!')}}>게시글 추가하기</SaveButton>
+          <SaveButton type='submit' onClick={() => {handlePushCommunity(); alert('게시글이 작성되었습니다!')}}
+            >게시글 추가하기
+          </SaveButton>
           <CancelButton onClick={() => {navigate('/community')}}>취소하기</CancelButton>
 
     </CommunityInsertWrapper>
