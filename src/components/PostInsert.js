@@ -205,7 +205,7 @@ function PostInsert(props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('')
   const [district, setDistrict] = useState('서울');
-  const [selectDate, setSelectDate] = useState(new Date().toISOString().slice(0, 16))
+  const [selectDate, setSelectDate] = useState('')
   const [gender, setGender] = useState('남')
   const [joinPersonnel, setJoinPersonnel] = useState('2')
   const [game, setGame] = useState('단식')
@@ -230,9 +230,13 @@ function PostInsert(props) {
     joinPersonnel: joinPersonnel,
     game: game,
     gender: gender,
-    id: loginUser
+    id: loginUser,
+    nowDate: new Date().toISOString().slice(0, 16)
   }
   const handlePushPost = async () => {
+    if (!selectDate) {
+      return alert('날짜를 입력해주세요!');
+    }
     await axios.post(`${process.env.REACT_APP_ADDRESS}/matchingInsert`, postInput)
     alert('매칭 등록이 완료되었습니다!')
     navigate('/')

@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getLoginUserInfo } from '../features/useinfo/userInfoSlice';
+import { getAllCalendarInfo, getLoginUserInfo } from '../features/useinfo/userInfoSlice';
 
 const MyPageArea = styled.div`
   display: flex;
@@ -47,6 +47,7 @@ function MyPage(props) {
     if (result.data.flag) {
       alert(result.data.message);
       dispatch(getLoginUserInfo(null));
+      dispatch(getAllCalendarInfo(null));
       navigate('/');
     }
   }
