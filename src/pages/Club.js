@@ -12,6 +12,7 @@ const ClubWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
+  overflow-y: scroll;
   color: #1c1b1f;
 
   .매칭찾기 {
