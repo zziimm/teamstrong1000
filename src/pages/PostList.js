@@ -156,7 +156,8 @@ function PostList(props) {
       })}
       {district && postInsert.map((postInsertMap) => {
         return postInsertMap.district === '서울' && <PostListItem
-          key={postInsertMap.id}
+          key={postInsertMap._id}
+          address={postInsertMap._id}
           id={postInsertMap.id} 
           title={postInsertMap.title}
           content={postInsertMap.content}
@@ -169,7 +170,8 @@ function PostList(props) {
       })}
       {district2 && postInsert.map((postInsertMap) => {
         return postInsertMap.district === '경기' && <PostListItem
-          key={postInsertMap.id}
+          key={postInsertMap._id}
+          address={postInsertMap._id}
           id={postInsertMap.id} 
           title={postInsertMap.title}
           content={postInsertMap.content}
@@ -182,7 +184,8 @@ function PostList(props) {
       })}
       {district3 && postInsert.map((postInsertMap) => {
         return postInsertMap.district === '인천' && <PostListItem
-          key={postInsertMap.id}
+          key={postInsertMap._id}
+          address={postInsertMap._id}
           id={postInsertMap.id} 
           title={postInsertMap.title}
           content={postInsertMap.content}

@@ -20,6 +20,7 @@ import Map from "./pages/Map";
 import Ranking from "./pages/Ranking";
 import Club from "./pages/Club";
 import ClubInsert from "./pages/ClubInsert";
+import EditMatchPost from "./pages/EditMatchPost";
 
 
 
@@ -96,6 +97,7 @@ function App() {
             <Route path="/postInsert" element={<PostInsert />}/>
             <Route path="/postInsert" element={<PostInsert />}/>
             <Route path="/matchingPost/:postId" element={<PostDetail />}/>
+            <Route path="/editMatchPost/:postId" element={<EditMatchPost />}/>
             <Route path="/community" element={<Community />} />
             <Route path="/CommunityInsert" element={<CommunityInsert />} />
             <Route path="/map" element={<Map />} />

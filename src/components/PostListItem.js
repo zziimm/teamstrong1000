@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import PostDetail from '../pages/PostDetail';
 import { useSelector } from 'react-redux';
 import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import axios from 'axios';
 
 const PostListItemWrapper = styled.div`
   box-sizing: border-box;
@@ -77,7 +78,6 @@ function PostListItem(props) {
       navigate('/login');
     }
   };
-
   return (
     <PostListItemWrapper 
       key={props.title} 
@@ -89,7 +89,6 @@ function PostListItem(props) {
         <span className='joinPersonnel'>참여 인원: {props.joinPersonnel} |&nbsp;</span>
         <span className='game'>경기 방식: {props.game} &emsp; <br/></span>
         <span className='id'>{props.id}</span>
-        
       {/* 성별: {props.gender} &emsp;
       참여 인원: {props.joinPersonnel} &emsp;
       경기 방식: {props.game} &emsp; <br/>
