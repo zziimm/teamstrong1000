@@ -56,34 +56,49 @@ const CommunityCommentIsert = styled.form`
   }
 `;
 function CommunityComment(props) {
-  const [addComment, setAddComment] = useState('');
+  const [communityPostId, setCommunityPostId] = useState('');
+  const [addComment, setAddComment] = useState();
   const [addCommentE, setAddCommentE] = useState([]);
-  
+  const postId = props.postId;
+  console.log(postId);
   useEffect(() => {
     const getComments = async () => {  try {
-      const comments = await axios.get('http://localhost:8088/community/communityComment');
+      const comments = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
       setAddCommentE(comments.data.comments)
+      console.log(communityPostId);
     } catch (err) {
       console.error(err);
     }};
     getComments();
-
+    
+    const getCommunityPostId = async () => {
+      try {
+        const communityPostId = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
+        setCommunityPostId(communityPostId.data.comments);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    getCommunityPostId();
   }, []);
-  console.log(addCommentE); //  댓글 DB 객체
-  console.log(addComment); // 댓글 입력값
+  // console.log(addCommentE); //  댓글 DB 객체
+  // console.log(addComment); // 댓글 입력값
   
   const changeAddComment = (e) => setAddComment(e.target.value);
   const handleAddComment = async () => {
-    await axios.post(`http://localhost:8088/community/communityComment`, {addComment})
+    await axios.post(`http://localhost:8088/community/communityComment`, {addComment, postId}, {withCredentials:true});
     }
     return (
       <CommunityCommentWrapper>
       <CommunityCommentList>
         {addCommentE.map((addCommentMap) => {
           return <CommunityCommentListItem
-            key={addCommentMap.id}
+            communityPostId={addCommentMap.communityPostId}
+            commentId={addCommentMap._id}
+            postId={addCommentMap.postId}
             // content={addCommentMap.content}
-            text={addCommentMap.text}
+            addComment={addCommentMap.addComment}
+            userId={addCommentMap.userId}
           />
         })}
       </CommunityCommentList>
