@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { clearSelectedPost, getSelectPost, selectedPost } from '../features/postListSlice/postListInsertSlice';
-import { getMyCalendarInfo } from '../features/useinfo/userInfoSlice';
+import { getLoginUser, getMyCalendarInfo } from '../features/useinfo/userInfoSlice';
 import { hover } from '@testing-library/user-event/dist/hover';
+import EditMatchPost from './EditMatchPost';
 
 const PostDetailWrapper = styled.div`
   background-color: #fff;
@@ -30,6 +31,14 @@ const PostDetailWrapper = styled.div`
   color: #4610C0;
   font-weight: 800;
   margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.updateBox {
+  display: flex;
+  color: #FF5959;
+  gap: 15px;
+  cursor: pointer;
 }
 
 .title {
@@ -167,6 +176,8 @@ function PostDetail(props) {
   // const joinedGame = useSelector(getMyCalendarInfo);
   const [calendarInfo, serCalendarInfo] = useState([]);
   const [joinGame, setJoinGame] = useState(false);
+  const loginUser = useSelector(getLoginUser);
+
 
   useEffect(() => {
     const fetchUserId = async () => {
@@ -179,7 +190,7 @@ function PostDetail(props) {
       }
     };
     fetchUserId();
-    return () => dispatch(clearSelectedPost());
+    // return () => dispatch(clearSelectedPost());
   }, []);
 
   useEffect(() => {
@@ -195,6 +206,7 @@ function PostDetail(props) {
   }, []);
 
   console.log(calendarInfo);
+  console.log(selectPost);
 
   if (!selectPost) {
     return null;
@@ -207,17 +219,43 @@ function PostDetail(props) {
       alert('이미 참가한 게임입니다!')
       return;
     } else {
-      axios.post(`${process.env.REACT_APP_ADDRESS}/myCalendar/insert`, { title: title, start: selectDate }, { withCredentials: true });
+      axios.post(`${process.env.REACT_APP_ADDRESS}/myCalendar/insert/${postId}`, { title: title, start: selectDate }, { withCredentials: true });
       setJoinGame(true)
       alert('참가하기 완료! 일정이 추가되었습니다!')
       // navigate('/')
     }
   };
 
+  const deleteBtn = async () => {
+    try {
+      const resulte = await axios.delete(`${process.env.REACT_APP_ADDRESS}/deleteMatching/${postId}`);
+      if (resulte.data.flag) {
+        alert(resulte.data.message);
+        navigate('/');
+      } else {
+        new Error(resulte.data.message);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <PostDetailWrapper>
       <div className='top-box'> 
-        <div className='date'>{selectDate}</div>
+        <div className='date'>
+          {selectDate}
+          <div className='date updateBox'>
+            { loginUser == id 
+              ? <div onClick={() => {navigate(`/editMatchPost/${postId}`)}} >수정</div> 
+              : ''
+            }
+            { loginUser == id 
+              ? <div onClick={() => {deleteBtn()}}>삭제</div> 
+              : ''
+            }
+          </div>
+        </div>
         <div className='title'>{title}</div>
         {/* <div>innerBox */}
           <div className='innerBoxTitle'>장소</div>
