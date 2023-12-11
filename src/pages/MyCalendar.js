@@ -131,17 +131,19 @@ function MyCalendar(props) {
   const [list, setList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const calendarList = useSelector(getMyCalendarInfo);
+  
   
   useEffect(() => {
-    axios.get(`http://localhost:3000/myCalendar`)
-    .then(response => {
-      console.log(response.data);
-      dispatch(getAllCalendarInfo(response.data))
-    })
-    .catch(error => console.error(error))
+    axios.get(`${process.env.REACT_APP_ADDRESS}/myCalendar`, { withCredentials: true })
+      .then((res) => {
+        dispatch(getAllCalendarInfo(res.data.data));
+      })
+      .catch((res) => {
+        console.log(res.data);
+      })
   }, [setInputEndDate]);
-
+  
+  const calendarList = useSelector(getMyCalendarInfo);
   
   
   const handletodo = (e) => {
@@ -162,19 +164,26 @@ function MyCalendar(props) {
 
   const data = { title: todo, start: inputStartDate, end: inputEndDate, backgroundColor: "#008000" }
 
-  // const handlePush = (data) => {
-  //   axios.post(`http://localhost:3000/myCalendar`, data)
+  const handlePush = async () => {
+    const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/myCalendar/insert`, { title: todo, start: inputStartDate, end: inputEndDate }, { withCredentials: true })
+    if (result.data.flag) {
+      alert(result.data.message);
+      navigate('/myCalendar');
+    } else {
+      alert(result.data.message);
+      navigate('/login');
+    }
+  }
+
+  // const handlePush = (list) => {
+  //   const copyList = [...list]
+  //   copyList.push({title: todo, start: inputStartDate, end: inputEndDate});
+    
+  //   setList(copyList)
+  //   setTodo('')
+  //   setInputStartDate('')
   //   setInputEndDate('')
   // }
-  const handlePush = (list) => {
-    const copyList = [...list]
-    copyList.push({title: todo, start: inputStartDate, end: inputEndDate});
-    
-    setList(copyList)
-    setTodo('')
-    setInputStartDate('')
-    setInputEndDate('')
-  }
   if (!calendarList) {
     return null;
   }
@@ -234,7 +243,7 @@ function MyCalendar(props) {
             </InputH4>
             <input type="date" value={inputEndDate} onChange={handleInputEndDate}/>
           </InputAreaDetail>
-          <button onClick={() => handlePush(list)}>
+          <button onClick={() => handlePush()}>
             일정 추가하기
           </button>
         </InputArea>

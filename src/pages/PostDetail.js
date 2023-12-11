@@ -162,16 +162,18 @@ const Button = styled.button`
 function PostDetail(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userId } = useParams();
+  const { postId } = useParams();
   const selectPost = useSelector(selectedPost);
-  const joinedGame = useSelector(getMyCalendarInfo);
+  // const joinedGame = useSelector(getMyCalendarInfo);
+  const [calendarInfo, serCalendarInfo] = useState([]);
   const [joinGame, setJoinGame] = useState(false);
+
   useEffect(() => {
     const fetchUserId = async () => {
       try {
         // const response = await axios.get(`https://my-json-server.typicode.com/zziimm/db-user/userPostList/${userId}`)
-        const response = await axios.get(`http://localhost:3000/userPostList/${userId}`)
-        dispatch(getSelectPost(response.data))
+        const response = await axios.get(`${process.env.REACT_APP_ADDRESS}/matchingPost/${postId}`)
+        dispatch(getSelectPost(response.data.data))
       } catch (error) {
         console.error(error);
       }
@@ -180,19 +182,32 @@ function PostDetail(props) {
     return () => dispatch(clearSelectedPost());
   }, []);
 
+  useEffect(() => {
+    const calendarInfo = async () => {
+      try {
+        const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/myCalendar`, { withCredentials: true });
+        serCalendarInfo(result.data.data)
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    calendarInfo();
+  }, []);
+
+  console.log(calendarInfo);
+
   if (!selectPost) {
     return null;
   }
 
   const { selectDate, title, district, game, joinPersonnel, content, id, gender} = selectPost;
-  console.log(joinedGame);
 
   const pushDate = (title, selectDate) => {
-    if (joinedGame.find(gameName => gameName.title === title)) {
+    if (calendarInfo?.find(gameName => gameName.title === title)) {
       alert('이미 참가한 게임입니다!')
       return;
     } else {
-      axios.post(`http://localhost:3000/myCalendar`, {title: title, start: selectDate});
+      axios.post(`${process.env.REACT_APP_ADDRESS}/myCalendar/insert`, { title: title, start: selectDate }, { withCredentials: true });
       setJoinGame(true)
       alert('참가하기 완료! 일정이 추가되었습니다!')
       // navigate('/')
@@ -233,7 +248,7 @@ function PostDetail(props) {
         </div>
       </div>
 
-      { joinedGame.find(gameName => gameName.title === title)
+      { calendarInfo?.find(gameName => gameName.title === title)
         ? <Button className='isJoined' disabled={true}>신청되었습니다.</Button>
         : <Button $joinGame={joinGame} disabled={joinGame} onClick={() => {pushDate(title, selectDate)}}>{joinGame ? "신청되었습니다." : "참여하기"}</Button>
       }

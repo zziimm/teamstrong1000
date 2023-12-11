@@ -105,7 +105,7 @@ function PostList(props) {
   const navigate = useNavigate();
   // const postInsert = useSelector(postInsertList);
   const postInsert = useSelector(userPostList);
-  // console.log(postInsert.selectDate);
+  console.log(postInsert);
 
   // 필터
   const handleDistrict0 = () => {
@@ -142,7 +142,8 @@ function PostList(props) {
 
       {!district && !district2 && !district3 && postInsert.map((postInsertMap) => {
         return <PostListItem
-          key={postInsertMap.id}
+          key={postInsertMap._id}
+          address={postInsertMap._id}
           id={postInsertMap.id} 
           title={postInsertMap.title}
           content={postInsertMap.content}
