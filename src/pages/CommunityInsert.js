@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getAllCommunityInsert } from '../features/communityListSlice/communityListSlice';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLoginUser } from '../features/useinfo/userInfoSlice';
 
 const CommunityInsertWrapper = styled.div`
   background-color: #fff;
@@ -123,13 +124,14 @@ const CancelButton = styled.button`
 function CommunityInsert(props) {
 
   const navigate = useNavigate();
+  const userNic = useSelector(getLoginUser);
 
-  const [insertTitle, setInsertTitle] = useState('');
+  // const [insertTitle, setInsertTitle] = useState('');
   const [insertContent, setInsertContent] = useState('');
   const [insertImgUp, setInsertImgUp] = useState([]);
+  let like = 0;
 
-
-  const changeTitle = (e) => setInsertTitle(e.target.value)
+  // const changeTitle = (e) => setInsertTitle(e.target.value)
   const changeContent = (e) => setInsertContent(e.target.value)
 
   const imgRef = useRef();
@@ -143,9 +145,10 @@ function CommunityInsert(props) {
   };
 
   const communityInput = {
-    id: insertTitle,
+    id: userNic,
     content: insertContent,
-    imagePath: insertImgUp
+    imagePath: insertImgUp,
+    like:like
   }
   // const handlePushCommunity = () => {
   //   axios.post(`http://localhost:8088/communityInsert`, communityInput)
@@ -161,15 +164,16 @@ function CommunityInsert(props) {
       <div className='커뮤니티글쓰기'><div>커뮤니티 글쓰기</div></div>
       <hr/>
       {<form className='titleContentDiv'>
-        <label htmlFor='1'>제목입력<span>*</span></label>
+        {/* <label htmlFor='1'>제목입력<span>*</span></label>
         {<input
+          // hidden='true'
           id='1'
           className='title'
           type='text'
           placeholder='제목입력'
-          value={insertTitle}
-          onChange={changeTitle}
-          />}
+          value={userNic}
+          // onChange={changeTitle}
+          />} */}
         <label htmlFor='2'>내용 입력<span>*</span></label>
         {<textarea 
           id='2'

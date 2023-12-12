@@ -28,18 +28,18 @@ function MainPage(props) {
         console.error(error);
       });
   },[]);
-  useEffect(() => {
-    axios.get(`http://localhost:3000/team`)
-      .then(response => dispatch(getAllTeamInfo(response.data)))
-      .catch(error => console.error(error))
-  }, [])
-  useEffect(() => {
-    axios.get(`http://localhost:3000/myCalendar`)
-    .then(response => {
-      dispatch(getAllCalendarInfo(response.data))
-    })
-    .catch(error => console.error(error))
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/team`)
+  //     .then(response => dispatch(getAllTeamInfo(response.data)))
+  //     .catch(error => console.error(error))
+  // }, [])
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/myCalendar`)
+  //   .then(response => {
+  //     dispatch(getAllCalendarInfo(response.data))
+  //   })
+  //   .catch(error => console.error(error))
+  // }, []);
 
   return (
     <MainWrapper>

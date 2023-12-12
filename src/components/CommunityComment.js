@@ -56,31 +56,21 @@ const CommunityCommentIsert = styled.form`
   }
 `;
 function CommunityComment(props) {
-  const [communityPostId, setCommunityPostId] = useState('');
   const [addComment, setAddComment] = useState();
   const [addCommentE, setAddCommentE] = useState([]);
   const postId = props.postId;
-  console.log(postId);
   useEffect(() => {
     const getComments = async () => {  try {
       const comments = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
       setAddCommentE(comments.data.comments)
-      console.log(communityPostId);
     } catch (err) {
       console.error(err);
     }};
     getComments();
-    
-    const getCommunityPostId = async () => {
-      try {
-        const communityPostId = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
-        setCommunityPostId(communityPostId.data.comments);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    getCommunityPostId();
   }, []);
+  const filterComment = addCommentE.filter((id) => {
+    return id.commentPostId == postId;
+  })
   // console.log(addCommentE); //  댓글 DB 객체
   // console.log(addComment); // 댓글 입력값
   
@@ -91,12 +81,11 @@ function CommunityComment(props) {
     return (
       <CommunityCommentWrapper>
       <CommunityCommentList>
-        {addCommentE.map((addCommentMap) => {
+        {filterComment.map((addCommentMap) => {
           return <CommunityCommentListItem
-            communityPostId={addCommentMap.communityPostId}
-            commentId={addCommentMap._id}
+            key={addCommentMap._id}
+            commentPostId={addCommentMap.commentPostId}
             postId={addCommentMap.postId}
-            // content={addCommentMap.content}
             addComment={addCommentMap.addComment}
             userId={addCommentMap.userId}
           />

@@ -1,6 +1,6 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
 
 const CommunityCommentListItemWrapper = styled.div`
   height: 38px;
@@ -24,13 +24,20 @@ const CommunityCommentListItemWrapper = styled.div`
     }
 `;
 
-function CommunityCommentListItem(props) {
 
+function CommunityCommentListItem(props) {
   return (
+    <>
+    {
     <CommunityCommentListItemWrapper>
-        {<span className='a'>{props.text}</span>}
-        {<span className='b'>작성자:junwoo</span>}
+        {<span className='a'>{props.addComment}</span>}
+        {/* {<span className='b'>{props.userNic}</span>} */}
+        {<span className='b'>{props.userId}</span>}
+        {/* {<span className='b'>{props.commentPostId}</span>} */}
+        {<span className='b'>{props.postId}</span>}
     </CommunityCommentListItemWrapper>
+    }
+    </>
   );
 }
 

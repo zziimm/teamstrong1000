@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { getAllUserCommunityList, userCommunityList } from '../features/communityListSlice/communityListSlice';
 import { useNavigate } from 'react-router-dom';
+import { getLoginUser, getLoginUserInfo } from '../features/useinfo/userInfoSlice';
 
 const CommunityListWrapper = styled.div`
   display: flex;
@@ -44,38 +45,33 @@ const CommunityInsertBtn = styled.button`
 function CommunityList(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let a = {}
-  
-  // useEffect(() => {
-  //   axios.get('http://localhost:8088/community')
-  //     .then((response) => {
-  //       const a = dispatch(getAllUserCommunityList(response.data));
-  //       console.log(a);
-  //     });
-  // }, []);
 
-  useEffect(async () => {
+  const userNic = useSelector(getLoginUser);
+
+  useEffect(() => {
+    const getCommunityList = async () => {
     try {
-      const response = await axios.get('http://localhost:8088/community');
+      const response = await axios.get('http://localhost:8088/community', {withCredentials:true});
       dispatch(getAllUserCommunityList(response.data.communityData));
     } catch (err) {
       console.error(err);
-    }
+    }};
+    getCommunityList();
   }, []);
-
   
-
   const communityInsert = useSelector(userCommunityList);
-  console.log(communityInsert);
   return (
     <CommunityListWrapper>
       {communityInsert.map((CommunityInsertMap) => {
         return <CommunityListItem
-          key={CommunityInsertMap.id}
+          key={CommunityInsertMap._id} // 댓글 비교 id
+          postId={CommunityInsertMap._id} // 댓글용 postId값
+          userNic={CommunityInsertMap.id  } // 닉네임
           id={CommunityInsertMap.id}
-          title={CommunityInsertMap.title}
-          content={CommunityInsertMap.content}
-          imagePath={CommunityInsertMap.imagePath}
+          // title={CommunityInsertMap.title}
+          content={CommunityInsertMap.content} // 글내용
+          imagePath={CommunityInsertMap.imagePath} // 첨부파일
+          like={CommunityInsertMap.like} // 첨부파일
         />
       })}
       <CommunityInsertBtn

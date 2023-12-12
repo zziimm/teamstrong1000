@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommunityComment from './CommunityComment';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const CommunityListItemWrapper = styled.div`
   box-sizing: border-box;
@@ -85,7 +86,16 @@ function CommunityListItem(props) {
   const [more, setMore] = useState(false);
   const [iconRed, setIconRed] = useState(false);
   const [comment, setComment] = useState(true);
-  const [like, setLike] = useState(7);
+  const [like, setLike] = useState();
+  const dispatch = useDispatch();
+  
+
+  useEffect(() => {
+    const setL = async() => {
+      await setLike(props.like)
+    }
+    setL();
+  }, []);
   
   const aaa = new Date(2023, 7, 5)
   function elapsedTime(date) {
@@ -115,18 +125,26 @@ function CommunityListItem(props) {
   const handleRed = () => {
     setIconRed(!iconRed)
   }
-  const handleComment = async () => {
+  const handleComment = () => {
     setComment(!comment)
   }
-  const handleLike = () => {
-    setLike(Number(`${iconRed ? like - 1 : like + 1}`))
+  const handleLike = async() => {
+    setLike(Number(`${iconRed ? like - 1 : like + 1 }`))
+    try {
+      const id = props.postId
+      const result = await axios.patch(`/community`, { like, id });
+      console.log(result);
+      console.log(like);
+    } catch (err) {
+      console.error(err);
+    }
   }
   
   const navigate = useNavigate();
   return (
       <CommunityListItemWrapper>
         {<div className='div-between'>
-          <span className='id'>{props.id}</span>
+          <span className='id'>{props.userNic}</span>
           <span className='date'>{aaa.getFullYear()}/{(aaa.getMonth() + 1)}/{aaa.getDate()}</span>
         </div>}
 
@@ -153,10 +171,11 @@ function CommunityListItem(props) {
           <span className='경과일'>{elapsedTime(aaa)}</span>
         </div>}
         </>
-        : <CommunityComment />  // 댓글창
+        : <CommunityComment postId={props.postId} />  // 댓글창
       }
 
-        {<div className='div-start'>
+      {<div className='div-between'>
+        {<div>
           <button 
             class={`material-symbols-outlined ${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`}
             value={iconRed} 
@@ -172,6 +191,11 @@ function CommunityListItem(props) {
             >mode_comment
           </button>
         </div>}
+        <div>
+          <span>삭제</span>
+          <span>수정</span>
+        </div>
+      </div>}
       </CommunityListItemWrapper>
   );
 }
