@@ -210,18 +210,20 @@ function Club(props) {
   useEffect(() => {
     const data = async () => {
       try {
-        const response = await axios.get(`http://localhost:8088/club`);
+        const response = await axios.get(`http://localhost:8088/club`, { withCredentials: true });
         console.log(response);
         dispatch(getAllTeamInfo(response.data.data));
       } catch (error) {
         console.error(error);
+        // alert('로그인이 필요합니다!')
       }
     };
   
     data();
   }, []);
   
-  
+  // 만약 나의 로그인한 팀의 이름이 myTeam과 같으면 "내가 속한 클럽", 
+  // 만약 나의 로그인한 팀의 이름이 myTeam과 다르면 "이웃 클럽", 
   
   return (
     <ClubWrapper>

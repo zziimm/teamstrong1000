@@ -13,7 +13,7 @@ const SignArea = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
-  gap: 10px;
+  gap: 15px;
 
   button {
     margin-top: 20px;
@@ -26,24 +26,31 @@ const SignArea = styled.div`
     cursor: pointer;
     border: 1px solid #4610C0;
   }
+
   button:hover {
     background: #fff;
     color: #4610C0;
     border: 1px solid #4610C0;
   }
-  button + button {
-    margin: 10px 0;
-  }
+
 
   input {
     border-radius: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     transition: 0.3s;
+    width: 300px;
+    height: 40px;
+    padding: 13px;
   }
   input:focus {
     outline: none;
-    border: 1px solid #4610C0;
+    border: 2px solid #4610C0;
     background: #d8d1e8;
+  }
+
+  span {
+    font-size: 12px;
+    color: red;
   }
 `;
 
@@ -53,7 +60,8 @@ function SignUp(props) {
   const [inputUserPass, setInputUserPass] = useState('');
   const [inputUserPassCheck, setInputUserPassCheck] = useState('');
   const [inputUserNick, setInputUserNick] = useState('');
-  const signUp = { id: inputUserId, passwd: inputUserPass, nick: inputUserNick }
+  const [inputUserClub, setInputUserClub] = useState('')
+  const signUp = { id: inputUserId, passwd: inputUserPass, nick: inputUserNick, teamName: inputUserClub}
   const navigate = useNavigate();
   const userId = useSelector(selectUserList);
 
@@ -62,12 +70,9 @@ function SignUp(props) {
 
   const handleInputUserId = (e) => {setInputUserId(e.target.value)};
   const handleInputUserPass = (e) => setInputUserPass(e.target.value);
-  const handleInputUserPassCheck = (e) => {
-    setInputUserPassCheck(e.target.value);
-  }
-
+  const handleInputUserPassCheck = (e) => {setInputUserPassCheck(e.target.value);}
   const handleInputUserNick = (e) => setInputUserNick(e.target.value);
-
+  const handleInputUserClub = (e) => {setInputUserClub(e.target.value);}
 
   const handlePushUserInfo = async (signUp) => {
     const result = await axios.post(`http://localhost:8088/register`, signUp)
@@ -125,6 +130,8 @@ function SignUp(props) {
           ? <span>이미 가입된 닉네임입니다.</span>
           : <span>사용할 수 있는 닉네임입니다.</span>
       } */}
+      소속 클럽 <input type='text' value={inputUserClub} onChange={handleInputUserClub}/>
+      <span>*선택사항</span>
       <button onClick={() => handlePushUserInfo(signUp)}>
         가입하기
       </button>
