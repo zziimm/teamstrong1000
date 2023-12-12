@@ -158,7 +158,7 @@ function CommunityListItem(props) {
 
         {<div className='div-start'>
           <button 
-            class={`material-symbols-outlined ${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`}
+            className={`material-symbols-outlined ${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`}
             value={iconRed} 
             onClick={() => {handleRed();  handleLike();}}
           >
@@ -166,7 +166,7 @@ function CommunityListItem(props) {
           </button>
           <span>{like}</span>   {/* 좋아요 수 */}
           <button 
-            class="material-symbols-outlined"
+            className="material-symbols-outlined"
             value={comment}
             onClick={() => {handleComment()}}
             >mode_comment

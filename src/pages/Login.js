@@ -77,19 +77,6 @@ function Login(props) {
   const userInfo = useSelector(selectUserList);
   
   const dispatch = useDispatch();
-  useEffect(() => {
-    axios.get('http://localhost:3000/userInfo')
-      .then((reponse) => {
-        console.log(reponse.data);
-        dispatch(getAllUserInfo(reponse.data))
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  },[]);
-
-
-  const userId = userInfo.find(user => inputUserId === user.id);
 
   const handLogin = async () => {
     if (inputUserId== '') {
