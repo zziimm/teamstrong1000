@@ -52,13 +52,14 @@ function BottomMenu(props) {
   
   const navigate = useNavigate();
   const isLoginUser = () => {
-    if (loginUser) {
-      navigate('/myCalendar');
-    } else {
-      alert('로그인이 필요합니다.');
-      navigate('/login');
-    }
-  }
+    navigate('/myCalendar');
+    // if (loginUser) {
+    //   navigate('/myCalendar');
+    // } else {
+    //   alert('로그인이 필요합니다.');
+    //   navigate('/login');
+    // }
+  };
 
   return (
     <>

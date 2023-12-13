@@ -97,13 +97,35 @@ function App() {
               element={
                 <RequireAuth>
                   <MyPage />
-                </RequireAuth>}/>
-            <Route path="/myCalendar" element={<MyCalendar />}/>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/myCalendar" 
+              element={
+                <RequireAuth>
+                  <MyCalendar />
+                </RequireAuth>
+              }
+            />
             <Route path="/club" element={<Club />} />
-            <Route path="/clubInsert" element={<ClubInsert />} />
+            <Route
+              path="/clubInsert" 
+              element={
+                <RequireAuth>
+                  <ClubInsert />
+                </RequireAuth>
+              }
+            />
             <Route path="/signUp" element={<SignUp />}/>
-            <Route path="/postInsert" element={<PostInsert />}/>
-            <Route path="/postInsert" element={<PostInsert />}/>
+            <Route 
+              path="/postInsert" 
+              element={
+                <RequireAuth>
+                  <PostInsert />
+                </RequireAuth>
+              }
+            />
             {/* <Route path="/matchingPost/:postId" element={<PostDetail />}/> */}
             <Route 
               path="/matchingPost/:postId" 

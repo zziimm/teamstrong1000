@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getAllCalendarInfo, getLoginUserInfo } from '../features/useinfo/userInfoSlice';
+import { getAllCalendarInfo, getLoginUser, getLoginUserInfo } from '../features/useinfo/userInfoSlice';
+import MypageMatchItem from '../components/MypageMatchItem';
 
 const MyPageArea = styled.div`
   background-color: #fff;
@@ -80,13 +81,45 @@ const MyMatchList = styled.div`
   align-items: center;
 
   div {
+    position: relative;
     cursor: pointer;
+  }
+
+  div .popupBox {
+    cursor: default;
+    width: 100%;
+    height: 100%;
+    background-color: #efefef;
+    border-radius: 7px;
+    position: absolute;
+    top: 0;
+  }
+  button {
+    width: 100px;
+    height: 30px;
+    margin-top: 20px;
+    border: none;
+    background: #4610C0;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    transition: 0.3s;
+    border: 1px solid #4610C0;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #fff;
+    color: #4610C0;
+    border: 1px solid #4610C0;
   }
 `;
 
 
 function MyPage(props) {
   const [matchList, setMatchList] = useState([]);
+  const [popup, setPopup] = useState(false);
+  const loginUser = useSelector(getLoginUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -108,8 +141,21 @@ function MyPage(props) {
       navigate('/');
     }
   }
+  
+  const handlePopup = (id) => {
+    console.log(matchList);
+    const result = matchList.filter(match => id == match._id)
+    console.log(result);
+    if (result) {
+      setPopup(!popup)
+    }
+  };
 
+  const handlClose = () => {
+    setPopup(false);
+  };
 
+  console.log(loginUser.news.postId);
   return (
     <MyPageArea>
       <div className='myPageHeader'>내 정보</div>
@@ -118,17 +164,19 @@ function MyPage(props) {
       <div className='bigDiv'>
         <h4>내 경기 일정</h4>
         <MyMatchList>
-          {matchList.map((match) => {
-            return (
-              <div key={match._id}>
-                <p>경기명: {match.title}</p>
-                <p>지역: {match.district}</p>
-                <p>인원: {match.joinPersonnel}</p>
-                <p>경기 방식: {match.game}</p>
-                <p>일정: {match.selectDate}</p>
-              </div>
-            )
-          })}
+          {matchList.map((match) => 
+            <MypageMatchItem 
+              key={match._id}
+              title={match.title}
+              district={match.district}
+              joinPersonnel={match.joinPersonnel}
+              joinMember={match.joinMember}
+              game={match.game}
+              selectDate={match.selectDate}
+              postId={match.postId}
+              lo={loginUser.news.postId == match.postId ? 'red' : ''}
+            />
+          )}
         </MyMatchList>
 
       </div>

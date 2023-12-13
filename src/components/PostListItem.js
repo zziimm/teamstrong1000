@@ -72,12 +72,7 @@ function PostListItem(props) {
 
 
   const isLoginUser = () => {
-    if (loginUser) {
-      navigate(`/matchingPost/${props.address}`);
-    } else {
-      alert('로그인이 필요합니다.');
-      navigate('/login');
-    }
+    navigate(`/matchingPost/${props.address}`);
   };
   return (
     <PostListItemWrapper 

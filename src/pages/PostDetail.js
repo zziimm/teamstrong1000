@@ -213,9 +213,14 @@ function PostDetail(props) {
 
   const { selectDate, title, district, game, joinPersonnel, content, id, gender, joinMember} = selectPost;
 
+
   const pushDate = (title, selectDate) => {
+    const joinMemberCount = joinMember.length
     if (calendarInfo?.find(gameName => gameName.title === title)) {
       alert('이미 참가한 게임입니다!')
+      return;
+    } else if (joinMemberCount == joinPersonnel) {
+      alert('모집 인원이 가득 찼습니다.');
       return;
     } else {
       axios.post(`
@@ -239,6 +244,7 @@ function PostDetail(props) {
       console.error(err.message);
     }
   };
+  console.log(joinMember);
 
   return (
     <PostDetailWrapper>
@@ -265,7 +271,10 @@ function PostDetail(props) {
           <div className='innerBoxTitle'>경기 방식</div>
           <div className='innerBoxContent'>{game}</div>
           <div className='innerBoxTitle'>참여 인원</div>
-          <div className='innerBoxContent'>{joinPersonnel}</div>
+          <div className='innerBoxContent'>
+            {joinPersonnel}
+            ({joinMember.map(member => <span> {member}, </span>)})
+          </div>
           <div className='innerBoxTitle'>일정 소개</div>
           <div className='innerBoxContent'>{content}</div>
         {/* {/* </div>innerBox */}

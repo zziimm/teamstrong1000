@@ -4,7 +4,9 @@ import { getLoginUser } from "../features/useinfo/userInfoSlice";
 
 function RequireAuth({ children }) {
   const user = useSelector(getLoginUser);
+  console.log(user);
   const location = useLocation();
+
 
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;

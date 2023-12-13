@@ -39,7 +39,7 @@ function Header(props) {
         </div>
         <div>
           {loginUser 
-            ? <span>{loginUser}님 반갑습니다!</span>
+            ? <span>{loginUser.userId}님 반갑습니다!</span>
             : ''
           }
           
