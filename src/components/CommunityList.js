@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CommunityListItem from './CommunityListItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,21 +47,21 @@ function CommunityList(props) {
   const navigate = useNavigate();
 
   const userNic = useSelector(getLoginUser);
+  const communityInsert = useSelector(userCommunityList);
 
   useEffect(() => {
     const getCommunityList = async () => {
-    try {
-      const response = await axios.get('http://localhost:8088/community', {withCredentials:true});
-      dispatch(getAllUserCommunityList(response.data.communityData));
-    } catch (err) {
-      console.error(err);
-    }};
-    getCommunityList();
-  }, []);
-  
-  const communityInsert = useSelector(userCommunityList);
-  return (
-    <CommunityListWrapper>
+      try {
+        const response = await axios.get('http://localhost:8088/community', {withCredentials:true});
+        dispatch(getAllUserCommunityList(response.data.communityData));
+      } catch (err) {
+        console.error(err);
+      }};
+      getCommunityList();
+    }, []);
+    
+    return (
+      <CommunityListWrapper>
       {communityInsert.map((CommunityInsertMap) => {
         return <CommunityListItem
           key={CommunityInsertMap._id} // 댓글 비교 id
@@ -71,7 +71,7 @@ function CommunityList(props) {
           // title={CommunityInsertMap.title}
           content={CommunityInsertMap.content} // 글내용
           imagePath={CommunityInsertMap.imagePath} // 첨부파일
-          like={CommunityInsertMap.like} // 첨부파일
+          like={CommunityInsertMap.like} // 좋아요
         />
       })}
       <CommunityInsertBtn
