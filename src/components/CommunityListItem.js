@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import CommunityComment from './CommunityComment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getLoginUser } from '../features/useinfo/userInfoSlice';
 
 const CommunityListItemWrapper = styled.div`
   box-sizing: border-box;
@@ -90,16 +92,28 @@ function CommunityListItem(props) {
   const [iconRed, setIconRed] = useState(false);
   const [comment, setComment] = useState(true);
   const [like, setLike] = useState(0);
+  const [communiyCotmmentNum, setCommunityCommentNum] = useState();
   
   useEffect(() => {
     const setL = async() => {
       await setLike(props.like)
     }
     setL();
+    const commentNum = async() => {
+      const result = await axios.get('/community')
+      setCommunityCommentNum(result.data.communityDataa)
+    }
+    commentNum();
   }, []);
-  
+
   const postId = props.postId;
+  const userNic = props.userNic;
+  const loginUserNic = useSelector(getLoginUser);
   
+  const test = communiyCotmmentNum?.filter((id) => {
+    return id.commentPostId == postId;
+  })
+
   const aaa = new Date(2023, 7, 5) // 게시글 입력 날짜 계산
   function elapsedTime(date) {
     const start = new Date(date);
@@ -142,21 +156,29 @@ function CommunityListItem(props) {
   }
   const handleDelete = async () => {    // 게시글 삭제
     try {
-      const result = await axios.post(`/community/delete`, { postId });
-      // console.log(result);
-      if (result.data.flag) {
-        
-        // 스테이트.remove()     게시글 삭제 새로고침 없이 어케하누
+      if (userNic == loginUserNic) {
+        const result = await axios.post(`/community/delete`, { postId });
+        // console.log(result);
+        if (result.data.flag) {
+          
+          // 스테이트.remove()     게시글 삭제 새로고침 없이 어케하누
+        }
+      } else {
+        alert('내가쓴 글만 삭제 가능!');
       }
-
     } catch (err) {
       console.error(err);
     }
   }
-  const handleEdit = async () => {       // 게시글 삭제
+  const handleEdit = async () => {       // 게시글 수정
+    if (userNic == loginUserNic) {
       navigate(`/CommunityEdit/${postId}`);
+    } else {
+      alert('내가쓴 글만 수정 가능!');
+    }
   }
   
+
   return (
     <CommunityListItemWrapper>
         {<div className='div-between'>
@@ -206,6 +228,7 @@ function CommunityListItem(props) {
             onClick={() => {handleComment()}}
             >mode_comment
           </button>
+          <span>{test?.length}</span>  {/* 댓글 갯수 */}
         </div>}
         <form>
           <button onClick={() => { handleDelete() }}>🗑</button>

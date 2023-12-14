@@ -33,7 +33,7 @@ const CommunityCommentWrapper = styled.div`
 const CommunityCommentList = styled.div`
   overflow-y: scroll;
 `;
-const CommunityCommentIsert = styled.form`
+const CommunityCommentIsert = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,44 +56,56 @@ const CommunityCommentIsert = styled.form`
   }
 `;
 function CommunityComment(props) {
-  const [addComment, setAddComment] = useState();
-  const [addCommentE, setAddCommentE] = useState([]);
+  const [addComment, setAddComment] = useState(); // 댓글 DB 객체
+  const [addCommentE, setAddCommentE] = useState([]); // 댓글 입력값 + 객체
+  const [testt, setTestt] = useState();
+
   const postId = props.postId;
+  const filterComment = addCommentE?.filter((id) => {
+    return id.commentPostId == postId;
+  })
+  const changeAddComment = (e) => setAddComment(e.target.value);
+  const handleAddComment = async () => { // 댓글 등록 버튼
+    const result = await axios.post(`http://localhost:8088/community/communityComment`, {addComment, postId}, {withCredentials:true});
+    
+    setAddCommentE(result.data.rePost); // 새로고침 없이 재렌더링..(post 보낼때 새 다시 find 받아오기)
+    setAddComment('');
+    }
   useEffect(() => {
-    const getComments = async () => {  try {
-      const comments = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
-      setAddCommentE(comments.data.comments)
+    const getComments = async () => {  // 댓글 리스트 받아오기
+      try {
+      const result = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
+      setAddCommentE(result.data.comments)
     } catch (err) {
       console.error(err);
     }};
     getComments();
   }, []);
-  const filterComment = addCommentE.filter((id) => {
-    return id.commentPostId == postId;
-  })
-  // console.log(addCommentE); //  댓글 DB 객체
-  // console.log(addComment); // 댓글 입력값
+
+  const abc = async (testt) => {
+    try {
+      // const result = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
+      setAddCommentE(testt)
+    } catch (err) {
+      console.error(err);
+    }};
   
-  const changeAddComment = (e) => setAddComment(e.target.value);
-  const handleAddComment = async () => {
-    await axios.post(`http://localhost:8088/community/communityComment`, {addComment, postId}, {withCredentials:true});
-    }
     return (
       <CommunityCommentWrapper>
       <CommunityCommentList>
-        {filterComment.map((addCommentMap) => {
+        {addCommentE.map((addCommentMap) => {
           return <CommunityCommentListItem
             key={addCommentMap._id}
-            commentPostId={addCommentMap.commentPostId}
-            postId={addCommentMap.postId}
+            commentPostId={addCommentMap._id}
             addComment={addCommentMap.addComment}
             userId={addCommentMap.userId}
+            abc={abc}
           />
         })}
       </CommunityCommentList>
 
 
-      <CommunityCommentIsert /* onSubmit={(e) => {handleAddComment(); e.preventDefault()}} */>
+      <CommunityCommentIsert>
         <input
           type='text'
           name='content'

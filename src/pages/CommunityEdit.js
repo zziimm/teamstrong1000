@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import {  useSelector } from 'react-redux';
@@ -123,9 +123,24 @@ function CommunityEdit(props) {
 
   const navigate = useNavigate();
   const userNic = useSelector(getLoginUser);
+  const { postId } = useParams();
 
   const [insertContent, setInsertContent] = useState('');
   const [insertImgUp, setInsertImgUp] = useState([]);
+  const [editInput, setEditInput] = useState('');
+
+  useEffect(() => {
+    const getCommunityList = async () => {
+      try {
+        const response = await axios.get('http://localhost:8088/community', {withCredentials:true});
+        setEditInput(response)
+      } catch (err) {
+        console.error(err);
+      }};
+      getCommunityList();
+    }, []);
+    console.log(editInput);
+    
 
   const changeContent = (e) => setInsertContent(e.target.value)
 
@@ -140,13 +155,14 @@ function CommunityEdit(props) {
   };
 
   const communityInput = {
-    id: userNic,
+
+    // id: userNic,
     content: insertContent,
     imagePath: insertImgUp,
   }
 
   const handlePushCommunity = async() => {  // 아니 이건 왜 안됨????
-    await axios.post(`http://localhost:8088/community/edit`, communityInput)
+    await axios.post(`http://localhost:8088/community/edit/${postId}`, {communityInput})
     navigate('/community')
   };
 

@@ -49,17 +49,27 @@ function CommunityList(props) {
   const userNic = useSelector(getLoginUser);
   const communityInsert = useSelector(userCommunityList);
 
+  const isLoggedInInsert = () => {
+    if (userNic) {
+      navigate('/CommunityInsert');
+    } else {
+      alert('로그인 해야함!')
+    }
+  }
+
   useEffect(() => {
     const getCommunityList = async () => {
       try {
-        const response = await axios.get('http://localhost:8088/community', {withCredentials:true});
-        dispatch(getAllUserCommunityList(response.data.communityData));
+        const result = await axios.get('http://localhost:8088/community', {withCredentials:true});
+        dispatch(getAllUserCommunityList(result.data.communityData));
       } catch (err) {
         console.error(err);
       }};
       getCommunityList();
     }, []);
     
+
+
     return (
       <CommunityListWrapper>
       {communityInsert.map((CommunityInsertMap) => {
@@ -75,7 +85,7 @@ function CommunityList(props) {
         />
       })}
       <CommunityInsertBtn
-        onClick={() => {navigate('/CommunityInsert')}}
+        onClick={() => {isLoggedInInsert()}}
       >+</CommunityInsertBtn>
     </CommunityListWrapper>
   );
