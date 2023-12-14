@@ -7,15 +7,18 @@ import { getAllCalendarInfo, getLoginUser, getLoginUserInfo } from '../features/
 import MypageMatchItem from '../components/MypageMatchItem';
 
 const MyPageArea = styled.div`
-  background-color: #fff;
+  background-color: #000;
   width: 530px;
   height: 100vh;
   overflow-y: scroll;
-  color: #1c1b1f;
+  background-image: url(/back2.jpg);
+  background-size: cover;
+  
 
   .myPageHeader {
     margin: 44px 0 14px 37px;
-    color: #1c1b1f;
+    color: #fff;
+
     font-size: 24px;
     font-weight: 800;
   }
@@ -23,18 +26,19 @@ const MyPageArea = styled.div`
   
   hr {
     margin: 0 37px;
-    border: 1px solid #4610C0;
+    border: 1px solid #fff;
   }
   
   button {
-    width: 200px;
-    height: 30px;
-    margin-top: 20px;
+    width: 457px;
+    height: 40px;
+    margin-top: 50px;
     border: none;
+    
     background: #4610C0;
     color: #fff;
     padding: 5px 10px;
-    border-radius: 15px;
+    border-radius: 30px;
     transition: 0.3s;
     border: 1px solid #4610C0;
     cursor: pointer;
@@ -53,11 +57,47 @@ const MyPageArea = styled.div`
     padding: 0 37px;
   }
 
+  .top {
+    display: flex;
+    gap: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .win {
+    width: 250px;
+    height: 140px;
+    color: #fff;
+    font-weight: 900;
+    font-size: 30px;
+    text-align: center;
+    line-height: 190px;
+    background-image: url(/win.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    
+  }
+
+  .lose {
+    width: 250px;
+    height: 140px;
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 190px;
+    font-weight: 900;
+    background-image: url(/lose.png);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+
   h4 {
     margin-top: 34px;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 800;
-    margin-bottom: 12px;
+    color: #fff;
+    margin-bottom: 30px;
   }
   
   .signArea {
@@ -65,20 +105,25 @@ const MyPageArea = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
     gap: 10px;
   }
 `;
 
+
+
 const MyMatchList = styled.div`
-  width: 100%;
-  border: 2px solid #4610C0;
+  width: 457px;
+  height: 190px;
   border-radius: 7px;
   padding: 20px ;
   line-height: 20px;
   /* display: flex; */
   justify-content: space-between;
   align-items: center;
+  background-image: url(/board.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
 
   div {
     position: relative;
@@ -90,10 +135,11 @@ const MyMatchList = styled.div`
     width: 100%;
     height: 100%;
     background-color: #efefef;
-    border-radius: 7px;
     position: absolute;
     top: 0;
   }
+
+
   button {
     width: 100px;
     height: 30px;
@@ -152,29 +198,35 @@ function MyPage(props) {
       <hr/>
 
       <div className='bigDiv'>
-      <h2>승리{winPoint}</h2>
-      <h2>패배{losePonit}</h2>
-        <h4>내 경기 일정</h4>
-        <MyMatchList>
-          {matchList.map((match) => 
-            <MypageMatchItem 
-              key={match._id}
-              title={match.title}
-              district={match.district}
-              joinPersonnel={match.joinPersonnel}
-              joinMember={match.joinMember}
-              game={match.game}
-              selectDate={match.selectDate}
-              postId={match?.postId}
-              lo={loginUser.news?.postId == match.postId ? 'red' : ''}
-            />
-          )}
-        </MyMatchList>
+        <div className='top'>
+          <div className='win'>{winPoint}</div>
+          <div className='lose'>{losePonit}</div>
+        </div>
+        
+        
+
+          <h4>내 경기 일정</h4>
+          <MyMatchList>
+            {matchList.map((match) => 
+              <MypageMatchItem 
+                key={match._id}
+                title={match.title}
+                district={match.district}
+                joinPersonnel={match.joinPersonnel}
+                joinMember={match.joinMember}
+                game={match.game}
+                selectDate={match.selectDate}
+                postId={match?.postId}
+                lo={loginUser.news?.postId == match.postId ? 'red' : ''}
+              />
+            )}
+          </MyMatchList>
 
       </div>
+      
 
       <div className='signArea'>
-        <button onClick={() => {handleLogout()}}>로그아웃</button>
+        <button className='lastbtn' onClick={() => {handleLogout()}}>로그아웃</button>
       </div>
     </MyPageArea>
   );
