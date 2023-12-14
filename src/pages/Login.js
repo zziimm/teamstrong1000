@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { styled } from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUserInfo, getLoginUserInfo, getUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import KakaoLogin from '../components/KakaoLogin';
@@ -75,21 +75,10 @@ function Login(props) {
   const [inputUserPass, setInputUserPass] = useState('');
   const [loingBtn, setLoginBtn] = useState(false);
   const userInfo = useSelector(selectUserList);
+  const location = useLocation();
+
   
   const dispatch = useDispatch();
-  useEffect(() => {
-    axios.get('http://localhost:3000/userInfo')
-      .then((reponse) => {
-        console.log(reponse.data);
-        dispatch(getAllUserInfo(reponse.data))
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  },[]);
-
-
-  const userId = userInfo.find(user => inputUserId === user.id);
 
   const handLogin = async () => {
     if (inputUserId== '') {
@@ -100,10 +89,14 @@ function Login(props) {
       return
     } else {
       const result = await axios.post('http://localhost:8088/user/login', { userId: inputUserId, passwd: inputUserPass }, {withCredentials: true});
-      console.log(result);
+
+      if (!result.data.flag) {
+        return alert('로그인 실패');
+      }
+
       dispatch(getLoginUserInfo(result.data.user));
       alert(`환영합니다! ${result.data.user.userId} 님!`);
-      navigate('/')
+      navigate(location.state?.from?.pathname || '/');
     }
   };
   // const handLogin = () => {

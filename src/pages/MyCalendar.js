@@ -128,7 +128,6 @@ function MyCalendar(props) {
   const [todo, setTodo] = useState('');
   const [inputStartDate, setInputStartDate] = useState('');
   const [inputEndDate, setInputEndDate] = useState('');
-  const [list, setList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -147,10 +146,10 @@ function MyCalendar(props) {
   
   
   const handletodo = (e) => {
-    setTodo(e.target.value)
+    setTodo(e.target.value);
   };
   const handleinputStartDate = (e) => {
-    setInputStartDate(e.target.value)
+    setInputStartDate(e.target.value);
   };
   const handleInputEndDate = (e) => {
     // if (inputStartDate > inputEndDate) {
@@ -158,35 +157,28 @@ function MyCalendar(props) {
     //   return
     // } else {
     // }
-    setInputEndDate(e.target.value)
+    setInputEndDate(e.target.value);
   };
 
-
-  const data = { title: todo, start: inputStartDate, end: inputEndDate, backgroundColor: "#008000" }
-
   const handlePush = async () => {
-    const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/myCalendar/insert`, { title: todo, start: inputStartDate, end: inputEndDate }, { withCredentials: true })
+    const result = await axios.post(`
+      ${process.env.REACT_APP_ADDRESS}/myCalendar/directInsert`, { 
+          title: todo, start: inputStartDate, end: inputEndDate 
+        }, {
+          withCredentials: true
+      });
     if (result.data.flag) {
       alert(result.data.message);
-      navigate('/myCalendar');
+      navigate('/');
     } else {
       alert(result.data.message);
       navigate('/login');
-    }
-  }
+    };
+  };
 
-  // const handlePush = (list) => {
-  //   const copyList = [...list]
-  //   copyList.push({title: todo, start: inputStartDate, end: inputEndDate});
-    
-  //   setList(copyList)
-  //   setTodo('')
-  //   setInputStartDate('')
-  //   setInputEndDate('')
-  // }
   if (!calendarList) {
     return null;
-  }
+  };
 
   return (
     <>

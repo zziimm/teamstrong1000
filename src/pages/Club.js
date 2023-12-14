@@ -77,7 +77,6 @@ const MyClub = styled.div`
     font-weight: bold;
     margin-bottom: 20px;
     width: 150px;
-
   }
 
   span {

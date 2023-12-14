@@ -51,7 +51,7 @@ const userInfoSlice = createSlice({
     // 현재 로그인 ID
     getLoginUserInfo: (state, action) => {
       console.log(action.payload);
-      state.loginUserInfo = action.payload?.userId;
+      state.loginUserInfo = action?.payload;
     },
 
 

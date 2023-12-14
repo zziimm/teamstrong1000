@@ -176,6 +176,7 @@ function PostDetail(props) {
   // const joinedGame = useSelector(getMyCalendarInfo);
   const [calendarInfo, serCalendarInfo] = useState([]);
   const [joinGame, setJoinGame] = useState(false);
+  const [isFullMember, setIsFullMember] = useState(false);
   const loginUser = useSelector(getLoginUser);
 
 
@@ -205,21 +206,25 @@ function PostDetail(props) {
     calendarInfo();
   }, []);
 
-  console.log(calendarInfo);
-  console.log(selectPost);
 
   if (!selectPost) {
     return null;
   }
 
-  const { selectDate, title, district, game, joinPersonnel, content, id, gender} = selectPost;
+  const { selectDate, title, district, game, joinPersonnel, content, id, gender, joinMember} = selectPost;
+
 
   const pushDate = (title, selectDate) => {
+    const joinMemberCount = joinMember.length
     if (calendarInfo?.find(gameName => gameName.title === title)) {
       alert('이미 참가한 게임입니다!')
       return;
+    } else if (joinMemberCount == joinPersonnel) {
+      alert('모집 인원이 가득 찼습니다.');
+      return;
     } else {
-      axios.post(`${process.env.REACT_APP_ADDRESS}/myCalendar/insert/${postId}`, { title: title, start: selectDate }, { withCredentials: true });
+      axios.post(`
+        ${process.env.REACT_APP_ADDRESS}/myCalendar/insert/${postId}`, { title, district, game, joinPersonnel, joinMember, start: selectDate }, { withCredentials: true });
       setJoinGame(true)
       alert('참가하기 완료! 일정이 추가되었습니다!')
       // navigate('/')
@@ -239,6 +244,7 @@ function PostDetail(props) {
       console.error(err.message);
     }
   };
+  console.log(joinMember);
 
   return (
     <PostDetailWrapper>
@@ -246,11 +252,11 @@ function PostDetail(props) {
         <div className='date'>
           {selectDate}
           <div className='date updateBox'>
-            { loginUser == id 
+            { loginUser == id.userId 
               ? <div onClick={() => {navigate(`/editMatchPost/${postId}`)}} >수정</div> 
               : ''
             }
-            { loginUser == id 
+            { loginUser == id.userId
               ? <div onClick={() => {deleteBtn()}}>삭제</div> 
               : ''
             }
@@ -265,7 +271,10 @@ function PostDetail(props) {
           <div className='innerBoxTitle'>경기 방식</div>
           <div className='innerBoxContent'>{game}</div>
           <div className='innerBoxTitle'>참여 인원</div>
-          <div className='innerBoxContent'>{joinPersonnel}</div>
+          <div className='innerBoxContent'>
+            {joinPersonnel}
+            ({joinMember.map(member => <span> {member}, </span>)})
+          </div>
           <div className='innerBoxTitle'>일정 소개</div>
           <div className='innerBoxContent'>{content}</div>
         {/* {/* </div>innerBox */}
@@ -273,11 +282,11 @@ function PostDetail(props) {
 
       
       <div className='bottom-box'>
-        <div className='title2'>주최좌 정보</div>
+        <div className='title2'>주최자 정보</div>
         <div className='innerBigBox'>
           <div className='innerBox'>
             <div className='innerBoxTitle2'>닉네임</div>
-            <div className='innerBoxContent2'>{id}</div>
+            <div className='innerBoxContent2'>{id.userId}</div>
           </div>
           <div className='innerBox'>
             <div className='innerBoxTitle2'>성별</div>
@@ -288,7 +297,7 @@ function PostDetail(props) {
 
       { calendarInfo?.find(gameName => gameName.title === title)
         ? <Button className='isJoined' disabled={true}>신청되었습니다.</Button>
-        : <Button $joinGame={joinGame} disabled={joinGame} onClick={() => {pushDate(title, selectDate)}}>{joinGame ? "신청되었습니다." : "참여하기"}</Button>
+        : <Button $joinGame={joinGame} disabled={joinGame} onClick={() => {pushDate(title, selectDate, district, game, joinPersonnel, content, id, gender, joinMember)}}>{joinGame ? "신청되었습니다." : "참여하기"}</Button>
       }
 
     </PostDetailWrapper>

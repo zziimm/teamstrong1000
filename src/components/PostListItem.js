@@ -70,13 +70,9 @@ function PostListItem(props) {
   const navigate = useNavigate();
   const loginUser = useSelector(getLoginUser);
 
+
   const isLoginUser = () => {
-    if (loginUser) {
-      navigate(`/matchingPost/${props.address}`);
-    } else {
-      alert('로그인이 필요합니다.');
-      navigate('/login');
-    }
+    navigate(`/matchingPost/${props.address}`);
   };
   return (
     <PostListItemWrapper 
@@ -86,7 +82,7 @@ function PostListItem(props) {
         <span className='selectDate'>{props.selectDate} <br/></span>
         <span className='title'>{props.title} <br/></span>
         <span className='district'>지역: {props.district} |&nbsp;</span>
-        <span className='joinPersonnel'>참여 인원: {props.joinPersonnel} |&nbsp;</span>
+        <span className='joinPersonnel'>참여 인원: {props.joinMember?.length}/{props.joinPersonnel} |&nbsp;</span>
         <span className='game'>경기 방식: {props.game} &emsp; <br/></span>
         <span className='id'>{props.id}</span>
       {/* 성별: {props.gender} &emsp;

@@ -237,7 +237,7 @@ function PostInsert(props) {
     if (!selectDate) {
       return alert('날짜를 입력해주세요!');
     }
-    await axios.post(`${process.env.REACT_APP_ADDRESS}/matchingInsert`, postInput)
+    await axios.post(`${process.env.REACT_APP_ADDRESS}/matchingInsert`, postInput, { withCredentials: true })
     alert('매칭 등록이 완료되었습니다!')
     navigate('/')
   };

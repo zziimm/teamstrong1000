@@ -18,7 +18,7 @@ function Search_modal(props) {
         onClick={showModal}
         style={{ background: "none", border: "none" }}>
         <span
-          class="material-symbols-outlined"
+          className="material-symbols-outlined"
           style={{ color: "#4610C0", fontSize: "24px" }}
         >
           search

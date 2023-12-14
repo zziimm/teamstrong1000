@@ -144,7 +144,7 @@ function PostList(props) {
         return <PostListItem
           key={postInsertMap._id}
           address={postInsertMap._id}
-          id={postInsertMap.id} 
+          id={postInsertMap.id.userId} 
           title={postInsertMap.title}
           content={postInsertMap.content}
           selectDate={postInsertMap.selectDate}
@@ -152,6 +152,7 @@ function PostList(props) {
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
           district={postInsertMap.district}
+          joinMember={postInsertMap.joinMember}
         />
       })}
       {district && postInsert.map((postInsertMap) => {
@@ -166,6 +167,7 @@ function PostList(props) {
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
           district={postInsertMap.district}
+          joinMember={postInsertMap.joinMember}
         />
       })}
       {district2 && postInsert.map((postInsertMap) => {
@@ -180,6 +182,7 @@ function PostList(props) {
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
           district={postInsertMap.district}
+          joinMember={postInsertMap.joinMember}
         />
       })}
       {district3 && postInsert.map((postInsertMap) => {
@@ -194,6 +197,7 @@ function PostList(props) {
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
           district={postInsertMap.district}
+          joinMember={postInsertMap.joinMember}
         />
       })}
 
