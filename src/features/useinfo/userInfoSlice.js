@@ -32,13 +32,9 @@ const userInfoSlice = createSlice({
       state.userInfo.push(action.payload)
     },
 
-    // 명예의 전당
-    getAllTeamInfo: (state, action) => {
-      state.teamInfo = action.payload;
-    },
 
     // 명예의 전당
-    getAllHonerTeamInfo: (state, action) => {
+    getAllTeamInfo: (state, action) => {
       const sortscore = action.payload.sort((a, b) => {
         return (b.winscore / (b.winscore + b.losescore)) - (a.winscore / (a.winscore + a.losescore))
       })
