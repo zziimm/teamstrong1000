@@ -213,7 +213,6 @@ function MyCalendar(props) {
               domNodes: []
             }
           }}
-
         />
         
         <InputArea>
