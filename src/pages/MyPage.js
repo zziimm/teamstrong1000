@@ -118,7 +118,8 @@ const MyMatchList = styled.div`
 
 function MyPage(props) {
   const [matchList, setMatchList] = useState([]);
-  const [popup, setPopup] = useState(false);
+  const [winPoint, setWinPoint] = useState(0);
+  const [losePonit, setLosePonit] = useState(0);
   const loginUser = useSelector(getLoginUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -127,6 +128,8 @@ function MyPage(props) {
     const getMatchList = async () => {
       const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/myPage/matchList`, { withCredentials: true });
       setMatchList(result.data.data);
+      setWinPoint(result.data.userData?.win)
+      setLosePonit(result.data.userData?.lose)
     };
     getMatchList();
   }, []);
@@ -141,27 +144,16 @@ function MyPage(props) {
       navigate('/');
     }
   }
-  
-  const handlePopup = (id) => {
-    console.log(matchList);
-    const result = matchList.filter(match => id == match._id)
-    console.log(result);
-    if (result) {
-      setPopup(!popup)
-    }
-  };
 
-  const handlClose = () => {
-    setPopup(false);
-  };
 
-  console.log(loginUser.news.postId);
   return (
     <MyPageArea>
       <div className='myPageHeader'>내 정보</div>
       <hr/>
 
       <div className='bigDiv'>
+      <h2>승리{winPoint}</h2>
+      <h2>패배{losePonit}</h2>
         <h4>내 경기 일정</h4>
         <MyMatchList>
           {matchList.map((match) => 
@@ -173,8 +165,8 @@ function MyPage(props) {
               joinMember={match.joinMember}
               game={match.game}
               selectDate={match.selectDate}
-              postId={match.postId}
-              lo={loginUser.news.postId == match.postId ? 'red' : ''}
+              postId={match?.postId}
+              lo={loginUser.news?.postId == match.postId ? 'red' : ''}
             />
           )}
         </MyMatchList>

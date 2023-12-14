@@ -252,11 +252,11 @@ function PostDetail(props) {
         <div className='date'>
           {selectDate}
           <div className='date updateBox'>
-            { loginUser == id 
+            { loginUser == id.userId 
               ? <div onClick={() => {navigate(`/editMatchPost/${postId}`)}} >수정</div> 
               : ''
             }
-            { loginUser == id 
+            { loginUser == id.userId
               ? <div onClick={() => {deleteBtn()}}>삭제</div> 
               : ''
             }
@@ -286,7 +286,7 @@ function PostDetail(props) {
         <div className='innerBigBox'>
           <div className='innerBox'>
             <div className='innerBoxTitle2'>닉네임</div>
-            <div className='innerBoxContent2'>{id}</div>
+            <div className='innerBoxContent2'>{id.userId}</div>
           </div>
           <div className='innerBox'>
             <div className='innerBoxTitle2'>성별</div>

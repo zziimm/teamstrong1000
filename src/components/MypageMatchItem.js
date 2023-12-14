@@ -57,8 +57,9 @@ function MypageMatchItem(props) {
   const loginUser = useSelector(getLoginUser);
   
   const handlePopup = () => {
-    console.log(joinMember);
-    console.log(postId);
+    if (lo === 'red') {
+      return setHotNews(true)
+    }
     setPopup(true);
   };
   const handlClose = () => {
@@ -76,14 +77,15 @@ function MypageMatchItem(props) {
   const handleWinBtn = async () => {
     const withOutMe = joinMember.filter(member => member !== loginUser.userId);
     await withOutMe.forEach(member => axios.post(`${process.env.REACT_APP_ADDRESS}/myPage/winAlert`, { member, postId }, { withCredentials:true }));
-    
   };
 
-  // console.log(loginUser.news.postId);
-  // const hotNewsAlert = loginUser.news.filter(news => news.postId == postId);
-  // if (loginUser.news.postId) {
-  //   setHotNews(true)
-  // }
+  const confirmBtn = async () => {
+    await axios.post(`${process.env.REACT_APP_ADDRESS}/myPage/matchResult`, { postId }, { withCredentials: true });
+  };
+  // 핫뉴스 받은 유저의 뉴스값 날리고(postId)
+  // 해당 게시글 삭제시키거
+  // 마이 매치에서 해당 경기 삭제 
+  // 요청보낸 유저(승리버튼)는 1승 뉴스값 받은 유저는 1패 추가
   
   return (
     <Area>
@@ -98,7 +100,11 @@ function MypageMatchItem(props) {
           : ''
         }
       </div>
-      { popup 
+      { hotNews ?
+        <div className='popupBox'>
+          <button onClick={confirmBtn}>패배</button>
+        </div>
+        : popup 
         ?
         <div className='popupBox'>
           <button onClick={handleWinBtn}>승리</button>

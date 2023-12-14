@@ -144,7 +144,7 @@ function PostList(props) {
         return <PostListItem
           key={postInsertMap._id}
           address={postInsertMap._id}
-          id={postInsertMap.id} 
+          id={postInsertMap.id.userId} 
           title={postInsertMap.title}
           content={postInsertMap.content}
           selectDate={postInsertMap.selectDate}
