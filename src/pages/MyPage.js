@@ -218,6 +218,7 @@ function MyPage(props) {
                 selectDate={match.selectDate}
                 postId={match?.postId}
                 lo={loginUser.news?.postId == match.postId ? 'red' : ''}
+                check={loginUser.check ? 'check' : ''}
               />
             )}
           </MyMatchList>
