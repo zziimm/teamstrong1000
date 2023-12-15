@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CommunityCommentListItem from './CommunityCommentListItem';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { getLoginUser } from '../features/useinfo/userInfoSlice';
 
 const CommunityCommentWrapper = styled.div`
   display: flex;
@@ -58,7 +59,8 @@ const CommunityCommentIsert = styled.div`
 function CommunityComment(props) {
   const [addComment, setAddComment] = useState(); // 댓글 DB 객체
   const [addCommentE, setAddCommentE] = useState([]); // 댓글 입력값 + 객체
-  const [testt, setTestt] = useState();
+
+  const userNic = useSelector(getLoginUser);
 
   const postId = props.postId;
   const filterComment = addCommentE?.filter((id) => {
@@ -66,10 +68,18 @@ function CommunityComment(props) {
   })
   const changeAddComment = (e) => setAddComment(e.target.value);
   const handleAddComment = async () => { // 댓글 등록 버튼
-    const result = await axios.post(`http://localhost:8088/community/communityComment`, {addComment, postId}, {withCredentials:true});
-    
-    setAddCommentE(result.data.rePost); // 새로고침 없이 재렌더링..(post 보낼때 새 다시 find 받아오기)
-    setAddComment('');
+    if (userNic) {
+      if (!addComment) {
+        alert('댓글을 입력하쇼')
+    } else {
+      const result = await axios.post(`http://localhost:8088/community/communityComment`, {addComment, postId}, {withCredentials:true});
+      
+      setAddCommentE(result.data.rePost); // 새로고침 없이 재렌더링..(post 보낼때 새 다시 find 받아오기)
+      setAddComment('');
+    }
+      } else {
+        alert('로그인하쇼')
+      }
     }
   useEffect(() => {
     const getComments = async () => {  // 댓글 리스트 받아오기
@@ -82,10 +92,10 @@ function CommunityComment(props) {
     getComments();
   }, []);
 
-  const abc = async (testt) => {
+  const commentDel = async () => {
     try {
-      // const result = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
-      setAddCommentE(testt)
+      const result = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
+      setAddCommentE(result.data.comments)
     } catch (err) {
       console.error(err);
     }};
@@ -93,13 +103,14 @@ function CommunityComment(props) {
     return (
       <CommunityCommentWrapper>
       <CommunityCommentList>
-        {addCommentE.map((addCommentMap) => {
+        {filterComment.map((addCommentMap) => {
           return <CommunityCommentListItem
             key={addCommentMap._id}
             commentPostId={addCommentMap._id}
             addComment={addCommentMap.addComment}
             userId={addCommentMap.userId}
-            abc={abc}
+            commentDel={commentDel}
+            
           />
         })}
       </CommunityCommentList>

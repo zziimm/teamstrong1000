@@ -89,32 +89,43 @@ function CommunityListItem(props) {
   const navigate = useNavigate();
 
   const [more, setMore] = useState(false);
-  const [iconRed, setIconRed] = useState(false);
   const [comment, setComment] = useState(true);
-  const [like, setLike] = useState(0);
+  const [iconRed, setIconRed] = useState(false);
+  const [like, setLike] = useState(props.like);
   const [communiyCotmmentNum, setCommunityCommentNum] = useState();
-  
-  useEffect(() => {
-    const setL = async() => {
-      await setLike(props.like)
-    }
-    setL();
-    const commentNum = async() => {
-      const result = await axios.get('/community')
-      setCommunityCommentNum(result.data.communityDataa)
-    }
-    commentNum();
-  }, []);
 
   const postId = props.postId;
   const userNic = props.userNic;
   const loginUserNic = useSelector(getLoginUser);
   
+  useEffect(() => {
+    // const setL = () => {
+    //   setLike(props.like)
+    // }
+    // setL();
+    const commentNum = async() => {
+      const result = await axios.get('/community')
+      setCommunityCommentNum(result.data.commentNum)
+    }
+    commentNum();
+  }, []);
+  useEffect(() => {
+    const test = async () => {
+      try {
+        const id = props.postId
+        await axios.patch(`/community`, { like, id, iconRed });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    test();
+  },[iconRed])
+  
   const test = communiyCotmmentNum?.filter((id) => {
     return id.commentPostId == postId;
   })
 
-  const aaa = new Date(2023, 7, 5) // 게시글 입력 날짜 계산
+  const date = new Date(2023, 7, 5) // 게시글 입력 날짜 계산
   function elapsedTime(date) {
     const start = new Date(date);
     const end = new Date();
@@ -139,30 +150,21 @@ function CommunityListItem(props) {
   const handleMore = () => {    // 더보기 함수
     setMore(!more)
   }
-  const handleRed = () => {     // 좋아요 ture/false 함수
-    setIconRed(!iconRed)
+  const handleLike = () => {     // 좋아요 + 패치 함수
+    if (loginUserNic) {
+      setIconRed(!iconRed)
+      setLike(Number(`${iconRed ? like - 1 : like + 1 }`))
+    } else {
+      alert('로그인을 하시게나')
+    }
   }
   const handleComment = () => {    // 댓글창 함수
     setComment(!comment)
   }
-  const handleLike = async() => {     // 좋아요 + 패치 함수
-    setLike(Number(`${iconRed ? like - 1 : like + 1 }`))
-    try {
-      const id = props.postId
-      const result = await axios.patch(`/community`, { like, id });
-    } catch (err) {
-      console.error(err);
-    }
-  }
   const handleDelete = async () => {    // 게시글 삭제
     try {
       if (userNic == loginUserNic) {
-        const result = await axios.post(`/community/delete`, { postId });
-        // console.log(result);
-        if (result.data.flag) {
-          
-          // 스테이트.remove()     게시글 삭제 새로고침 없이 어케하누
-        }
+        await axios.post(`/community/delete`, { postId });
       } else {
         alert('내가쓴 글만 삭제 가능!');
       }
@@ -183,7 +185,7 @@ function CommunityListItem(props) {
     <CommunityListItemWrapper>
         {<div className='div-between'>
           <span className='id'>{props.userNic}</span>
-          <span className='date'>{aaa.getFullYear()}/{(aaa.getMonth() + 1)}/{aaa.getDate()}</span>
+          <span className='date'>{date.getFullYear()}/{(date.getMonth() + 1)}/{date.getDate()}</span>
         </div>}
 
       { comment ?
@@ -206,7 +208,7 @@ function CommunityListItem(props) {
             >
               {`${more ? "" : '더보기'}`}
             </button>
-          <span className='경과일'>{elapsedTime(aaa)}</span>
+          <span className='경과일'>{elapsedTime(date)}</span>
         </div>}
         </>
         : <CommunityComment postId={props.postId} />  // 댓글창
@@ -217,7 +219,7 @@ function CommunityListItem(props) {
           <button 
             class={`${iconRed ? "material-symbols-outlined googlered" : "material-symbols-outlined"}`}
             value={iconRed}
-            onClick={() => {handleRed();  handleLike();}}
+            onClick={handleLike}
           >
             favorite
           </button>

@@ -48,6 +48,7 @@ function CommunityCommentListItem(props) {
         const result = await axios.post(`/community/communityComment/delete`, { commentPostId });
         console.log(result);
         settestt(result.data.commentDel)
+        props.commentDel()
       } else {
         alert('내가쓴 댓글만 삭제 가능!');
       }
@@ -65,8 +66,7 @@ function CommunityCommentListItem(props) {
     <CommunityCommentListItemWrapper>
         {<span className='a'>{props.addComment}</span>}
         {<span className='b'>{props.userId}</span>}
-        {/* {<span className='b'>{props.postId}</span>} */}
-        {<span className='c' onClick={() => { handleDelete(); props.abc(testt); }}>×</span>}
+        {<span className='c' onClick={() => { handleDelete(); }}>×</span>}
     </CommunityCommentListItemWrapper>
     }
     </>
