@@ -76,7 +76,13 @@ function MypageMatchItem(props) {
 
   const handleWinBtn = async () => {
     const withOutMe = joinMember.filter(member => member !== loginUser.userId);
-    await withOutMe.forEach(member => axios.post(`${process.env.REACT_APP_ADDRESS}/myPage/winAlert`, { member, postId }, { withCredentials:true }));
+    if (game === "단식") {
+      await withOutMe.forEach(member => axios.post(`${process.env.REACT_APP_ADDRESS}/myPage/winAlert`, { member, postId, game }, { withCredentials:true }));
+    } else {
+      const winTeam = prompt('함께 승리한 팀원의 아이디를 적어주세요!', '');
+      console.log(winTeam);
+    }
+
   };
 
   const confirmBtn = async () => {
@@ -108,7 +114,7 @@ function MypageMatchItem(props) {
         ?
         <div className='popupBox'>
           <button onClick={handleWinBtn}>승리</button>
-          <button>패배</button>
+          {/* <button>패배</button> */}
           <button onClick={handleCancelBtn}>불참하기</button>
           <button onClick={handlClose}>닫기</button>
         </div>

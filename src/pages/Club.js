@@ -5,8 +5,7 @@ import { getAllTeamInfo, getTeamInfo } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router-dom';
 import logoImg from "../img/logo2.png";
 import axios from 'axios';
-import ReactTooltip from 'react-tooltip';
-import { Tooltip } from 'react-tooltip'
+
 
 
 
