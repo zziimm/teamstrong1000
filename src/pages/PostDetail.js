@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { clearSelectedPost, getSelectPost, selectedPost } from '../features/postListSlice/postListInsertSlice';
-import { getMyCalendarInfo } from '../features/useinfo/userInfoSlice';
+import { getLoginUser, getMyCalendarInfo } from '../features/useinfo/userInfoSlice';
 import { hover } from '@testing-library/user-event/dist/hover';
+import EditMatchPost from './EditMatchPost';
 
 const PostDetailWrapper = styled.div`
   background-color: #fff;
@@ -30,6 +31,14 @@ const PostDetailWrapper = styled.div`
   color: #4610C0;
   font-weight: 800;
   margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.updateBox {
+  display: flex;
+  color: #FF5959;
+  gap: 15px;
+  cursor: pointer;
 }
 
 .title {
@@ -162,47 +171,97 @@ const Button = styled.button`
 function PostDetail(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userId } = useParams();
+  const { postId } = useParams();
   const selectPost = useSelector(selectedPost);
-  const joinedGame = useSelector(getMyCalendarInfo);
+  // const joinedGame = useSelector(getMyCalendarInfo);
+  const [calendarInfo, serCalendarInfo] = useState([]);
   const [joinGame, setJoinGame] = useState(false);
+  const [isFullMember, setIsFullMember] = useState(false);
+  const loginUser = useSelector(getLoginUser);
+
+
   useEffect(() => {
     const fetchUserId = async () => {
       try {
         // const response = await axios.get(`https://my-json-server.typicode.com/zziimm/db-user/userPostList/${userId}`)
-        const response = await axios.get(`http://localhost:3000/userPostList/${userId}`)
-        dispatch(getSelectPost(response.data))
+        const response = await axios.get(`${process.env.REACT_APP_ADDRESS}/matchingPost/${postId}`)
+        dispatch(getSelectPost(response.data.data))
       } catch (error) {
         console.error(error);
       }
     };
     fetchUserId();
-    return () => dispatch(clearSelectedPost());
+    // return () => dispatch(clearSelectedPost());
   }, []);
+
+  useEffect(() => {
+    const calendarInfo = async () => {
+      try {
+        const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/myCalendar`, { withCredentials: true });
+        serCalendarInfo(result.data.data)
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    calendarInfo();
+  }, []);
+
 
   if (!selectPost) {
     return null;
   }
 
-  const { selectDate, title, district, game, joinPersonnel, content, id, gender} = selectPost;
-  console.log(joinedGame);
+  const { selectDate, title, district, game, joinPersonnel, content, id, gender, joinMember} = selectPost;
+
 
   const pushDate = (title, selectDate) => {
-    if (joinedGame.find(gameName => gameName.title === title)) {
+    const joinMemberCount = joinMember.length
+    if (calendarInfo?.find(gameName => gameName.title === title)) {
       alert('이미 참가한 게임입니다!')
       return;
+    } else if (joinMemberCount == joinPersonnel) {
+      alert('모집 인원이 가득 찼습니다.');
+      return;
     } else {
-      axios.post(`http://localhost:3000/myCalendar`, {title: title, start: selectDate});
+      axios.post(`
+        ${process.env.REACT_APP_ADDRESS}/myCalendar/insert/${postId}`, { title, district, game, joinPersonnel, joinMember, start: selectDate }, { withCredentials: true });
       setJoinGame(true)
       alert('참가하기 완료! 일정이 추가되었습니다!')
       // navigate('/')
     }
   };
 
+  const deleteBtn = async () => {
+    try {
+      const resulte = await axios.delete(`${process.env.REACT_APP_ADDRESS}/deleteMatching/${postId}`);
+      if (resulte.data.flag) {
+        alert(resulte.data.message);
+        navigate('/');
+      } else {
+        new Error(resulte.data.message);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  console.log(joinMember);
+
   return (
     <PostDetailWrapper>
       <div className='top-box'> 
-        <div className='date'>{selectDate}</div>
+        <div className='date'>
+          {selectDate}
+          <div className='date updateBox'>
+            { loginUser.userId == id.userId 
+              ? <div onClick={() => {navigate(`/editMatchPost/${postId}`)}} >수정</div> 
+              : ''
+            }
+            { loginUser.userId == id.userId
+              ? <div onClick={() => {deleteBtn()}}>삭제</div> 
+              : ''
+            }
+          </div>
+        </div>
         <div className='title'>{title}</div>
         {/* <div>innerBox */}
           <div className='innerBoxTitle'>장소</div>
@@ -212,7 +271,10 @@ function PostDetail(props) {
           <div className='innerBoxTitle'>경기 방식</div>
           <div className='innerBoxContent'>{game}</div>
           <div className='innerBoxTitle'>참여 인원</div>
-          <div className='innerBoxContent'>{joinPersonnel}</div>
+          <div className='innerBoxContent'>
+            {joinPersonnel}
+            ({joinMember.map(member => <span> {member}, </span>)})
+          </div>
           <div className='innerBoxTitle'>일정 소개</div>
           <div className='innerBoxContent'>{content}</div>
         {/* {/* </div>innerBox */}
@@ -220,11 +282,11 @@ function PostDetail(props) {
 
       
       <div className='bottom-box'>
-        <div className='title2'>주최좌 정보</div>
+        <div className='title2'>주최자 정보</div>
         <div className='innerBigBox'>
           <div className='innerBox'>
             <div className='innerBoxTitle2'>닉네임</div>
-            <div className='innerBoxContent2'>{id}</div>
+            <div className='innerBoxContent2'>{id.userId}</div>
           </div>
           <div className='innerBox'>
             <div className='innerBoxTitle2'>성별</div>
@@ -233,9 +295,9 @@ function PostDetail(props) {
         </div>
       </div>
 
-      { joinedGame.find(gameName => gameName.title === title)
+      { calendarInfo?.find(gameName => gameName.title === title)
         ? <Button className='isJoined' disabled={true}>신청되었습니다.</Button>
-        : <Button $joinGame={joinGame} disabled={joinGame} onClick={() => {pushDate(title, selectDate)}}>{joinGame ? "신청되었습니다." : "참여하기"}</Button>
+        : <Button $joinGame={joinGame} disabled={joinGame} onClick={() => {pushDate(title, selectDate, district, game, joinPersonnel, content, id, gender, joinMember)}}>{joinGame ? "신청되었습니다." : "참여하기"}</Button>
       }
 
     </PostDetailWrapper>

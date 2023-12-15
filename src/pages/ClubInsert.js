@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logoImg from "../img/logo2.png";
+import axios from 'axios';
 
 
 
@@ -109,29 +110,58 @@ const Buttonwrapper = styled.div`
     }
 `;
 
+
+
+
 function ClubInsert(props) {
   const navigate = useNavigate();
+  const [clubTeamName, setClubTeamName] = useState('')
+  const [clubDistrict, setClubDistrict] = useState('')
+  const [members, setMembers] = useState('')
+  const [addMembers, setAddMembers] = useState('')
+  const signUp = {teamName:clubTeamName, maindistrict:clubDistrict, members: members, addMembers: addMembers }
+
+  const handleClubTeamName = (e)=>{setClubTeamName(e.target.value)}
+  const handleClubDistrict = (e)=>{setClubDistrict(e.target.value)}
+  const handleMebers = (e)=>{setMembers(e.target.value)}
+  const handleAddMembers = (e)=>{setAddMembers(e.target.value)}
+  
+  
+  
+
+  const handlePushClubInfo = async (club) => {
+    const result = await axios.post('http://localhost:8088/clubInsert', club)
+      if (result.data.flag === true) {
+        alert('클럽을 개설했습니다!')
+        navigate('/club')
+      } else {
+        alert(`${result.data.message}`)
+      }
+      console.log(result.data);
+    }
+  
+
+
   return (
       <ClubInsertWrapper>
 
-<div className='매칭찾기'>클럽 개설하기</div>
+        <div className='매칭찾기'>클럽 개설하기</div>
       <hr/>
         <InputWrapper>
           <h2>클럽명</h2>
-          <InputBox />
+          <InputBox value={clubTeamName} onChange={handleClubTeamName}/>
           <h4>지역</h4>
-          <InputBox />
+          <InputBox value={clubDistrict} onChange={handleClubDistrict} />
           <h4>팀원</h4>
-          <InputBox />
-          <h4>추가 팀원</h4>
-          <InputBox />
-          <h4>추가 팀원</h4>
-          <InputBox />
+          <InputBox value={members} onChange={handleMebers}/>
+          <h4>팀원 추가</h4>
+          <InputBox value={addMembers} onChange={handleAddMembers}/>
+
           <Buttonwrapper>
             <button className='cancel' onClick={() => navigate('/club')}>
               돌아가기
             </button>
-            <button>
+            <button onClick={()=>{ handlePushClubInfo(signUp)}}>
               개설하기
             </button>
           </Buttonwrapper>

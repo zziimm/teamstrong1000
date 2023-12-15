@@ -3,18 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   userInfo: [],
   loginUserInfo: null,
-  teamInfo: null,
+  teamInfo: [],
   myCalendar: null,
 }
 const userInfoSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    // 매칭정보, 전체 유저정보
     getAllUserInfo: (state, action) => {
       state.userInfo = action.payload.data;
       console.log(action.payload);
       console.log(state.userInfo);
     },
+
+
+    // 회원가입
     getUserInfo: (state, { payload: inputInfo }) => {
       const targetInfo = state.userInfo.find(info => info.id === inputInfo.id)
       if (targetInfo) {
@@ -27,19 +31,27 @@ const userInfoSlice = createSlice({
     pushUserInfo: (state, action) => {
       state.userInfo.push(action.payload)
     },
+
+
+    // 명예의 전당
     getAllTeamInfo: (state, action) => {
       const sortscore = action.payload.sort((a, b) => {
         return (b.winscore / (b.winscore + b.losescore)) - (a.winscore / (a.winscore + a.losescore))
       })
       state.teamInfo = sortscore;
     },
+    
+
+    
+    // 캘린더
     getAllCalendarInfo: (state, action) => {
       console.log(action.payload);
       state.myCalendar = action.payload;
     },
+    // 현재 로그인 ID
     getLoginUserInfo: (state, action) => {
       console.log(action.payload);
-      state.loginUserInfo = action.payload?.userId;
+      state.loginUserInfo = action?.payload;
     },
 
 

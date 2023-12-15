@@ -128,27 +128,28 @@ function MyCalendar(props) {
   const [todo, setTodo] = useState('');
   const [inputStartDate, setInputStartDate] = useState('');
   const [inputEndDate, setInputEndDate] = useState('');
-  const [list, setList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const calendarList = useSelector(getMyCalendarInfo);
+  
   
   useEffect(() => {
-    axios.get(`http://localhost:3000/myCalendar`)
-    .then(response => {
-      console.log(response.data);
-      dispatch(getAllCalendarInfo(response.data))
-    })
-    .catch(error => console.error(error))
+    axios.get(`${process.env.REACT_APP_ADDRESS}/myCalendar`, { withCredentials: true })
+      .then((res) => {
+        dispatch(getAllCalendarInfo(res.data.data));
+      })
+      .catch((res) => {
+        console.log(res.data);
+      })
   }, [setInputEndDate]);
-
+  
+  const calendarList = useSelector(getMyCalendarInfo);
   
   
   const handletodo = (e) => {
-    setTodo(e.target.value)
+    setTodo(e.target.value);
   };
   const handleinputStartDate = (e) => {
-    setInputStartDate(e.target.value)
+    setInputStartDate(e.target.value);
   };
   const handleInputEndDate = (e) => {
     // if (inputStartDate > inputEndDate) {
@@ -156,28 +157,28 @@ function MyCalendar(props) {
     //   return
     // } else {
     // }
-    setInputEndDate(e.target.value)
+    setInputEndDate(e.target.value);
   };
 
+  const handlePush = async () => {
+    const result = await axios.post(`
+      ${process.env.REACT_APP_ADDRESS}/myCalendar/directInsert`, { 
+          title: todo, start: inputStartDate, end: inputEndDate 
+        }, {
+          withCredentials: true
+      });
+    if (result.data.flag) {
+      alert(result.data.message);
+      navigate('/');
+    } else {
+      alert(result.data.message);
+      navigate('/login');
+    };
+  };
 
-  const data = { title: todo, start: inputStartDate, end: inputEndDate, backgroundColor: "#008000" }
-
-  // const handlePush = (data) => {
-  //   axios.post(`http://localhost:3000/myCalendar`, data)
-  //   setInputEndDate('')
-  // }
-  const handlePush = (list) => {
-    const copyList = [...list]
-    copyList.push({title: todo, start: inputStartDate, end: inputEndDate});
-    
-    setList(copyList)
-    setTodo('')
-    setInputStartDate('')
-    setInputEndDate('')
-  }
   if (!calendarList) {
     return null;
-  }
+  };
 
   return (
     <>
@@ -212,7 +213,6 @@ function MyCalendar(props) {
               domNodes: []
             }
           }}
-
         />
         
         <InputArea>
@@ -234,7 +234,7 @@ function MyCalendar(props) {
             </InputH4>
             <input type="date" value={inputEndDate} onChange={handleInputEndDate}/>
           </InputAreaDetail>
-          <button onClick={() => handlePush(list)}>
+          <button onClick={() => handlePush()}>
             일정 추가하기
           </button>
         </InputArea>

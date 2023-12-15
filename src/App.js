@@ -21,6 +21,8 @@ import Ranking from "./pages/Ranking";
 import Club from "./pages/Club";
 import ClubInsert from "./pages/ClubInsert";
 import CommunityEdit from "./pages/CommunityEdit";
+import EditMatchPost from "./pages/EditMatchPost";
+import RequireAuth from "./auth/RequireAuth";
 
 
 
@@ -88,15 +90,53 @@ function App() {
         <Routes>
           <Route path="/" element={<BottomMenu />}>
             <Route path="/" element={<MainPage />}/>
+            {/* <Route path="/login" element={<Login />}/> */}
+            {/* <Route path="/myPage" element={<MyPage />}/> */}
             <Route path="/login" element={<Login />}/>
-            <Route path="/myPage" element={<MyPage />}/>
-            <Route path="/myCalendar" element={<MyCalendar />}/>
+            <Route 
+              path="/myPage" 
+              element={
+                <RequireAuth>
+                  <MyPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/myCalendar" 
+              element={
+                <RequireAuth>
+                  <MyCalendar />
+                </RequireAuth>
+              }
+            />
             <Route path="/club" element={<Club />} />
-            <Route path="/clubInsert" element={<ClubInsert />} />
+            <Route
+              path="/clubInsert" 
+              element={
+                <RequireAuth>
+                  <ClubInsert />
+                </RequireAuth>
+              }
+            />
             <Route path="/signUp" element={<SignUp />}/>
-            <Route path="/postInsert" element={<PostInsert />}/>
-            <Route path="/postInsert" element={<PostInsert />}/>
-            <Route path="/postDetail/:userId" element={<PostDetail />}/>
+            <Route 
+              path="/postInsert" 
+              element={
+                <RequireAuth>
+                  <PostInsert />
+                </RequireAuth>
+              }
+            />
+            {/* <Route path="/matchingPost/:postId" element={<PostDetail />}/> */}
+            <Route 
+              path="/matchingPost/:postId" 
+              element={
+                <RequireAuth>
+                  <PostDetail />
+                </RequireAuth>
+              }
+            />
+            <Route path="/editMatchPost/:postId" element={<EditMatchPost />}/>
             <Route path="/community" element={<Community />} />
             <Route path="/CommunityInsert" element={<CommunityInsert />} />
             <Route path="/CommunityEdit/:postId" element={<CommunityEdit />} />

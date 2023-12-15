@@ -105,7 +105,7 @@ function PostList(props) {
   const navigate = useNavigate();
   // const postInsert = useSelector(postInsertList);
   const postInsert = useSelector(userPostList);
-  // console.log(postInsert.selectDate);
+  console.log(postInsert);
 
   // 필터
   const handleDistrict0 = () => {
@@ -142,8 +142,9 @@ function PostList(props) {
 
       {!district && !district2 && !district3 && postInsert.map((postInsertMap) => {
         return <PostListItem
-          key={postInsertMap.id}
-          id={postInsertMap.id} 
+          key={postInsertMap._id}
+          address={postInsertMap._id}
+          id={postInsertMap.id.userId} 
           title={postInsertMap.title}
           content={postInsertMap.content}
           selectDate={postInsertMap.selectDate}
@@ -151,11 +152,13 @@ function PostList(props) {
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
           district={postInsertMap.district}
+          joinMember={postInsertMap.joinMember}
         />
       })}
       {district && postInsert.map((postInsertMap) => {
         return postInsertMap.district === '서울' && <PostListItem
-          key={postInsertMap.id}
+          key={postInsertMap._id}
+          address={postInsertMap._id}
           id={postInsertMap.id} 
           title={postInsertMap.title}
           content={postInsertMap.content}
@@ -164,11 +167,13 @@ function PostList(props) {
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
           district={postInsertMap.district}
+          joinMember={postInsertMap.joinMember}
         />
       })}
       {district2 && postInsert.map((postInsertMap) => {
         return postInsertMap.district === '경기' && <PostListItem
-          key={postInsertMap.id}
+          key={postInsertMap._id}
+          address={postInsertMap._id}
           id={postInsertMap.id} 
           title={postInsertMap.title}
           content={postInsertMap.content}
@@ -177,11 +182,13 @@ function PostList(props) {
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
           district={postInsertMap.district}
+          joinMember={postInsertMap.joinMember}
         />
       })}
       {district3 && postInsert.map((postInsertMap) => {
         return postInsertMap.district === '인천' && <PostListItem
-          key={postInsertMap.id}
+          key={postInsertMap._id}
+          address={postInsertMap._id}
           id={postInsertMap.id} 
           title={postInsertMap.title}
           content={postInsertMap.content}
@@ -190,6 +197,7 @@ function PostList(props) {
           joinPersonnel={postInsertMap.joinPersonnel}
           game={postInsertMap.game}
           district={postInsertMap.district}
+          joinMember={postInsertMap.joinMember}
         />
       })}
 

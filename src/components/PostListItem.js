@@ -2,6 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PostDetail from '../pages/PostDetail';
+import { useSelector } from 'react-redux';
+import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import axios from 'axios';
 
 const PostListItemWrapper = styled.div`
   box-sizing: border-box;
@@ -64,20 +67,24 @@ const PostListItemWrapper = styled.div`
 `;
 
 function PostListItem(props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const loginUser = useSelector(getLoginUser);
 
+
+  const isLoginUser = () => {
+    navigate(`/matchingPost/${props.address}`);
+  };
   return (
     <PostListItemWrapper 
       key={props.title} 
-      onClick={() => navigate(`/PostDetail/${props.id}`)}
+      onClick={() => isLoginUser()}
       >
         <span className='selectDate'>{props.selectDate} <br/></span>
         <span className='title'>{props.title} <br/></span>
         <span className='district'>지역: {props.district} |&nbsp;</span>
-        <span className='joinPersonnel'>참여 인원: {props.joinPersonnel} |&nbsp;</span>
+        <span className='joinPersonnel'>참여 인원: {props.joinMember?.length}/{props.joinPersonnel} |&nbsp;</span>
         <span className='game'>경기 방식: {props.game} &emsp; <br/></span>
         <span className='id'>{props.id}</span>
-        
       {/* 성별: {props.gender} &emsp;
       참여 인원: {props.joinPersonnel} &emsp;
       경기 방식: {props.game} &emsp; <br/>

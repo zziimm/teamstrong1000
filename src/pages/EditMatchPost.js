@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllInsert } from '../features/postListSlice/postListInsertSlice';
 
 import styled from 'styled-components';
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; 
-import { getDate } from 'date-fns';
-import Button from 'react-bootstrap/Button';
-import Stack from 'react-bootstrap/Stack';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Navigate, redirect, useNavigate } from 'react-router-dom';
+import { Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import { selectedPost } from '../features/postListSlice/postListInsertSlice';
 
 const PostInsertWrapper = styled.div`
   background-color: #fff;
@@ -201,49 +197,53 @@ const CancelButton = styled.button`
   }
 `;
 
-function PostInsert(props) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('')
-  const [district, setDistrict] = useState('서울');
-  const [selectDate, setSelectDate] = useState('')
-  const [gender, setGender] = useState('남')
-  const [joinPersonnel, setJoinPersonnel] = useState('2')
-  const [game, setGame] = useState('단식')
+function EditMatchPost(props) {
+  const { postId } = useParams();
+  const selectPost = useSelector(selectedPost);
+  console.log(selectPost);
+  const { selectDate, title, district, game, joinPersonnel, content, id, gender} = selectPost;
+
+
+
+  const [editTitle, setEditTitle] = useState(title);
+  const [editContent, setEditContent] = useState(content)
+  const [editDistrict, setEditDistrict] = useState(district);
+  const [editSelectDate, setEditSelectDate] = useState(selectDate)
+  const [editGender, setEditGender] = useState(gender)
+  const [editJoinPersonnel, setEditJoinPersonnel] = useState(joinPersonnel)
+  const [editGame, setGame] = useState(game)
   const loginUser = useSelector(getLoginUser);
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
-  const titleChange = (e) => setTitle(e.target.value)
-  const contentChange = (e) => setContent(e.target.value)
-  const districtChange = (e) => setDistrict(e.target.value)
-  const selectDateChange = (e) => setSelectDate(e.target.value)
-  const genderChange = (e) => setGender(e.target.value)
-  const joinPersonnelChange = (e) => setJoinPersonnel(e.target.value)
+  const titleChange = (e) => setEditTitle(e.target.value)
+  const contentChange = (e) => setEditContent(e.target.value)
+  const districtChange = (e) => setEditDistrict(e.target.value)
+  const selectDateChange = (e) => setEditSelectDate(e.target.value)
+  const genderChange = (e) => setEditGender(e.target.value)
+  const joinPersonnelChange = (e) => setEditJoinPersonnel(e.target.value)
   const gameChange = (e) => setGame(e.target.value)
   
   // 게시글: 타이틀, 날짜, 지역, 참여인원, 경기방식, 작성자
   const postInput = {
-    title: title,
-    content: content,
-    selectDate: selectDate,
-    district: district,
-    joinPersonnel: joinPersonnel,
-    game: game,
-    gender: gender,
+    title: editTitle,
+    content: editContent,
+    selectDate: editSelectDate,
+    district: editDistrict,
+    joinPersonnel: editJoinPersonnel,
+    game: editGame,
+    gender: editGender,
     id: loginUser,
     nowDate: new Date().toISOString().slice(0, 16)
   }
   const handlePushPost = async () => {
-    if (!selectDate) {
-      return alert('날짜를 입력해주세요!');
-    }
-    await axios.post(`${process.env.REACT_APP_ADDRESS}/matchingInsert`, postInput, { withCredentials: true })
-    alert('매칭 등록이 완료되었습니다!')
+    await axios.patch(`${process.env.REACT_APP_ADDRESS}/editMatchPost/${postId}`, postInput, {withCredentials:true})
+    alert('수정이 완료되었습니다!')
     navigate('/')
   };
   return (
     <PostInsertWrapper>
-        <div className='매칭찾기'>매칭찾기</div>
+        <div className='매칭찾기'>매칭 수정하기</div>
         <hr/>
       <TitleContentDiv>
         <label htmlFor='1' className='제목'>제목을 입력해 주세요<span>*</span></label>
@@ -252,7 +252,7 @@ function PostInsert(props) {
           id='1'
           type='text'
           placeholder='제목을 입력해 주세요.'
-          value={title}
+          value={editTitle}
           onChange={titleChange}
           />
 
@@ -262,7 +262,7 @@ function PostInsert(props) {
             <select
               className='district'
               id='3'
-              value={district}
+              value={editDistrict}
               onChange={districtChange}
             >
               <option value={'서울'}>서울</option>
@@ -277,7 +277,7 @@ function PostInsert(props) {
               className='date'
               id='4'
               type='date'
-              value={selectDate}
+              value={editSelectDate}
               onChange={selectDateChange}
             />
           </div>
@@ -289,7 +289,7 @@ function PostInsert(props) {
             <select
                 className='game'
                 id='7'
-                value={game}
+                value={editGame}
                 onChange={gameChange}
               >
                 <option value={'단식'}>단식</option>
@@ -302,7 +302,7 @@ function PostInsert(props) {
             <select
                 className='joinpersonnel'
                 id='6'
-                value={joinPersonnel}
+                value={editJoinPersonnel}
                 onChange={joinPersonnelChange}
               >
               <option value={'2'}>2</option>
@@ -320,7 +320,7 @@ function PostInsert(props) {
             <select
               className='gender'
               id='5'
-              value={gender}
+              value={editGender}
               onChange={genderChange}
             >
               <option value={'남'}>남</option>
@@ -334,15 +334,15 @@ function PostInsert(props) {
           className='content'
           placeholder='일정 소개를 입력해 주세요.'
           id='2'
-          value={content}
+          value={editContent}
           onChange={contentChange}
         />
 
-        <SaveButton onClick={handlePushPost} >매칭 등록하기</SaveButton>        
+        <SaveButton onClick={() => handlePushPost()} >수정하기</SaveButton>        
         <CancelButton onClick={() => navigate('/')}>취소하기</CancelButton>        
       </TitleContentDiv>
     </PostInsertWrapper>
   );
 }
 
-export default PostInsert;
+export default EditMatchPost;

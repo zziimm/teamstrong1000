@@ -51,6 +51,15 @@ function BottomMenu(props) {
 
   
   const navigate = useNavigate();
+  const isLoginUser = () => {
+    navigate('/myCalendar');
+    // if (loginUser) {
+    //   navigate('/myCalendar');
+    // } else {
+    //   alert('로그인이 필요합니다.');
+    //   navigate('/login');
+    // }
+  };
 
   return (
     <>
@@ -59,7 +68,7 @@ function BottomMenu(props) {
           <MdDensityMedium />
           HOME
         </ButtonStyle>
-        <ButtonStyle onClick={() => navigate('/myCalendar')}>
+        <ButtonStyle onClick={() => isLoginUser()}>
           <MdCalendarMonth />
           내일정
         </ButtonStyle>
