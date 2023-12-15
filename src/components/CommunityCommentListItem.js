@@ -44,7 +44,7 @@ function CommunityCommentListItem(props) {
   
   const handleDelete = async () => {    // 게시글 삭제
     try {
-      if (props.userId == loginUserNic) {
+      if (userNic == loginUserNic.userId) {
         const result = await axios.post(`/community/communityComment/delete`, { commentPostId });
         console.log(result);
         settestt(result.data.commentDel)
@@ -56,9 +56,6 @@ function CommunityCommentListItem(props) {
       console.error(err);
     }
   }
-
-
-
 
   return (
     <>

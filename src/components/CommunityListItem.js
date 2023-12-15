@@ -97,7 +97,7 @@ function CommunityListItem(props) {
   const postId = props.postId;
   const userNic = props.userNic;
   const loginUserNic = useSelector(getLoginUser);
-  const { date } = props;
+  const date = props.date;
   console.log(date);
   const date2 = new Date(date)
   
@@ -149,7 +149,7 @@ function CommunityListItem(props) {
     setMore(more => !more)
   }
   const handleLike = () => {     // 좋아요 + 패치 함수
-    if (loginUserNic) {
+    if (loginUserNic.userId) {
       setIconRed(!iconRed)
       setLike(Number(`${iconRed ? like - 1 : like + 1 }`))
     } else {
@@ -161,7 +161,7 @@ function CommunityListItem(props) {
   }
   const handleDelete = async () => {    // 게시글 삭제
     try {
-      if (userNic == loginUserNic) {
+      if (userNic == loginUserNic.userId) {
         await axios.post(`/community/delete`, { postId });
       } else {
         alert('내가쓴 글만 삭제 가능!');
@@ -171,7 +171,7 @@ function CommunityListItem(props) {
     }
   }
   const handleEdit = async () => {       // 게시글 수정
-    if (userNic == loginUserNic) {
+    if (userNic == loginUserNic.userId) {
       navigate(`/CommunityEdit/${postId}`);
     } else {
       alert('내가쓴 글만 수정 가능!');

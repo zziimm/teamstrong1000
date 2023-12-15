@@ -46,11 +46,11 @@ function CommunityList(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userNic = useSelector(getLoginUser);
+  const userNic2 = useSelector(getLoginUser);
   const communityInsert = useSelector(userCommunityList);
 
   const isLoggedInInsert = () => {
-    if (userNic) {
+    if (userNic2) {
       navigate('/CommunityInsert');
     } else {
       alert('로그인 해야함!')
@@ -68,6 +68,30 @@ function CommunityList(props) {
       getCommunityList();
     }, []);
 
+    const date = new Date(2023, 7, 5) // 게시글 입력 날짜 계산
+    function elapsedTime(date) {
+      const start = new Date(date);
+      const end = new Date();
+      const diff = (end - start) / 1000;
+      const times = [
+        { name: '년', milliSeconds: 60 * 60 * 24 * 365 },
+        { name: '개월', milliSeconds: 60 * 60 * 24 * 30 },
+        { name: '일', milliSeconds: 60 * 60 * 24 },
+        { name: '시간', milliSeconds: 60 * 60 },
+        { name: '분', milliSeconds: 60 },
+      ];
+      for (const value of times) {  
+        const betweenTime = Math.floor(diff / value.milliSeconds);
+    
+        if (betweenTime > 0) {
+          return `${betweenTime}${value.name} 전`;
+        }
+      }
+      return '방금 전';
+    }
+    
+
+
     return (
       <CommunityListWrapper>
       {communityInsert.map((CommunityInsertMap) => {
@@ -75,7 +99,7 @@ function CommunityList(props) {
           key={CommunityInsertMap._id} // 댓글 비교 id
           postId={CommunityInsertMap._id} // 댓글용 postId값
           userNic={CommunityInsertMap.id  } // 닉네임
-          id={CommunityInsertMap.id}
+          // id={CommunityInsertMap.id}
           // title={CommunityInsertMap.title}
           content={CommunityInsertMap.content} // 글내용
           imagePath={CommunityInsertMap.imagePath} // 첨부파일

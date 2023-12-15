@@ -68,7 +68,7 @@ function CommunityComment(props) {
   })
   const changeAddComment = (e) => setAddComment(e.target.value);
   const handleAddComment = async () => { // 댓글 등록 버튼
-    if (userNic) {
+    if (userNic.userId) {
       if (!addComment) {
         alert('댓글을 입력하쇼')
     } else {
