@@ -6,13 +6,16 @@ import { getLoginUser } from '../features/useinfo/userInfoSlice';
 
 const Area = styled.div`
   width: 100%;
-  border: 2px solid #4610C0;
+  height: 100%;
   border-radius: 7px;
   padding: 20px ;
   line-height: 20px;
   /* display: flex; */
   justify-content: space-between;
   align-items: center;
+  text-align: center;
+  line-height: 23px;
+  font-weight: bold;
 
   & + & {
     margin-top: 10px;
