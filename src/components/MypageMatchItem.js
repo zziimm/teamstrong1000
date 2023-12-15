@@ -21,6 +21,10 @@ const Area = styled.div`
     margin-top: 10px;
   }
 
+  .alert {
+    color: red;
+  }
+
   .popupBox {
     cursor: default;
     width: 100%;
@@ -54,9 +58,10 @@ const Area = styled.div`
 
 function MypageMatchItem(props) {
   console.log(props);
-  const { title, district, joinPersonnel, joinMember, game, selectDate, postId, lo } = props
+  const { title, district, joinPersonnel, joinMember, game, selectDate, postId, lo, check } = props
   const [popup, setPopup] = useState(false);
   const [hotNews, setHotNews] = useState(false);
+  const [newsCheck, setNewsCheck] = useState(check);
   const loginUser = useSelector(getLoginUser);
   
   const handlePopup = () => {
@@ -81,15 +86,33 @@ function MypageMatchItem(props) {
     const withOutMe = joinMember.filter(member => member !== loginUser.userId);
     if (game === "단식") {
       await withOutMe.forEach(member => axios.post(`${process.env.REACT_APP_ADDRESS}/myPage/winAlert`, { member, postId, game }, { withCredentials:true }));
+      alert('결과기록 요청을 보냈습니다!');
     } else {
-      const winTeam = prompt('함께 승리한 팀원의 아이디를 적어주세요!', '');
-      console.log(winTeam);
+      const winMemberGet = prompt('함께 승리한 팀원의 아이디를 적어주세요!', '');
+      const winMember = joinMember.filter(member => member == winMemberGet)[0];
+
+
+      if (winMember != winMemberGet) {
+        alert('정확한 아이디를 입력해주세요!');
+      } else {
+        await withOutMe.forEach(member => axios.post(`${process.env.REACT_APP_ADDRESS}/myPage/winAlert`, { member, postId, game, winMember }, { withCredentials:true }));
+        alert('결과기록 요청을 보냈습니다!');
+      }
+
     }
 
   };
 
   const confirmBtn = async () => {
-    await axios.post(`${process.env.REACT_APP_ADDRESS}/myPage/matchResult`, { postId }, { withCredentials: true });
+    const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/myPage/matchResult`, { postId }, { withCredentials: true });
+    if (result.data.readyFlag) {
+      alert(result.data.message);
+      setNewsCheck(check);
+    } 
+    if (result.data.flag) {
+      alert(result.data.message);
+      setNewsCheck(check);
+    }
   };
   // 핫뉴스 받은 유저의 뉴스값 날리고(postId)
   // 해당 게시글 삭제시키거
@@ -105,19 +128,22 @@ function MypageMatchItem(props) {
         <p>{game}</p>
         <p>{selectDate}</p>
         {lo === 'red' 
-          ? <p>핫뉴스 있음</p>
+          ? <p className='alert'>상대의 결과기록 요청이 있습니다!</p>
           : ''
         }
       </div>
       { hotNews ?
         <div className='popupBox'>
-          <button onClick={confirmBtn}>패배</button>
+          {newsCheck === 1
+            ? <button>확인완료</button>
+            : <button onClick={confirmBtn}>패배</button>
+          }
+          
         </div>
         : popup 
         ?
         <div className='popupBox'>
           <button onClick={handleWinBtn}>승리</button>
-          {/* <button>패배</button> */}
           <button onClick={handleCancelBtn}>불참하기</button>
           <button onClick={handlClose}>닫기</button>
         </div>
