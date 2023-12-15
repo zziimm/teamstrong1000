@@ -97,12 +97,11 @@ function CommunityListItem(props) {
   const postId = props.postId;
   const userNic = props.userNic;
   const loginUserNic = useSelector(getLoginUser);
+  const { date } = props;
+  console.log(date);
+  const date2 = new Date(date)
   
   useEffect(() => {
-    // const setL = () => {
-    //   setLike(props.like)
-    // }
-    // setL();
     const commentNum = async() => {
       const result = await axios.get('/community')
       setCommunityCommentNum(result.data.commentNum)
@@ -125,7 +124,6 @@ function CommunityListItem(props) {
     return id.commentPostId == postId;
   })
 
-  const date = new Date(2023, 7, 5) // 게시글 입력 날짜 계산
   function elapsedTime(date) {
     const start = new Date(date);
     const end = new Date();
@@ -148,7 +146,7 @@ function CommunityListItem(props) {
   }
 
   const handleMore = () => {    // 더보기 함수
-    setMore(!more)
+    setMore(more => !more)
   }
   const handleLike = () => {     // 좋아요 + 패치 함수
     if (loginUserNic) {
@@ -181,11 +179,12 @@ function CommunityListItem(props) {
   }
   
 
+  
   return (
     <CommunityListItemWrapper>
         {<div className='div-between'>
           <span className='id'>{props.userNic}</span>
-          <span className='date'>{date.getFullYear()}/{(date.getMonth() + 1)}/{date.getDate()}</span>
+          <span className='date'>{date2.getFullYear()}/{(date2.getMonth() + 1)}/{date2.getDate()}</span>
         </div>}
 
       { comment ?

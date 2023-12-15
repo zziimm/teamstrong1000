@@ -143,12 +143,14 @@ function CommunityInsert(props) {
         setInsertImgUp(reader.result);
     };
   };
+  const date = new Date()
 
   const communityInput = {
     id: userNic,
     content: insertContent,
     imagePath: insertImgUp,
-    like:like
+    like,
+    date    
   }
   const handlePushCommunity = async() => {
     await axios.post(`http://localhost:8088/community/communityInsert`, communityInput)
@@ -160,16 +162,6 @@ function CommunityInsert(props) {
       <div className='커뮤니티글쓰기'><div>커뮤니티 글쓰기</div></div>
       <hr/>
       {<form className='titleContentDiv'>
-        {/* <label htmlFor='1'>제목입력<span>*</span></label>
-        {<input
-          // hidden='true'
-          id='1'
-          className='title'
-          type='text'
-          placeholder='제목입력'
-          value={userNic}
-          // onChange={changeTitle}
-          />} */}
         <label htmlFor='2'>내용 입력<span>*</span></label>
         {<textarea 
           id='2'
