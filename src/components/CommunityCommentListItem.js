@@ -1,6 +1,9 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import axios from 'axios';
+
 
 const CommunityCommentListItemWrapper = styled.div`
   height: 38px;
@@ -22,15 +25,51 @@ const CommunityCommentListItemWrapper = styled.div`
       color: gray;
       display: block;
     }
+    .c {
+      font-size: 24px;
+      color: red;
+      display: block;
+      padding-left: 7px;
+    }
 `;
+
 
 function CommunityCommentListItem(props) {
 
+  const [testt, settestt] = useState([]);
+
+  const commentPostId = props.commentPostId;
+  const userNic = props.userId;
+  const loginUserNic = useSelector(getLoginUser);
+  
+  const handleDelete = async () => {    // 게시글 삭제
+    try {
+      if (props.userId == loginUserNic) {
+        const result = await axios.post(`/community/communityComment/delete`, { commentPostId });
+        console.log(result);
+        settestt(result.data.commentDel)
+        props.commentDel()
+      } else {
+        alert('내가쓴 댓글만 삭제 가능!');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+
+
+
   return (
+    <>
+    {
     <CommunityCommentListItemWrapper>
-        {<span className='a'>{props.text}</span>}
-        {<span className='b'>작성자:junwoo</span>}
+        {<span className='a'>{props.addComment}</span>}
+        {<span className='b'>{props.userId}</span>}
+        {<span className='c' onClick={() => { handleDelete(); }}>×</span>}
     </CommunityCommentListItemWrapper>
+    }
+    </>
   );
 }
 

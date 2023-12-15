@@ -20,6 +20,7 @@ import Map from "./pages/Map";
 import Ranking from "./pages/Ranking";
 import Club from "./pages/Club";
 import ClubInsert from "./pages/ClubInsert";
+import CommunityEdit from "./pages/CommunityEdit";
 import EditMatchPost from "./pages/EditMatchPost";
 import RequireAuth from "./auth/RequireAuth";
 
@@ -138,6 +139,7 @@ function App() {
             <Route path="/editMatchPost/:postId" element={<EditMatchPost />}/>
             <Route path="/community" element={<Community />} />
             <Route path="/CommunityInsert" element={<CommunityInsert />} />
+            <Route path="/CommunityEdit/:postId" element={<CommunityEdit />} />
             <Route path="/map" element={<Map />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route path="*" element={<div>페이지가 존재하지 않습니다.</div>} />

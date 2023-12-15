@@ -1,18 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getAllCommunityInsert } from '../features/communityListSlice/communityListSlice';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { getLoginUser } from '../features/useinfo/userInfoSlice';
 
-const CommunityInsertWrapper = styled.div`
+const CommunityEditWrapper = styled.div`
   background-color: #fff;
   width: 530px;
   height: 100vh;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   overflow-y: hidden;
@@ -121,17 +119,29 @@ const CancelButton = styled.button`
 
 `
 
-function CommunityInsert(props) {
+function CommunityEdit(props) {
 
   const navigate = useNavigate();
   const userNic = useSelector(getLoginUser);
+  const { postId } = useParams();
 
-  // const [insertTitle, setInsertTitle] = useState('');
   const [insertContent, setInsertContent] = useState('');
   const [insertImgUp, setInsertImgUp] = useState([]);
-  let like = 0;
+  const [editInput, setEditInput] = useState('');
 
-  // const changeTitle = (e) => setInsertTitle(e.target.value)
+  useEffect(() => {
+    const getCommunityList = async () => {
+      try {
+        const response = await axios.get('http://localhost:8088/community', {withCredentials:true});
+        setEditInput(response)
+      } catch (err) {
+        console.error(err);
+      }};
+      getCommunityList();
+    }, []);
+    console.log(editInput);
+    
+
   const changeContent = (e) => setInsertContent(e.target.value)
 
   const imgRef = useRef();
@@ -143,23 +153,22 @@ function CommunityInsert(props) {
         setInsertImgUp(reader.result);
     };
   };
-  const date = new Date()
 
   const communityInput = {
-    id: userNic,
+
+    // id: userNic,
     content: insertContent,
     imagePath: insertImgUp,
-    like,
-    date    
   }
-  const handlePushCommunity = async() => {
-    await axios.post(`http://localhost:8088/community/communityInsert`, communityInput)
+
+  const handlePushCommunity = async() => {  // 아니 이건 왜 안됨????
+    await axios.post(`http://localhost:8088/community/edit/${postId}`, {communityInput})
     navigate('/community')
   };
 
   return (
-    <CommunityInsertWrapper>
-      <div className='커뮤니티글쓰기'><div>커뮤니티 글쓰기</div></div>
+    <CommunityEditWrapper>
+      <div className='커뮤니티글쓰기'><div>커뮤니티 수정하기</div></div>
       <hr/>
       {<form className='titleContentDiv'>
         <label htmlFor='2'>내용 입력<span>*</span></label>
@@ -181,14 +190,14 @@ function CommunityInsert(props) {
         />}
       </form>}
 
-          <SaveButton type='submit' onClick={() => {handlePushCommunity(); alert('게시글이 작성되었습니다!')}}
-            >게시글 추가하기
+          <SaveButton type='submit' onClick={() => {handlePushCommunity(); alert('게시글이 수정되었습니다!')}}
+            >게시글 수정하기
           </SaveButton>
           <CancelButton onClick={() => {navigate('/community')}}>취소하기</CancelButton>
 
-    </CommunityInsertWrapper>
+    </CommunityEditWrapper>
   );
 }
 
-export default CommunityInsert;
+export default CommunityEdit;
 

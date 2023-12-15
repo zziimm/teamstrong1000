@@ -24,6 +24,6 @@ export const { getAllUserCommunityList, getAllCommunityInsert } = communityListS
 
 // export const communityInsertList = state => state.communityList.communityInsert;
 export const userCommunityList = state => state.communityList.communityInsert;
-export const CommunityInsertList = state => state.communityList.communityInsert;
+// export const CommunityInsertList = state => state.communityList.communityInsert;
 
 export default communityListSlice.reducer;
