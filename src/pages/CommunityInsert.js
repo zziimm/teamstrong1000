@@ -125,6 +125,7 @@ function CommunityInsert(props) {
 
   const navigate = useNavigate();
   const userNic = useSelector(getLoginUser);
+  console.log(userNic);
 
   // const [insertTitle, setInsertTitle] = useState('');
   const [insertContent, setInsertContent] = useState('');
