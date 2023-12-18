@@ -190,33 +190,35 @@ function Club(props) {
 
 
   const handleInsert = async (teamName) => {
-    try {
-      // 클럽이 존재하는지 확인하는 로직 추가
-      const clubExistenceCheck = await axios.get(`http://localhost:8088/club/${teamName}`, { withCredentials: true });
-  
-      if (!clubExistenceCheck.data.flag) {
-        // 클럽이 존재하지 않는 경우
-        alert('존재하지 않는 클럽입니다.');
-        return;
-      }
-  
-      // 클럽에 가입하는 로직
-      const response = await axios.post(`http://localhost:8088/club/${teamName}/add-member`, {
-        nickname: loginUser.nickname,
-      }, { withCredentials: true });
-  
-      console.log(response);
-  
-      if (response.data.flag) {
-        alert(response.data.message);
-      } else {
-        alert(response.data.message);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+if (loginUser) {
+  try {
+    // 클럽이 존재하는지 확인하는 로직 추가
+    const clubExistenceCheck = await axios.get(`http://localhost:8088/club/${teamName}`, { withCredentials: true });
 
+    if (!clubExistenceCheck.data.flag) {
+      // 클럽이 존재하지 않는 경우
+      alert('존재하지 않는 클럽입니다.');
+      return;
+    }
+
+    // 클럽에 가입하는 로직
+    const response = await axios.post(`http://localhost:8088/club/${teamName}/add-member`, {
+      nickname: loginUser.nickname,
+    }, { withCredentials: true });
+
+    console.log(response);
+
+    if (response.data.flag) {
+      alert(response.data.message);
+    } else {
+      alert(response.data.message);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+} else {
+  alert('로그인이 필요합니다!')
+}}
   
 
 
