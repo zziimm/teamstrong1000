@@ -97,8 +97,10 @@ function CommunityListItem(props) {
   const postId = props.postId;
   const userNic = props.userNic;
   const loginUserNic = useSelector(getLoginUser);
+  const loginUserNic2 = loginUserNic?.userId;
+  console.log(loginUserNic2);
+
   const date = props.date;
-  console.log(date);
   const date2 = new Date(date)
   
   useEffect(() => {
@@ -109,15 +111,16 @@ function CommunityListItem(props) {
     commentNum();
   }, []);
   useEffect(() => {
-    const test = async () => {
+    const LikeTest = async () => {
       try {
         const id = props.postId
-        await axios.patch(`/community`, { like, id, iconRed });
+        await axios.patch(`/community`, { like, id, iconRed, loginUserNic2 });
+        console.log(loginUserNic2);
       } catch (err) {
         console.error(err);
       }
     }
-    test();
+    LikeTest();
   },[iconRed])
   
   const test = communiyCotmmentNum?.filter((id) => {
@@ -148,11 +151,11 @@ function CommunityListItem(props) {
   const handleMore = () => {    // 더보기 함수
     setMore(more => !more)
   }
-  const handleLike = () => {     // 좋아요 + 패치 함수
+  const handleLike = async () => {     // 좋아요 + 패치 함수
     if (loginUserNic) {
-      setIconRed(!iconRed)
-      setLike(Number(`${iconRed ? like - 1 : like + 1 }`))
-    } else {
+      setIconRed(!iconRed);
+      setLike(Number(`${iconRed ? like - 1 : like + 1 }`));
+    } else  {
       alert('로그인을 하시게나')
     }
   }
@@ -161,7 +164,7 @@ function CommunityListItem(props) {
   }
   const handleDelete = async () => {    // 게시글 삭제
     try {
-      if (userNic == loginUserNic.userId) {
+      if (userNic == loginUserNic?.userId) {
         await axios.post(`/community/delete`, { postId });
       } else {
         alert('내가쓴 글만 삭제 가능!');
@@ -171,7 +174,7 @@ function CommunityListItem(props) {
     }
   }
   const handleEdit = async () => {       // 게시글 수정
-    if (userNic == loginUserNic.userId) {
+    if (userNic == loginUserNic?.userId) {
       navigate(`/CommunityEdit/${postId}`);
     } else {
       alert('내가쓴 글만 수정 가능!');
@@ -202,7 +205,7 @@ function CommunityListItem(props) {
           <button
             className='morebtn'
             type='button'
-            value={more}
+            value={more} 
             onClick={() => {handleMore()}}
             >
               {`${more ? "" : '더보기'}`}

@@ -153,8 +153,8 @@ function CommunityInsert(props) {
     date    
   }
   const handlePushCommunity = async() => {
-    await axios.post(`http://localhost:8088/community/communityInsert`, communityInput)
-    navigate('/community')
+    await axios.post(`http://localhost:8088/community/communityInsert`, communityInput);
+    navigate('/community');
   };
 
   return (
