@@ -166,8 +166,6 @@ function Club(props) {
   const teamInfo = useSelector(getTeamInfo);
   console.log(teamInfo);
   const navigate = useNavigate();
-  const [username, setUsername] = useState('')
-  const [clubName, setClubName] = useState('');
   const loginUser = useSelector(getLoginUser);
   console.log(loginUser);
 
