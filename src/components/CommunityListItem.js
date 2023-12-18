@@ -149,7 +149,7 @@ function CommunityListItem(props) {
     setMore(more => !more)
   }
   const handleLike = () => {     // 좋아요 + 패치 함수
-    if (loginUserNic.userId) {
+    if (loginUserNic) {
       setIconRed(!iconRed)
       setLike(Number(`${iconRed ? like - 1 : like + 1 }`))
     } else {
