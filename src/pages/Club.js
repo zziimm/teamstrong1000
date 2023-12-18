@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllTeamInfo, getTeamInfo } from '../features/useinfo/userInfoSlice';
+import { getAllTeamInfo, getLoginUser, getTeamInfo } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router-dom';
 import logoImg from "../img/logo2.png";
 import axios from 'axios';
@@ -167,7 +167,10 @@ function Club(props) {
   console.log(teamInfo);
   const navigate = useNavigate();
   const [username, setUsername] = useState('')
-  const [clubName, setClubName] = useState('Strong1000');
+  const [clubName, setClubName] = useState('');
+  const loginUser = useSelector(getLoginUser);
+  console.log(loginUser);
+
 
 
 
@@ -186,39 +189,31 @@ function Club(props) {
   }, []);
 
 
-  const handleInsert = async () => {
-    // 사용자에게 이름을 입력받는 로직
-    const userInput = prompt('클럽에 가입할 사용자 이름을 입력하세요:', '');
-
-    if (userInput !== null && userInput.trim() !== '') {
-      try {
-        // 클럽이 존재하는지 확인하는 로직 추가
-        const clubExistenceCheck = await axios.get(`http://localhost:8088/club/${clubName}`, { withCredentials: true });
-
-        if (!clubExistenceCheck.data.flag) {
-          // 클럽이 존재하지 않는 경우
-          alert('존재하지 않는 클럽입니다.');
-          return;
-        }
-
-        // 클럽에 가입하는 로직
-        const response = await axios.post(`http://localhost:8088/club/join`, {
-          teamName: clubName,
-          username: userInput.trim(),
-        }, { withCredentials: true });
-
-        console.log(response);
-
-        if (response.data.flag) {
-          alert(response.data.message);
-        } else {
-          alert(response.data.message);
-        }
-      } catch (error) {
-        console.error(error);
+  const handleInsert = async (teamName) => {
+    try {
+      // 클럽이 존재하는지 확인하는 로직 추가
+      const clubExistenceCheck = await axios.get(`http://localhost:8088/club/${teamName}`, { withCredentials: true });
+  
+      if (!clubExistenceCheck.data.flag) {
+        // 클럽이 존재하지 않는 경우
+        alert('존재하지 않는 클럽입니다.');
+        return;
       }
-    } else {
-      alert('이름을 입력해야 가입할 수 있습니다.');
+  
+      // 클럽에 가입하는 로직
+      const response = await axios.post(`http://localhost:8088/club/${teamName}/add-member`, {
+        nickname: loginUser.nickname,
+      }, { withCredentials: true });
+  
+      console.log(response);
+  
+      if (response.data.flag) {
+        alert(response.data.message);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
