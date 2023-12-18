@@ -220,9 +220,6 @@ if (loginUser) {
   alert('로그인이 필요합니다!')
 }}
   
-
-
-  
   return (
     <ClubWrapper>
       <div className='매칭찾기'>클럽🏸</div>
