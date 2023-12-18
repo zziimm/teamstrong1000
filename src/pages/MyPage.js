@@ -191,6 +191,16 @@ function MyPage(props) {
     }
   }
 
+  const reFresh = (data) => {
+    setMatchList(data)
+  }
+  const reFreshConfirm = (data) => {
+    setMatchList(data.data);
+    console.log(data.data);
+    setWinPoint(data.userData?.win);
+    setLosePonit(data.userData?.lose);
+  }
+
 
   return (
     <MyPageArea>
@@ -215,10 +225,14 @@ function MyPage(props) {
                 joinPersonnel={match.joinPersonnel}
                 joinMember={match.joinMember}
                 game={match.game}
+                userId={match.id.userId}
                 selectDate={match.selectDate}
                 postId={match?.postId}
-                lo={loginUser.news?.postId == match.postId ? 'red' : ''}
-                check={loginUser.check ? 'check' : ''}
+                lo={match.news?.postId == match.postId ? 'red' : ''}
+                check={match.check ? 'check' : ''}
+                win={match.winner?.win ==='win' ? 'win' : ''}
+                reFresh={reFresh}
+                reFreshConfirm={reFreshConfirm}
               />
             )}
           </MyMatchList>

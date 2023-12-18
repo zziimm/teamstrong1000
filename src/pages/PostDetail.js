@@ -224,7 +224,7 @@ function PostDetail(props) {
       return;
     } else {
       axios.post(`
-        ${process.env.REACT_APP_ADDRESS}/myCalendar/insert/${postId}`, { title, district, game, joinPersonnel, joinMember, start: selectDate }, { withCredentials: true });
+        ${process.env.REACT_APP_ADDRESS}/myCalendar/insert/${postId}`, { title, district, game, joinPersonnel, joinMember, id,start: selectDate }, { withCredentials: true });
       setJoinGame(true)
       alert('참가하기 완료! 일정이 추가되었습니다!')
       // navigate('/')
