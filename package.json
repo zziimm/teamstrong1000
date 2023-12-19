@@ -2,7 +2,7 @@
   "name": "teamstrong1000",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8088",
+  "proxy": "http://43.201.7.114",
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/google-calendar": "^6.1.9",
