@@ -159,7 +159,7 @@ function PostList(props) {
         return postInsertMap.district === '서울' && <PostListItem
           key={postInsertMap._id}
           address={postInsertMap._id}
-          id={postInsertMap.id} 
+          id={postInsertMap.id.userId} 
           title={postInsertMap.title}
           content={postInsertMap.content}
           selectDate={postInsertMap.selectDate}
@@ -174,7 +174,7 @@ function PostList(props) {
         return postInsertMap.district === '경기' && <PostListItem
           key={postInsertMap._id}
           address={postInsertMap._id}
-          id={postInsertMap.id} 
+          id={postInsertMap.id.userId} 
           title={postInsertMap.title}
           content={postInsertMap.content}
           selectDate={postInsertMap.selectDate}
@@ -189,7 +189,7 @@ function PostList(props) {
         return postInsertMap.district === '인천' && <PostListItem
           key={postInsertMap._id}
           address={postInsertMap._id}
-          id={postInsertMap.id} 
+          id={postInsertMap.id.userId} 
           title={postInsertMap.title}
           content={postInsertMap.content}
           selectDate={postInsertMap.selectDate}
