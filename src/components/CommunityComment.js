@@ -72,7 +72,7 @@ function CommunityComment(props) {
       if (!addComment) {
         alert('댓글을 입력하쇼')
     } else {
-      const result = await axios.post(`http://localhost:8088/community/communityComment`, {addComment, postId}, {withCredentials:true});
+      const result = await axios.post(`http://43.201.7.114/community/communityComment`, {addComment, postId}, {withCredentials:true});
       
       setAddCommentE(result.data.rePost); // 새로고침 없이 재렌더링..(post 보낼때 새 다시 find 받아오기)
       setAddComment('');
@@ -84,7 +84,7 @@ function CommunityComment(props) {
   useEffect(() => {
     const getComments = async () => {  // 댓글 리스트 받아오기
       try {
-      const result = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
+      const result = await axios.get('http://43.201.7.114/community/communityComment', {withCredentials:true});
       setAddCommentE(result.data.comments)
     } catch (err) {
       console.error(err);
@@ -94,7 +94,7 @@ function CommunityComment(props) {
 
   const commentDel = async () => {
     try {
-      const result = await axios.get('http://localhost:8088/community/communityComment', {withCredentials:true});
+      const result = await axios.get('http://43.201.7.114/community/communityComment', {withCredentials:true});
       setAddCommentE(result.data.comments)
     } catch (err) {
       console.error(err);

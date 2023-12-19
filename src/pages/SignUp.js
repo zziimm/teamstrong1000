@@ -75,7 +75,7 @@ function SignUp(props) {
   const handleInputUserClub = (e) => {setInputUserClub(e.target.value);}
 
   const handlePushUserInfo = async (signUp) => {
-    const result = await axios.post(`http://localhost:8088/register`, signUp)
+    const result = await axios.post(`http://43.201.7.114/register`, signUp)
     if (result.data.flag === true) {
       alert('가입을 환영합니다! 로그인해주세요!')
       navigate('/login')
@@ -96,7 +96,7 @@ function SignUp(props) {
     // } else if (userId.find(id => id.nick === inputUserNick)) {
     //   alert('이미 존재하는 닉네임입니다!')
     // } else {
-    //   axios.post(`http://localhost:8088/cors`, signUp)
+    //   axios.post(`http://43.201.7.114/cors`, signUp)
     //   alert('가입을 환영합니다! 로그인해주세요!')
     //   navigate('/login')
     // }

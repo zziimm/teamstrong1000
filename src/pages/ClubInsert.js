@@ -130,7 +130,7 @@ function ClubInsert(props) {
   
 
   const handlePushClubInfo = async (club) => {
-    const result = await axios.post('http://localhost:8088/clubInsert', club)
+    const result = await axios.post('http://43.201.7.114/clubInsert', club)
       if (result.data.flag === true) {
         alert('클럽을 개설했습니다!')
         navigate('/club')
