@@ -67,38 +67,52 @@ function ModalBasic(props) {
   const dispatch = useDispatch();
 
   const [searchValue, setSearchValue] = useState('');
+  const [search, setSearch] = useState();
   const searchList = useSelector(userPostList);
   const serrchCom = useSelector(userCommunityList);
 
-  const searchFilter = searchList.filter((item) =>
+  const searchFilter = search?.filter((item) =>
     item.title.toLowerCase().includes(searchValue) ||
-    item.game.toLowerCase().includes(searchValue) ||
-    item.id.toLowerCase().includes(searchValue) ||
-    item.district.toLowerCase().includes(searchValue)
+    item.content.toLowerCase().includes(searchValue) ||
+    item.selectDate.toLowerCase().includes(searchValue) ||
+    item.district.toLowerCase().includes(searchValue) ||
+    item.id.userId.toLowerCase().includes(searchValue)
   );
-  const serrchComFilter = serrchCom.filter((itemCom) =>
-    itemCom.id.toLowerCase().includes(searchValue) ||
-    itemCom.content.toLowerCase().includes(searchValue)
-  );
+  // const serrchComFilter = search?.filter((itemCom) =>
+  //   itemCom.id.toLowerCase().includes(searchValue) ||
+  //   itemCom.content.toLowerCase().includes(searchValue)
+  // );
 
-  useEffect(() => {
-    axios.get('http://localhost:3000/userPostList')
-      .then((response) => {
-        dispatch(getAllUserPostList(response.data))
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-  }, [])
-  useEffect(() => {
-    axios.get('http://localhost:3000/userCummunityList')
-      .then((res) => {
-        dispatch(getAllUserCommunityList(res.data))
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-  }, [])
+  // useEffect(() => {
+  //   axios.get('http://localhost:3000/userPostList')
+  //     .then((response) => {
+  //       dispatch(getAllUserPostList(response.data))
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     })
+  // }, [])
+  // useEffect(() => {
+  //   axios.get('http://localhost:3000/userCummunityList')
+  //     .then((res) => {
+  //       dispatch(getAllUserCommunityList(res.data))
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     })
+  // }, [])
+  useEffect( () => {
+    const test = async () => {
+      try {
+        const result = await axios.get('/search');
+        setSearch(result.data.matchingData);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    test();
+  }, []);
+  console.log(search);
 
   const closeModal = () => setModalOpen(false)
   const changeSearch = (e) => {
@@ -120,20 +134,20 @@ function ModalBasic(props) {
       </Box>
 
       {<div className='aaa'>
-        {searchValue ? searchFilter.map((item) => {
+        {searchValue ? searchFilter?.map((item) => {
           return <PostListItem
-            key={item.id}
-            id={item.id}
+            key={item._id}
+            id={item.id.userId}
             title={item.title}
             content={item.content}
             selectDate={item.selectDate}
-            gender={item.gender}
-            joinPersonnel={item.joinPersonnel}
-            game={item.game}
+            // gender={item.gender}
+            // joinPersonnel={item.joinPersonnel}
+            // game={item.game}
             district={item.district}
           />
         }) : null}
-        {searchValue ? serrchComFilter.map((itemCom) => {
+        {/* {searchValue ? serrchComFilter.map((itemCom) => {
           return <CommunityListItem
             key={itemCom.id}
             id={itemCom.id}
@@ -141,7 +155,7 @@ function ModalBasic(props) {
             content={itemCom.content}
             imagePath={itemCom.imagePath}
           />
-        }) : null}
+        }) : null} */}
       </div>}
 
     </SearchModalWrapper>
