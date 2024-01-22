@@ -75,7 +75,7 @@ function SignUp(props) {
   const handleInputUserClub = (e) => {setInputUserClub(e.target.value);}
 
   const handlePushUserInfo = async (signUp) => {
-    const result = await axios.post(`http://43.201.7.114/register`, signUp)
+    const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/register`, signUp)
     if (result.data.flag === true) {
       alert('가입을 환영합니다! 로그인해주세요!')
       navigate('/login')

@@ -60,7 +60,7 @@ function CommunityList(props) {
   useEffect(() => {
     const getCommunityList = async () => {
       try {
-        const result = await axios.get('http://43.201.7.114/community', {withCredentials:true});
+        const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/community`, {withCredentials:true});
         dispatch(getAllUserCommunityList(result.data.communityData));
       } catch (err) {
         console.error(err);

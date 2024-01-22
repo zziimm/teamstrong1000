@@ -82,7 +82,7 @@ function ModalBasic(props) {
   );
 
   useEffect(() => {
-    axios.get('http://localhost:3000/userPostList')
+    axios.get(`${REACT_APP_ADDRESS}/matching`)
       .then((response) => {
         dispatch(getAllUserPostList(response.data))
       })
@@ -91,7 +91,7 @@ function ModalBasic(props) {
       })
   }, [])
   useEffect(() => {
-    axios.get('http://localhost:3000/userCummunityList')
+    axios.get(`${REACT_APP_ADDRESS}/community`)
       .then((res) => {
         dispatch(getAllUserCommunityList(res.data))
       })

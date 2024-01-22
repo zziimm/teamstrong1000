@@ -8,10 +8,9 @@ const KakaoBtn = styled.div`
 function KakaoLogin(props) {
 
 
-  const REST_API_KEY = '995200224a6ee4538c7409c95beb2cb6' 
-  const REDIRECT_URL = 'http://localhost:3000/login'
 
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URL}&response_type=code`
+
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URL}&response_type=code`
   const handleLogin = ()=>{
     window.location.href = kakaoURL
   }

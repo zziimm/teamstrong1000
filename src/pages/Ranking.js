@@ -186,7 +186,7 @@ function Ranking(props) {
   useEffect(() => {
     const data = async () => {
       try {
-        const response = await axios.get('http://43.201.7.114/club')
+        const response = await axios.get(`${process.env.REACT_APP_ADDRESS}/club`)
         dispatch(getAllTeamInfo(response.data.data))
       } catch (error) {
         console.error(error);

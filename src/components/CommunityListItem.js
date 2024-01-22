@@ -103,7 +103,7 @@ function CommunityListItem(props) {
   
   useEffect(() => {
     const commentNum = async() => {
-      const result = await axios.get('/community')
+      const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/community`)
       setCommunityCommentNum(result.data.commentNum)
     }
     commentNum();
@@ -112,7 +112,7 @@ function CommunityListItem(props) {
     const test = async () => {
       try {
         const id = props.postId
-        await axios.patch(`/community`, { like, id, iconRed });
+        await axios.patch(`${process.env.REACT_APP_ADDRESS}/community`, { like, id, iconRed });
       } catch (err) {
         console.error(err);
       }
@@ -153,7 +153,7 @@ function CommunityListItem(props) {
       setIconRed(!iconRed)
       setLike(Number(`${iconRed ? like - 1 : like + 1 }`))
     } else {
-      alert('로그인을 하시게나')
+      alert('로그인을 해주세요!')
     }
   }
   const handleComment = () => {    // 댓글창 함수
@@ -162,7 +162,7 @@ function CommunityListItem(props) {
   const handleDelete = async () => {    // 게시글 삭제
     try {
       if (userNic == loginUserNic.userId) {
-        await axios.post(`/community/delete`, { postId });
+        await axios.post(`${process.env.REACT_APP_ADDRESS}/community/delete`, { postId });
       } else {
         alert('내가쓴 글만 삭제 가능!');
       }
@@ -172,7 +172,7 @@ function CommunityListItem(props) {
   }
   const handleEdit = async () => {       // 게시글 수정
     if (userNic == loginUserNic.userId) {
-      navigate(`/CommunityEdit/${postId}`);
+      navigate(`${process.env.REACT_APP_ADDRESS}/community/edit/${postId}`);
     } else {
       alert('내가쓴 글만 수정 가능!');
     }

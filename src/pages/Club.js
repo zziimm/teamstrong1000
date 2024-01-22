@@ -177,7 +177,7 @@ function Club(props) {
   useEffect(() => {
     const data = async () => {
       try {
-        const response = await axios.get(`http://43.201.7.114/club`, { withCredentials: true });
+        const response = await axios.get(`${process.env.REACT_APP_ADDRESS}/club`, { withCredentials: true });
         console.log(response);
         dispatch(getAllTeamInfo(response.data.data));
       } catch (error) {
@@ -193,7 +193,7 @@ function Club(props) {
     if (loginUser) {
       try {
         // 클럽이 존재하는지 확인하는 로직 추가
-        const clubExistenceCheck = await axios.get(`http://43.201.7.114/club/${teamName}`, { withCredentials: true });
+        const clubExistenceCheck = await axios.get(`${process.env.REACT_APP_ADDRESS}/club/${teamName}`, { withCredentials: true });
     
         if (!clubExistenceCheck.data.flag) {
           // 클럽이 존재하지 않는 경우
@@ -202,7 +202,7 @@ function Club(props) {
         }
     
         // 클럽에 가입하는 로직
-        const response = await axios.post(`http://43.201.7.114/club/${teamName}/add-member`, {
+        const response = await axios.post(`${process.env.REACT_APP_ADDRESS}/club/${teamName}/add-member`, {
           nickname: loginUser.nickname,
         }, { withCredentials: true });
     
