@@ -122,7 +122,7 @@ function MapSetting(props) {
 
   
   useEffect(() => {
-    axios.get(`https://api.odcloud.kr/api/15089659/v1/uddi:9b78da91-c003-47c0-a828-f370fa41b851?page=1&perPage=10&serviceKey=uG0rKc%2FJoy2c7uhPdzA0IIpgiNXPmz%2FN6BGDt%2BAEQ4p8meKwkp1xbZjMD90IIzxIiGF86lRhsMXXm3Wb9ArPwQ%3D%3D`)
+    axios.get(`https://api.odcloud.kr/api/15089659/v1/uddi:9b78da91-c003-47c0-a828-f370fa41b851?page=1&perPage=10&serviceKey=${REACT_APP_MAP_SERVICEKEY}`)
     .then((response) => {
       console.log(response);
       setMyData(response.data.data);

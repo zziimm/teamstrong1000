@@ -88,7 +88,7 @@ function Login(props) {
       toast.error('비밀번호를 입력해주세요!');
       return
     } else {
-      const result = await axios.post('http://43.201.7.114/user/login', { userId: inputUserId, passwd: inputUserPass }, {withCredentials: true});
+      const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/user/login`, { userId: inputUserId, passwd: inputUserPass }, {withCredentials: true});
 
       if (!result.data.flag) {
         return alert('로그인 실패');

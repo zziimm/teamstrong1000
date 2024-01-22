@@ -132,7 +132,7 @@ function CommunityEdit(props) {
   useEffect(() => {
     const getCommunityList = async () => {
       try {
-        const response = await axios.get('http://43.201.7.114/community', {withCredentials:true});
+        const response = await axios.get(`${process.env.REACT_APP_ADDRESS}/community`, {withCredentials:true});
         setEditInput(response)
       } catch (err) {
         console.error(err);
@@ -162,7 +162,7 @@ function CommunityEdit(props) {
   }
 
   const handlePushCommunity = async() => {  // 아니 이건 왜 안됨????
-    await axios.post(`http://43.201.7.114/community/edit/${postId}`, {communityInput})
+    await axios.post(`${process.env.REACT_APP_ADDRESS}/community/edit/${postId}`, {communityInput})
     navigate('/community')
   };
 

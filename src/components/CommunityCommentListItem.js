@@ -45,7 +45,7 @@ function CommunityCommentListItem(props) {
   const handleDelete = async () => {    // 게시글 삭제
     try {
       if (userNic == loginUserNic.userId) {
-        const result = await axios.post(`/community/communityComment/delete`, { commentPostId });
+        const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/community/communityComment/delete`, { commentPostId });
         console.log(result);
         settestt(result.data.commentDel)
         props.commentDel()
