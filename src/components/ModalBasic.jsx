@@ -82,7 +82,7 @@ function ModalBasic(props) {
   );
 
   useEffect(() => {
-    axios.get(`${REACT_APP_ADDRESS}/matching`)
+    axios.get(`${process.env.REACT_APP_ADDRESS}/matching`)
       .then((response) => {
         dispatch(getAllUserPostList(response.data))
       })
@@ -91,7 +91,7 @@ function ModalBasic(props) {
       })
   }, [])
   useEffect(() => {
-    axios.get(`${REACT_APP_ADDRESS}/community`)
+    axios.get(`${process.env.REACT_APP_ADDRESS}/community`)
       .then((res) => {
         dispatch(getAllUserCommunityList(res.data))
       })

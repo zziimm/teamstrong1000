@@ -10,7 +10,7 @@ function KakaoLogin(props) {
 
 
 
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URL}&response_type=code`
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URL}&response_type=code`
   const handleLogin = ()=>{
     window.location.href = kakaoURL
   }
