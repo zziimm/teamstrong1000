@@ -2,7 +2,7 @@
   "name": "teamstrong1000",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://43.201.7.114",
+  "proxy": "https://port-0-teamserver-1efqtf2dlrehr9d7.sel5.cloudtype.app",
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/google-calendar": "^6.1.9",
