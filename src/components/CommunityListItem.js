@@ -231,10 +231,16 @@ function CommunityListItem(props) {
           </button>
           <span>{test?.length}</span>  {/* 댓글 갯수 */}
         </div>}
-        <form>
-          <button onClick={() => { handleDelete() }}>🗑</button>
-          <button onClick={() => { handleEdit()  }}>🖌</button>
-        </form>
+        {
+          userNic === loginUserNic.userId 
+            ?
+              <form>
+                <button onClick={() => { handleDelete() }}>🗑</button>
+                <button onClick={() => { handleEdit()  }}>🖌</button>
+              </form>
+            :
+              ''
+        }
       </div>}
       </CommunityListItemWrapper>
   );
