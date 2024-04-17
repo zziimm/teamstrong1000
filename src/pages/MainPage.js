@@ -21,7 +21,6 @@ function MainPage(props) {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_ADDRESS}`, {withCredentials: true})
       .then((reponse) => {
-        console.log(reponse);
         dispatch(getAllUserInfo(reponse.data))
       })
       .catch((error) => {

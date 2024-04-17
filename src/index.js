@@ -10,12 +10,12 @@ import { getLoginUser, getLoginUserInfo } from './features/useinfo/userInfoSlice
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const loginUser = async () => {
-  const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/user/loginUser`, {withCredentials: true});
-  console.log(result.data);
-  store.dispatch(getLoginUserInfo(result.data.data));
-}
-loginUser();
+// const loginUser = async () => {
+//   const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/user/loginUser`, {withCredentials: true});
+//   console.log(result.data);
+//   store.dispatch(getLoginUserInfo(result.data.data));
+// }
+// loginUser();
 
 
 root.render(
