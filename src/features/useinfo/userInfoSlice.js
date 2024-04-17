@@ -5,6 +5,7 @@ const initialState = {
   loginUserInfo: null,
   teamInfo: [],
   myCalendar: null,
+  userFirebase: {},
 }
 const userInfoSlice = createSlice({
   name: 'user',
@@ -13,8 +14,6 @@ const userInfoSlice = createSlice({
     // 매칭정보, 전체 유저정보
     getAllUserInfo: (state, action) => {
       state.userInfo = action.payload.data;
-      console.log(action.payload);
-      console.log(state.userInfo);
     },
 
 
@@ -54,15 +53,19 @@ const userInfoSlice = createSlice({
       state.loginUserInfo = action?.payload;
     },
 
+    getLoginUserFirebase: (state, action) => {
+      state.userFirebase = action.payload;
+    },
 
   }
 });
 
-export const { getUserInfo, getAllUserInfo, pushUserInfo, getAllTeamInfo, getAllCalendarInfo, getLoginUserInfo } = userInfoSlice.actions;
+export const { getUserInfo, getAllUserInfo, pushUserInfo, getAllTeamInfo, getAllCalendarInfo, getLoginUserInfo, getLoginUserFirebase } = userInfoSlice.actions;
 
 export const selectUserList = state => state.userInfo.userInfo;
 export const getTeamInfo = state => state.userInfo.teamInfo;
 export const getMyCalendarInfo = state => state.userInfo.myCalendar;
 export const getLoginUser = state => state.userInfo.loginUserInfo;
+export const selectLoginUserFirebase = state => state.userInfo.userFirebase;
 
 export default userInfoSlice.reducer;

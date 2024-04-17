@@ -5,6 +5,36 @@ import { getUserInfo, pushUserInfo, selectUserList } from '../features/useinfo/u
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: `${process.env.REACT_APP_FRIEKEY}`,
+  authDomain: `${process.env.REACT_APP_DOMAIN}`,
+  projectId: `${process.env.REACT_APP_ID}`,
+  storageBucket: `${process.env.REACT_APP_BUCKET}`,
+  messagingSenderId: `${process.env.REACT_APP_SENDERID}`,
+  appId: `${process.env.REACT_APP_APPID}`,
+  measurementId: `${process.env.REACT_APP_MEASUREMENTID}`
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth();
+
+
+
+
+
 const SignArea = styled.div`
   display: flex;
   justify-content: center;
@@ -84,7 +114,6 @@ function SignUp(props) {
     }
     console.log(result.data);
 
-
     // if (inputUserId === '') {
     //   alert('ID를 입력해주세요!')
     // } else if (inputUserPass !== inputUserPassCheck) {
@@ -102,6 +131,27 @@ function SignUp(props) {
     // }
   };
   // console.log(userId.find(id => id.id === "지민"));
+
+  const handleFirebase = (inputUserId, inputUserPass) => {
+    const email = inputUserId;
+    const password = inputUserPass;
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log(userCredential);
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('error');
+      console.log(errorCode);
+      console.log(errorMessage);
+      // ..
+    });
+
+  }
 
   return (
     <SignArea>
@@ -132,7 +182,7 @@ function SignUp(props) {
       } */}
       소속 클럽 <input type='text' value={inputUserClub} onChange={handleInputUserClub}/>
       <span>*선택사항</span>
-      <button onClick={() => handlePushUserInfo(signUp)}>
+      <button onClick={() => handleFirebase(inputUserId, inputUserPass)}>
         가입하기
       </button>
     </SignArea>

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import logoImg from "../img/logo2.png";
 import Search_modal from '../components/Search_modal';
 import { useSelector } from 'react-redux';
-import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import { getLoginUser, selectLoginUserFirebase } from '../features/useinfo/userInfoSlice';
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -26,6 +26,7 @@ const HeaderWrapper = styled.div`
 function Header(props) {
   const navigate = useNavigate();
   const loginUser = useSelector(getLoginUser);
+  const loginUserFirebase = useSelector(selectLoginUserFirebase);
 
   return (
     <header>
@@ -38,8 +39,12 @@ function Header(props) {
           <img src={logoImg} />
         </div>
         <div>
-          {loginUser 
+          {/* {loginUser 
             ? <span>{loginUser.userId}님 반갑습니다!</span>
+            : ''
+          } */}
+          {loginUserFirebase 
+            ? <span>{loginUserFirebase.email}님 반갑습니다!</span>
             : ''
           }
           

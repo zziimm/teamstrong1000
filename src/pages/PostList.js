@@ -105,7 +105,6 @@ function PostList(props) {
   const navigate = useNavigate();
   // const postInsert = useSelector(postInsertList);
   const postInsert = useSelector(userPostList);
-  console.log(postInsert);
 
   // 필터
   const handleDistrict0 = () => {
@@ -128,19 +127,8 @@ function PostList(props) {
       <PostListBtn1 onClick={() => {dispatch(sortList())}}><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
       <PostListBtn2 $showModal={showModal} onClick={handleModal}>모든지역 <BsChevronDown /></PostListBtn2>
       {showModal && <DistrictModal postList={postInsert} district={district} district2={district2} district3={district3} handleDistrict0={handleDistrict0} handleDistrict={handleDistrict} handleDistrict2={handleDistrict2} handleDistrict3={handleDistrict3}/>}
-      {/* {postInsert.map((postInsertMap) => {  
-        return <PostListItem
-          key={postInsertMap.title}  
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-        />
-      })} */}
 
-      {!district && !district2 && !district3 && postInsert.map((postInsertMap) => {
+      {!district && !district2 && !district3 && postInsert?.map((postInsertMap) => {
         return <PostListItem
           key={postInsertMap._id}
           address={postInsertMap._id}

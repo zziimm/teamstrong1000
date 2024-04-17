@@ -7,8 +7,26 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import KakaoLogin from '../components/KakaoLogin';
 import logoImg from "../img/logo2.png";
-
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 // kakao
+const firebaseConfig = {
+  apiKey: `${process.env.REACT_APP_FRIEKEY}`,
+  authDomain: `${process.env.REACT_APP_DOMAIN}`,
+  projectId: `${process.env.REACT_APP_ID}`,
+  storageBucket: `${process.env.REACT_APP_BUCKET}`,
+  messagingSenderId: `${process.env.REACT_APP_SENDERID}`,
+  appId: `${process.env.REACT_APP_APPID}`,
+  measurementId: `${process.env.REACT_APP_MEASUREMENTID}`
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+
+
+
 
 
 
@@ -99,23 +117,35 @@ function Login(props) {
       navigate(location.state?.from?.pathname || '/');
     }
   };
-  // const handLogin = () => {
-  //   if (inputUserId== '') {
-  //     toast.error('아이디를 입력해주세요!');
-  //     return
-  //   } else if (inputUserPass === '') {
-  //     toast.error('비밀번호를 입력해주세요!');
-  //     return
-  //   } else if (userId === undefined) {
-  //     toast.error('회원가입되지 않은 ID 입니다!');
-  //   } else if (userId.passwd !== inputUserPass) {
-  //     toast.error('비밀번호가 다릅니다!');
-  //     return
-  //   } else {
-  //     alert(`환영합니다! ${userId.nick}님!`);
-  //     navigate('/')
-  //   }
-  // };
+  
+  const handleLoginFirebase = (inputUserId, inputUserPass) => {
+    const email = inputUserId;
+    const password = inputUserPass
+
+    setPersistence(auth, browserSessionPersistence)
+      .then(() => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          console.log(userCredential);
+          const user = userCredential.user;
+          alert(`환영합니다! ${user.email} 님!`);
+          console.log('알람');
+          // navigate(location.state?.from?.pathname || '/');
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  };
+
 
   const navigate = useNavigate();
 
@@ -132,7 +162,8 @@ function Login(props) {
       <input type='text' value={inputUserId} onChange={handleInputUserId} placeholder='아이디'/>
       <input type='password' value={inputUserPass} onChange={handleInputUserPass} placeholder='비밀번호'/>
       
-      <button onClick={handLogin}>
+      {/* <button onClick={handLogin}> */}
+      <button onClick={() => handleLoginFirebase(inputUserId, inputUserPass)}>
         로그인
       </button>
       <button onClick={() => navigate('/signUp')}>
