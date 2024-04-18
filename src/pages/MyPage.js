@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getAllCalendarInfo, getLoginUser, getLoginUserInfo } from '../features/useinfo/userInfoSlice';
+import { getAllCalendarInfo, getLoginUser, getLoginUserFirebase, getLoginUserInfo } from '../features/useinfo/userInfoSlice';
 import MypageMatchItem from '../components/MypageMatchItem';
+import { getAuth, signOut } from "firebase/auth";
+const auth = getAuth();
+
 
 const MyPageArea = styled.div`
   background-color: #000;
@@ -170,15 +173,15 @@ function MyPage(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const getMatchList = async () => {
-      const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/myPage/matchList`, { withCredentials: true });
-      setMatchList(result.data.data);
-      setWinPoint(result.data.userData?.win)
-      setLosePonit(result.data.userData?.lose)
-    };
-    getMatchList();
-  }, []);
+  // useEffect(() => {
+  //   const getMatchList = async () => {
+  //     const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/myPage/matchList`, { withCredentials: true });
+  //     setMatchList(result.data.data);
+  //     setWinPoint(result.data.userData?.win)
+  //     setLosePonit(result.data.userData?.lose)
+  //   };
+  //   getMatchList();
+  // }, []);
 
   const handleLogout = async () => {
     const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/user/logout`, {}, { withCredentials:true });
@@ -191,15 +194,29 @@ function MyPage(props) {
     }
   }
 
-  const reFresh = (data) => {
-    setMatchList(data)
-  }
-  const reFreshConfirm = (data) => {
-    setMatchList(data.data);
-    console.log(data.data);
-    setWinPoint(data.userData?.win);
-    setLosePonit(data.userData?.lose);
-  }
+  const handleLogoutFirebase = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(getLoginUserFirebase([]));
+        navigate('/');
+        window.location.reload();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+
+
+  // const reFresh = (data) => {
+  //   setMatchList(data)
+  // }
+  // const reFreshConfirm = (data) => {
+  //   setMatchList(data.data);
+  //   console.log(data.data);
+  //   setWinPoint(data.userData?.win);
+  //   setLosePonit(data.userData?.lose);
+  // }
 
 
   return (
@@ -231,8 +248,8 @@ function MyPage(props) {
                 lo={match.news?.postId == match.postId ? 'red' : ''}
                 check={match.check ? 'check' : ''}
                 win={match.winner?.win ==='win' ? 'win' : ''}
-                reFresh={reFresh}
-                reFreshConfirm={reFreshConfirm}
+                // reFresh={reFresh}
+                // reFreshConfirm={reFreshConfirm}
               />
             )}
           </MyMatchList>
@@ -241,7 +258,7 @@ function MyPage(props) {
       
 
       <div className='signArea'>
-        <button className='lastbtn' onClick={() => {handleLogout()}}>로그아웃</button>
+        <button className='lastbtn' onClick={() => {handleLogoutFirebase()}}>로그아웃</button>
       </div>
     </MyPageArea>
   );

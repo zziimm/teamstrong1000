@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUserInfo, getLoginUserInfo, getUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
+import { getAllUserInfo, getLoginUserFirebase, getLoginUserInfo, getUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -127,12 +127,11 @@ function Login(props) {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in 
-          console.log(userCredential);
           const user = userCredential.user;
+          dispatch(getLoginUserFirebase(user.user))
           alert(`환영합니다! ${user.email} 님!`);
-          console.log('알람');
-          // navigate(location.state?.from?.pathname || '/');
-          // ...
+          navigate(location.state?.from?.pathname || '/');
+          window.location.reload();
         })
         .catch((error) => {
           const errorCode = error.code;
