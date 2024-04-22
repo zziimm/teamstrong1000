@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllInsert } from '../features/postListSlice/postListInsertSlice';
 
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; 
-import { getDate } from 'date-fns';
-import Button from 'react-bootstrap/Button';
-import Stack from 'react-bootstrap/Stack';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Navigate, redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import { selectLoginUserFirebase } from '../features/useinfo/userInfoSlice';
+
+import { addDoc, collection } from "firebase/firestore";
+import { dbst } from "../firebase.config";
+
+
 
 const PostInsertWrapper = styled.div`
   background-color: #fff;
@@ -209,7 +210,8 @@ function PostInsert(props) {
   const [gender, setGender] = useState('남')
   const [joinPersonnel, setJoinPersonnel] = useState('2')
   const [game, setGame] = useState('단식')
-  const loginUser = useSelector(getLoginUser);
+  // const loginUser = useSelector(getLoginUser);
+  const loginUser = useSelector(selectLoginUserFirebase);
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
@@ -241,6 +243,20 @@ function PostInsert(props) {
     alert('매칭 등록이 완료되었습니다!')
     navigate('/')
   };
+
+  const writeData = async () => {
+    try {
+      await addDoc(collection(dbst, 'listings'), postInput)
+
+      alert('매칭 등록이 완료되었습니다!')
+      navigate('/')
+      
+    } catch (error) {
+      console.log(error);
+      alert('실패');
+    }
+  };
+
   return (
     <PostInsertWrapper>
         <div className='매칭찾기'>매칭찾기</div>
@@ -338,7 +354,7 @@ function PostInsert(props) {
           onChange={contentChange}
         />
 
-        <SaveButton onClick={handlePushPost} >매칭 등록하기</SaveButton>        
+        <SaveButton onClick={writeData} >매칭 등록하기</SaveButton>        
         <CancelButton onClick={() => navigate('/')}>취소하기</CancelButton>        
       </TitleContentDiv>
     </PostInsertWrapper>

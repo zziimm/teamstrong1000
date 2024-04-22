@@ -12,6 +12,9 @@ import { useState } from 'react';
 import DistrictModal from '../components/DistrictModal';
 import { PulseLoader } from 'react-spinners';
 
+import { collection, getDocs } from 'firebase/firestore'
+import { dbst } from '../firebase.config'
+
 const PostInsertBtn = styled.button`
   display: flex;
   justify-content: center;
@@ -85,26 +88,51 @@ function PostList(props) {
   const [district3, setDistrict3] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [postList, setPostList] = useState(null);
 
   const handleModal = () => {
     setShowModal(!showModal)
   };
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   axios.get(`${process.env.REACT_APP_ADDRESS}`)
+  //   .then((response) => {
+  //     dispatch(getAllUserPostList(response.data))
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   })
+  //   setLoading(false);
+  // },[])
+
   useEffect(() => {
-    setLoading(true);
-    axios.get(`${process.env.REACT_APP_ADDRESS}`)
-    .then((response) => {
-      dispatch(getAllUserPostList(response.data))
-    })
-    .catch((error) => {
-      console.error(error);
-    })
-    setLoading(false);
-  },[])
+    fetchListings()
+  }, [])
+  
+  const fetchListings = async () => {
+    try {
+      const listingRef = collection(dbst, 'listings')
+      const docSnap = await getDocs(listingRef)
+      console.log(docSnap);
+      const listings = []    
+      docSnap.forEach((doc) => {      
+        listings.push({
+          id: doc.id,
+          data: doc.data()
+        })
+      })
+      console.log(listings);
+      setPostList(listings)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   
   const navigate = useNavigate();
-  // const postInsert = useSelector(postInsertList);
-  const postInsert = useSelector(userPostList);
+  // const postInsert = useSelector(userPostList);
 
   // 필터
   const handleDistrict0 = () => {
@@ -126,66 +154,66 @@ function PostList(props) {
     <PostListWrapper>
       <PostListBtn1 onClick={() => {dispatch(sortList())}}><BsArrowDownUp /> 일정 가까운 순</PostListBtn1>
       <PostListBtn2 $showModal={showModal} onClick={handleModal}>모든지역 <BsChevronDown /></PostListBtn2>
-      {showModal && <DistrictModal postList={postInsert} district={district} district2={district2} district3={district3} handleDistrict0={handleDistrict0} handleDistrict={handleDistrict} handleDistrict2={handleDistrict2} handleDistrict3={handleDistrict3}/>}
+      {showModal && <DistrictModal postList={postList} district={district} district2={district2} district3={district3} handleDistrict0={handleDistrict0} handleDistrict={handleDistrict} handleDistrict2={handleDistrict2} handleDistrict3={handleDistrict3}/>}
 
-      {!district && !district2 && !district3 && postInsert?.map((postInsertMap) => {
+      {!district && !district2 && !district3 && postList?.map((postInsertMap) => {
         return <PostListItem
-          key={postInsertMap._id}
-          address={postInsertMap._id}
-          id={postInsertMap.id.userId} 
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-          district={postInsertMap.district}
-          joinMember={postInsertMap.joinMember}
+          key={postInsertMap.id}
+          address={postInsertMap.id}
+          id={postInsertMap.data.id.email} 
+          title={postInsertMap.data.title}
+          content={postInsertMap.data.content}
+          selectDate={postInsertMap.data.selectDate}
+          gender={postInsertMap.data.gender}
+          joinPersonnel={postInsertMap.data.joinPersonnel}
+          game={postInsertMap.data.game}
+          district={postInsertMap.data.district}
+          joinMember={postInsertMap.data.joinMember}
         />
       })}
-      {district && postInsert.map((postInsertMap) => {
-        return postInsertMap.district === '서울' && <PostListItem
-          key={postInsertMap._id}
-          address={postInsertMap._id}
-          id={postInsertMap.id.userId} 
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-          district={postInsertMap.district}
-          joinMember={postInsertMap.joinMember}
+      {district && postList.map((postInsertMap) => {
+        return postInsertMap.data.district === '서울' && <PostListItem
+          key={postInsertMap.id}
+          address={postInsertMap.id}
+          id={postInsertMap.data.id.email} 
+          title={postInsertMap.data.title}
+          content={postInsertMap.data.content}
+          selectDate={postInsertMap.data.selectDate}
+          gender={postInsertMap.data.gender}
+          joinPersonnel={postInsertMap.data.joinPersonnel}
+          game={postInsertMap.data.game}
+          district={postInsertMap.data.district}
+          joinMember={postInsertMap.data.joinMember}
         />
       })}
-      {district2 && postInsert.map((postInsertMap) => {
-        return postInsertMap.district === '경기' && <PostListItem
-          key={postInsertMap._id}
-          address={postInsertMap._id}
-          id={postInsertMap.id.userId} 
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-          district={postInsertMap.district}
-          joinMember={postInsertMap.joinMember}
+      {district2 && postList.map((postInsertMap) => {
+        return postInsertMap.data.district === '경기' && <PostListItem
+          key={postInsertMap.id}
+          address={postInsertMap.id}
+          id={postInsertMap.data.id.email} 
+          title={postInsertMap.data.title}
+          content={postInsertMap.data.content}
+          selectDate={postInsertMap.data.selectDate}
+          gender={postInsertMap.data.gender}
+          joinPersonnel={postInsertMap.data.joinPersonnel}
+          game={postInsertMap.data.game}
+          district={postInsertMap.data.district}
+          joinMember={postInsertMap.data.joinMember}
         />
       })}
-      {district3 && postInsert.map((postInsertMap) => {
-        return postInsertMap.district === '인천' && <PostListItem
-          key={postInsertMap._id}
-          address={postInsertMap._id}
-          id={postInsertMap.id.userId} 
-          title={postInsertMap.title}
-          content={postInsertMap.content}
-          selectDate={postInsertMap.selectDate}
-          gender={postInsertMap.gender}
-          joinPersonnel={postInsertMap.joinPersonnel}
-          game={postInsertMap.game}
-          district={postInsertMap.district}
-          joinMember={postInsertMap.joinMember}
+      {district3 && postList.map((postInsertMap) => {
+        return postInsertMap.data.district === '인천' && <PostListItem
+          key={postInsertMap.id}
+          address={postInsertMap.id}
+          id={postInsertMap.data.id.email} 
+          title={postInsertMap.data.title}
+          content={postInsertMap.data.content}
+          selectDate={postInsertMap.data.selectDate}
+          gender={postInsertMap.data.gender}
+          joinPersonnel={postInsertMap.data.joinPersonnel}
+          game={postInsertMap.data.game}
+          district={postInsertMap.data.district}
+          joinMember={postInsertMap.data.joinMember}
         />
       })}
 

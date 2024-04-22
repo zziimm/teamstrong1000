@@ -9,7 +9,7 @@ import KakaoLogin from '../components/KakaoLogin';
 import logoImg from "../img/logo2.png";
 import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { initializeFireConfig, firebaseConfig } from "../firebase.config";
+import { firebaseConfig } from "../firebase.config";
 
 initializeApp(firebaseConfig)
 const auth = getAuth();
