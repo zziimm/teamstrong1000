@@ -91,16 +91,16 @@ function App() {
           <Route path="/" element={<BottomMenu />}>
             <Route path="/" element={<MainPage />}/>
             {/* <Route path="/login" element={<Login />}/> */}
-            {/* <Route path="/myPage" element={<MyPage />}/> */}
+            <Route path="/myPage" element={<MyPage />}/>
             <Route path="/login" element={<Login />}/>
-            <Route 
+            {/* <Route 
               path="/myPage" 
               element={
                 <RequireAuth>
                   <MyPage />
                 </RequireAuth>
               }
-            />
+            /> */}
             <Route
               path="/myCalendar" 
               element={

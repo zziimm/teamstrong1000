@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllTeamInfo, getLoginUser, getTeamInfo } from '../features/useinfo/userInfoSlice';
+import { getAllTeamInfo, getLoginUser, getTeamInfo, selectLoginUserFirebase } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router-dom';
 import logoImg from "../img/logo2.png";
 import axios from 'axios';
@@ -168,7 +168,8 @@ function Club(props) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('')
   const [clubName, setClubName] = useState('');
-  const loginUser = useSelector(getLoginUser);
+  // const loginUser = useSelector(getLoginUser);
+  const loginUser = useSelector(selectLoginUserFirebase);
   console.log(loginUser);
 
 

@@ -5,7 +5,7 @@ const initialState = {
   loginUserInfo: null,
   teamInfo: [],
   myCalendar: null,
-  userFirebase: {},
+  userFirebase: [],
 }
 const userInfoSlice = createSlice({
   name: 'user',

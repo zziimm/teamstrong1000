@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { MdDensityMedium, MdCalendarMonth, MdPerson, MdGroups } from "react-icons/md";
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getLoginUser } from '../features/useinfo/userInfoSlice';
+import { getLoginUser, selectLoginUserFirebase } from '../features/useinfo/userInfoSlice';
 import { useEffect } from 'react';
 import axios from 'axios';
 
@@ -40,7 +40,8 @@ const ButtonStyle = styled.div`
 `;
 
 function BottomMenu(props) {
-  const loginUser = useSelector(getLoginUser);
+  const loginUser = useSelector(selectLoginUserFirebase);
+  console.log(loginUser);
     // useEffect( async () => {
     //   if (loginUser) {
     //     await axios.get(`${process.env.REACT_APP_ADDRESS}/user/loginUser`, {withCredentials: true})
@@ -76,7 +77,7 @@ function BottomMenu(props) {
           <MdGroups />
           클럽
         </ButtonStyle>
-        { loginUser 
+        { loginUser.email
           ?
           <ButtonStyle onClick={() => navigate('/myPage')}>
             <MdPerson />

@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from "styled-components";
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllUserInfo, getLoginUserInfo, getUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
+import { useDispatch } from 'react-redux';
+import { getLoginUserFirebase } from '../features/useinfo/userInfoSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+// import axios from 'axios';
+// import { toast } from 'react-toastify';
 import KakaoLogin from '../components/KakaoLogin';
 import logoImg from "../img/logo2.png";
 import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// kakao
-const firebaseConfig = {
-  apiKey: `${process.env.REACT_APP_FRIEKEY}`,
-  authDomain: `${process.env.REACT_APP_DOMAIN}`,
-  projectId: `${process.env.REACT_APP_ID}`,
-  storageBucket: `${process.env.REACT_APP_BUCKET}`,
-  messagingSenderId: `${process.env.REACT_APP_SENDERID}`,
-  appId: `${process.env.REACT_APP_APPID}`,
-  measurementId: `${process.env.REACT_APP_MEASUREMENTID}`
-};
+import { firebaseConfig } from "../firebase.config";
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig)
 const auth = getAuth();
 
 
@@ -91,32 +80,32 @@ const LogoImg = styled.img`
 function Login(props) {
   const [inputUserId, setInputUserId] = useState('');
   const [inputUserPass, setInputUserPass] = useState('');
-  const [loingBtn, setLoginBtn] = useState(false);
-  const userInfo = useSelector(selectUserList);
+  // const [loingBtn, setLoginBtn] = useState(false);
+  // const userInfo = useSelector(selectUserList);
   const location = useLocation();
 
   
   const dispatch = useDispatch();
 
-  const handLogin = async () => {
-    if (inputUserId== '') {
-      toast.error('아이디를 입력해주세요!');
-      return
-    } else if (inputUserPass === '') {
-      toast.error('비밀번호를 입력해주세요!');
-      return
-    } else {
-      const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/user/login`, { userId: inputUserId, passwd: inputUserPass }, {withCredentials: true});
+  // const handLogin = async () => {
+  //   if (inputUserId== '') {
+  //     toast.error('아이디를 입력해주세요!');
+  //     return
+  //   } else if (inputUserPass === '') {
+  //     toast.error('비밀번호를 입력해주세요!');
+  //     return
+  //   } else {
+  //     const result = await axios.post(`${process.env.REACT_APP_ADDRESS}/user/login`, { userId: inputUserId, passwd: inputUserPass }, {withCredentials: true});
 
-      if (!result.data.flag) {
-        return alert('로그인 실패');
-      }
+  //     if (!result.data.flag) {
+  //       return alert('로그인 실패');
+  //     }
 
-      dispatch(getLoginUserInfo(result.data.user));
-      alert(`환영합니다! ${result.data.user.userId} 님!`);
-      navigate(location.state?.from?.pathname || '/');
-    }
-  };
+  //     dispatch(getLoginUserInfo(result.data.user));
+  //     alert(`환영합니다! ${result.data.user.userId} 님!`);
+  //     navigate(location.state?.from?.pathname || '/');
+  //   }
+  // };
   
   const handleLoginFirebase = (inputUserId, inputUserPass) => {
     const email = inputUserId;
@@ -127,12 +116,11 @@ function Login(props) {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in 
-          console.log(userCredential);
           const user = userCredential.user;
+          dispatch(getLoginUserFirebase(user.user))
           alert(`환영합니다! ${user.email} 님!`);
-          console.log('알람');
-          // navigate(location.state?.from?.pathname || '/');
-          // ...
+          navigate(location.state?.from?.pathname || '/');
+          window.location.reload();
         })
         .catch((error) => {
           const errorCode = error.code;

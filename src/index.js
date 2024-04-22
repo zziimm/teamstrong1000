@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './app/store';
 import axios from 'axios';
-import { getLoginUser, getLoginUserInfo } from './features/useinfo/userInfoSlice';
+import { getLoginUser, getLoginUserFirebase, getLoginUserInfo } from './features/useinfo/userInfoSlice';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -16,6 +16,22 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //   store.dispatch(getLoginUserInfo(result.data.data));
 // }
 // loginUser();
+
+const sessionUserData = () => {
+  for (const key of Object.keys(sessionStorage)) {
+    if (key.includes('firebase:authUser:')) {
+      return JSON.parse(sessionStorage.getItem(key));
+    }
+  }
+};
+const userData = () => {
+  const userData = sessionUserData();
+  if (userData) {
+    console.log(userData);
+    store.dispatch(getLoginUserFirebase(userData));
+  }
+}
+userData();
 
 
 root.render(
