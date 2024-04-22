@@ -1,34 +1,26 @@
 import React, { useState } from 'react';
 import { styled } from "styled-components";
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo, pushUserInfo, selectUserList } from '../features/useinfo/userInfoSlice';
+import { useSelector } from 'react-redux';
+import { selectUserList } from '../features/useinfo/userInfoSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseConfig } from "../firebase.config";
 
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: `${process.env.REACT_APP_FRIEKEY}`,
-  authDomain: `${process.env.REACT_APP_DOMAIN}`,
-  projectId: `${process.env.REACT_APP_ID}`,
-  storageBucket: `${process.env.REACT_APP_BUCKET}`,
-  messagingSenderId: `${process.env.REACT_APP_SENDERID}`,
-  appId: `${process.env.REACT_APP_APPID}`,
-  measurementId: `${process.env.REACT_APP_MEASUREMENTID}`
-};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 const auth = getAuth();
 
 
@@ -130,7 +122,6 @@ function SignUp(props) {
     //   navigate('/login')
     // }
   };
-  // console.log(userId.find(id => id.id === "지민"));
 
   const handleFirebase = (inputUserId, inputUserPass) => {
     const email = inputUserId;
@@ -140,6 +131,8 @@ function SignUp(props) {
       console.log(userCredential);
       // Signed in 
       const user = userCredential.user;
+      alert('가입이 완료되었습니다!');
+      navigate('/login')
       // ...
     })
     .catch((error) => {
