@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { getLoginUserFirebase } from '../features/useinfo/userInfoSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 // import axios from 'axios';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import KakaoLogin from '../components/KakaoLogin';
-import logoImg from "../img/logo2.png";
+import logoImg from "../img/TON &-logo.png";
 import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
@@ -111,6 +111,13 @@ function Login(props) {
     const email = inputUserId;
     const password = inputUserPass
 
+    if (inputUserId== '') {
+      toast.error('아이디를 입력해주세요!');
+      return
+    } else if (inputUserPass === '') {
+      toast.error('비밀번호를 입력해주세요!');
+      return
+    }
     setPersistence(auth, browserSessionPersistence)
       .then(() => {
         signInWithEmailAndPassword(auth, email, password)

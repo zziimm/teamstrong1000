@@ -77,7 +77,7 @@ const MainTitle = styled.div`
   height: 515px;
   background-repeat: no-repeat;
   margin-right: 50px;
-  margin-bottom: 333px;
+  margin-bottom: 150px;
 `;
 
 function App() {
@@ -127,15 +127,15 @@ function App() {
                 </RequireAuth>
               }
             />
-            {/* <Route path="/matchingPost/:postId" element={<PostDetail />}/> */}
-            <Route 
+            <Route path="/matchingPost/:postId" element={<PostDetail />}/>
+            {/* <Route 
               path="/matchingPost/:postId" 
               element={
                 <RequireAuth>
                   <PostDetail />
                 </RequireAuth>
               }
-            />
+            /> */}
             <Route path="/editMatchPost/:postId" element={<EditMatchPost />}/>
             <Route path="/community" element={<Community />} />
             <Route path="/CommunityInsert" element={<CommunityInsert />} />

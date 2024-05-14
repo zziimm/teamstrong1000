@@ -1,11 +1,12 @@
 import React from 'react';
-import {  } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import logoImg from "../img/logo2.png";
+// import logoImg from "../img/logo2.png";
+import logoImg from "../img/TON &-logo.png";
 import Search_modal from '../components/Search_modal';
 import { useSelector } from 'react-redux';
-import { getLoginUser, selectLoginUserFirebase } from '../features/useinfo/userInfoSlice';
+import { selectLoginUserFirebase } from '../features/useinfo/userInfoSlice';
+import { useEffect } from 'react';
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -15,18 +16,26 @@ const HeaderWrapper = styled.div`
   position: relative;
   
   .logo {
-    margin: 20px 0 34px 0px;
+    margin: 20px 0 20px 0px;
     cursor: pointer;
   }
-  .search {
-    margin: 34px 16px 34px 0;
+  .logo img {
+    width: 100px;
+    height: 95px;
+  }
+
+  .search.loginText{
+    display: flex;
+    align-items: center;
   }
 `;
 
-function Header(props) {
+function Header() {
   const navigate = useNavigate();
-  const loginUser = useSelector(getLoginUser);
   const loginUserFirebase = useSelector(selectLoginUserFirebase);
+  useEffect(() => {
+    console.log(loginUserFirebase);
+  }, [loginUserFirebase])
 
   return (
     <header>
@@ -36,18 +45,13 @@ function Header(props) {
           href='#'
           onClick={() => {navigate('/')}}
           >
-          <img src={logoImg} />
+          <img src={logoImg} alt='logoImage' />
         </div>
-        <div>
-          {/* {loginUser 
-            ? <span>{loginUser.userId}님 반갑습니다!</span>
-            : ''
-          } */}
-          {loginUserFirebase 
-            ? <span>{loginUserFirebase.email}님 반갑습니다!</span>
+        <div className='search loginText'>
+          {loginUserFirebase?.email
+            ? <span>{loginUserFirebase?.email}님 반갑습니다!</span>
             : ''
           }
-          
           <Search_modal />
         </div>
       </HeaderWrapper>

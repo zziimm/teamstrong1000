@@ -2,12 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PostListItem from '../components/PostListItem';
 import { BsArrowDownUp, BsChevronDown } from "react-icons/bs";
-import { useDispatch, useSelector } from 'react-redux';
-import { selectUserList } from '../features/useinfo/userInfoSlice';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { getAllUserPostList, handleFilter, postInsertList, sortList, userPostList } from '../features/postListSlice/postListInsertSlice';
+import { sortList } from '../features/postListSlice/postListInsertSlice';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { useState } from 'react';
 import DistrictModal from '../components/DistrictModal';
 import { PulseLoader } from 'react-spinners';
@@ -80,7 +78,7 @@ const PostListBtn2 = styled.button`
 `;
 
 
-function PostList(props) {
+function PostList() {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [district, setDistrict] = useState(false);
@@ -114,7 +112,6 @@ function PostList(props) {
     try {
       const listingRef = collection(dbst, 'listings')
       const docSnap = await getDocs(listingRef)
-      console.log(docSnap);
       const listings = []    
       docSnap.forEach((doc) => {      
         listings.push({
@@ -122,7 +119,6 @@ function PostList(props) {
           data: doc.data()
         })
       })
-      console.log(listings);
       setPostList(listings)
     } catch (error) {
       console.log(error);

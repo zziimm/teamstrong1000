@@ -4,10 +4,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { clearSelectedPost, getSelectPost, selectedPost } from '../features/postListSlice/postListInsertSlice';
+import { getSelectPost, selectedPost } from '../features/postListSlice/postListInsertSlice';
 import { getLoginUser, getMyCalendarInfo } from '../features/useinfo/userInfoSlice';
-import { hover } from '@testing-library/user-event/dist/hover';
-import EditMatchPost from './EditMatchPost';
+import { collection, getDocs, doc, getDoc, onSnapshot } from "firebase/firestore";
+import { dbst } from "../firebase.config";
+import { selectLoginUserFirebase } from '../features/useinfo/userInfoSlice';
 
 const PostDetailWrapper = styled.div`
   background-color: #fff;
@@ -168,43 +169,61 @@ const Button = styled.button`
 
 
 
-function PostDetail(props) {
+function PostDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { postId } = useParams();
-  const selectPost = useSelector(selectedPost);
-  // const joinedGame = useSelector(getMyCalendarInfo);
-  const [calendarInfo, serCalendarInfo] = useState([]);
+  // const selectPost = useSelector(selectedPost);
+  const [selectPost, setSelectPost] = useState([]);
+  const [calendarInfo, setCalendarInfo] = useState([]);
   const [joinGame, setJoinGame] = useState(false);
   const [isFullMember, setIsFullMember] = useState(false);
-  const loginUser = useSelector(getLoginUser);
-
-
-  useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        // const response = await axios.get(`https://my-json-server.typicode.com/zziimm/db-user/userPostList/${userId}`)
-        const response = await axios.get(`${process.env.REACT_APP_ADDRESS}/matchingPost/${postId}`)
-        dispatch(getSelectPost(response.data.data))
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserId();
-    // return () => dispatch(clearSelectedPost());
-  }, []);
+  const loginUser = useSelector(selectLoginUserFirebase);
 
   useEffect(() => {
-    const calendarInfo = async () => {
-      try {
-        const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/myCalendar`, { withCredentials: true });
-        serCalendarInfo(result.data.data)
-      } catch (err) {
-        console.error(err);
+    const loadDetail = async () => {
+      const docRef = doc(dbst, "listings", postId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        const postData = docSnap.data()
+        setSelectPost(postData)
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
       }
+      // const unsubscriber = onSnapshot(docRef, (snapshot) => {
+      //   const item = snapshot.data();
+      //   return item;
+      // });
     }
-    calendarInfo();
+    loadDetail();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchUserId = async () => {
+  //     try {
+  //       const response = await axios.get(`${process.env.REACT_APP_ADDRESS}/matchingPost/${postId}`)
+  //       dispatch(getSelectPost(response.data.data))
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchUserId();
+  // }, []);
+
+  // useEffect(() => {
+  //   const calendarInfo = async () => {
+  //     try {
+  //       const result = await axios.get(`${process.env.REACT_APP_ADDRESS}/myCalendar`, { withCredentials: true });
+  //       serCalendarInfo(result.data.data)
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   }
+  //   calendarInfo();
+  // }, []);
 
 
   if (!selectPost) {
@@ -224,7 +243,7 @@ function PostDetail(props) {
       return;
     } else {
       axios.post(`
-        ${process.env.REACT_APP_ADDRESS}/myCalendar/insert/${postId}`, { title, district, game, joinPersonnel, joinMember, id,start: selectDate }, { withCredentials: true });
+        ${process.env.REACT_APP_ADDRESS}/myCalendar/insert/${postId}`, { title, district, game, joinPersonnel, joinMember, id, start: selectDate }, { withCredentials: true });
       setJoinGame(true)
       alert('참가하기 완료! 일정이 추가되었습니다!')
       // navigate('/')
@@ -252,11 +271,11 @@ function PostDetail(props) {
         <div className='date'>
           {selectDate}
           <div className='date updateBox'>
-            { loginUser.userId == id.userId 
+            { loginUser?.email == id?.email 
               ? <div onClick={() => {navigate(`/editMatchPost/${postId}`)}} >수정</div> 
               : ''
             }
-            { loginUser.userId == id.userId
+            { loginUser?.email == id?.email 
               ? <div onClick={() => {deleteBtn()}}>삭제</div> 
               : ''
             }
@@ -271,10 +290,10 @@ function PostDetail(props) {
           <div className='innerBoxTitle'>경기 방식</div>
           <div className='innerBoxContent'>{game}</div>
           <div className='innerBoxTitle'>참여 인원</div>
-          <div className='innerBoxContent'>
+          {/* <div className='innerBoxContent'>
             {joinPersonnel}
             ({joinMember.map(member => <span> {member}, </span>)})
-          </div>
+          </div> */}
           <div className='innerBoxTitle'>일정 소개</div>
           <div className='innerBoxContent'>{content}</div>
         {/* {/* </div>innerBox */}
@@ -286,7 +305,7 @@ function PostDetail(props) {
         <div className='innerBigBox'>
           <div className='innerBox'>
             <div className='innerBoxTitle2'>닉네임</div>
-            <div className='innerBoxContent2'>{id.userId}</div>
+            <div className='innerBoxContent2'>{id?.email}</div>
           </div>
           <div className='innerBox'>
             <div className='innerBoxTitle2'>성별</div>

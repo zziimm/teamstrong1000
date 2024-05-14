@@ -41,7 +41,6 @@ const ButtonStyle = styled.div`
 
 function BottomMenu(props) {
   const loginUser = useSelector(selectLoginUserFirebase);
-  console.log(loginUser);
     // useEffect( async () => {
     //   if (loginUser) {
     //     await axios.get(`${process.env.REACT_APP_ADDRESS}/user/loginUser`, {withCredentials: true})
@@ -77,7 +76,7 @@ function BottomMenu(props) {
           <MdGroups />
           클럽
         </ButtonStyle>
-        { loginUser.email
+        { loginUser?.email
           ?
           <ButtonStyle onClick={() => navigate('/myPage')}>
             <MdPerson />

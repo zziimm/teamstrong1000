@@ -197,9 +197,9 @@ function MyPage(props) {
   const handleLogoutFirebase = () => {
     signOut(auth)
       .then(() => {
-        dispatch(getLoginUserFirebase([]));
+        dispatch(getLoginUserFirebase(null));
         navigate('/');
-        window.location.reload();
+        // window.location.reload();
       })
       .catch(error => {
         console.log(error);
