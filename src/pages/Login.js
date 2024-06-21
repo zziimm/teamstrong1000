@@ -126,8 +126,8 @@ function Login(props) {
           const user = userCredential.user;
           dispatch(getLoginUserFirebase(user.user))
           alert(`환영합니다! ${user.email} 님!`);
-          navigate(location.state?.from?.pathname || '/');
-          window.location.reload();
+          navigate(location.state?.from?.pathname || '/mypage');
+          // window.location.reload();
         })
         .catch((error) => {
           const errorCode = error.code;

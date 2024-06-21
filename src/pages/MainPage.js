@@ -4,9 +4,6 @@ import NavList from './NavList';
 import PostList from './PostList';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { getAllCalendarInfo, getAllTeamInfo, getAllUserInfo, getLoginUser, getLoginUserInfo } from '../features/useinfo/userInfoSlice';
-import { getAllUserPostList } from '../features/postListSlice/postListInsertSlice';
 
 const MainWrapper = styled.div`
   background-color: #fff;
@@ -17,16 +14,16 @@ const MainWrapper = styled.div`
 `;
 
 function MainPage(props) {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_ADDRESS}`, {withCredentials: true})
-      .then((reponse) => {
-        dispatch(getAllUserInfo(reponse.data))
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  },[]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   axios.get(`${process.env.REACT_APP_ADDRESS}`, {withCredentials: true})
+  //     .then((reponse) => {
+  //       dispatch(getAllUserInfo(reponse.data))
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // },[]);
 
   // const doSometing = async () => {
   //   const result = await axios.get(`${process.env.REACT_APP_ADDRESS}`, {withCredentials: true})
